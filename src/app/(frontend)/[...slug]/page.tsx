@@ -1,7 +1,7 @@
+import React, { cache } from 'react';
 import type { Metadata } from 'next';
 import { getPayload } from 'payload';
 import { draftMode } from 'next/headers';
-import React, { cache } from 'react';
 
 import configPromise from '@payload-config';
 import { PayloadRedirects } from '@/components/PayloadRedirects';
@@ -20,16 +20,27 @@ export async function generateStaticParams() {
     overrideAccess: false,
     pagination: false,
     select: {
+      breadcrumbs: true,
       slug: true,
     },
   });
 
   const params = pages.docs
     ?.filter((doc) => {
-      return doc.slug !== 'home';
+      return doc.slug !== 'home' && !!doc.breadcrumbs?.length;
     })
-    .map(({ slug }) => {
-      return { slug };
+    .filter((doc) => !!doc.breadcrumbs)
+    .map(({ breadcrumbs }) => {
+      if (!breadcrumbs) {
+        throw new Error(
+          'This should never happen because nullish are filtered',
+        );
+      }
+
+      return {
+        slug:
+          breadcrumbs[breadcrumbs.length - 1]?.url?.split('/').slice(1) ?? '',
+      };
     });
 
   return params;
@@ -37,17 +48,17 @@ export async function generateStaticParams() {
 
 type Args = {
   params: Promise<{
-    slug?: string;
+    slug?: string[];
   }>;
 };
 
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode();
-  const { slug = 'home' } = await paramsPromise;
-  const url = '/' + slug;
+  const { slug = ['home'] } = await paramsPromise;
+  const url = '/' + slug.join('/');
 
-  const page = await queryPageBySlug({
-    slug,
+  const page = await queryPageByUrl({
+    url,
   });
 
   if (!page) {
@@ -73,18 +84,20 @@ export default async function Page({ params: paramsPromise }: Args) {
 export async function generateMetadata({
   params: paramsPromise,
 }: Args): Promise<Metadata> {
-  const { slug = 'home' } = await paramsPromise;
-  const page = await queryPageBySlug({
-    slug,
+  const { slug = ['home'] } = await paramsPromise;
+  const page = await queryPageByUrl({
+    url: '/' + slug.join('/'),
   });
 
   return generateMeta({ doc: page });
 }
 
-const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
+const queryPageByUrl = cache(async ({ url }: { url: string }) => {
   const { isEnabled: draft } = await draftMode();
 
   const payload = await getPayload({ config: configPromise });
+
+  const slug = url.split('/').pop();
 
   const result = await payload.find({
     collection: 'pages',
@@ -93,6 +106,9 @@ const queryPageBySlug = cache(async ({ slug }: { slug: string }) => {
     pagination: false,
     overrideAccess: draft,
     where: {
+      ['breadcrumbs.url']: {
+        equals: url,
+      },
       slug: {
         equals: slug,
       },
