@@ -6,7 +6,6 @@ import { draftMode } from 'next/headers';
 
 import { cn } from '@/utilities/ui';
 import { AdminBar } from '@/components/AdminBar';
-import { Footer } from '@/Footer/Component';
 import { Header } from '@/Header/Component';
 import { Providers } from '@/providers';
 import { InitTheme } from '@/providers/Theme/InitTheme';
@@ -42,7 +41,6 @@ export default async function RootLayout({
 
           <Header />
           {children}
-          <Footer />
         </Providers>
       </body>
     </html>
