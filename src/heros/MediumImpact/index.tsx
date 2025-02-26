@@ -1,16 +1,21 @@
-import React from 'react'
+import React from 'react';
 
-import type { Page } from '@/payload-types'
+import type { Page } from '@/payload-types';
+import { CMSLink } from '@/components/Link';
+import { Media } from '@/components/Media';
+import RichText from '@/components/RichText';
 
-import { CMSLink } from '@/components/Link'
-import { Media } from '@/components/Media'
-import RichText from '@/components/RichText'
-
-export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+export const MediumImpactHero: React.FC<Page['hero']> = ({
+  links,
+  media,
+  richText,
+}) => {
   return (
     <div className="">
       <div className="container mb-8">
-        {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+        {richText && (
+          <RichText className="mb-6" data={richText} enableGutter={false} />
+        )}
 
         {Array.isArray(links) && links.length > 0 && (
           <ul className="flex gap-4">
@@ -19,7 +24,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
                 <li key={i}>
                   <CMSLink {...link} />
                 </li>
-              )
+              );
             })}
           </ul>
         )}
@@ -42,5 +47,5 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
         )}
       </div>
     </div>
-  )
-}
+  );
+};
