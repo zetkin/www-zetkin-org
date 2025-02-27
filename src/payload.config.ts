@@ -177,6 +177,7 @@ export default buildConfig({
                           async (config) => {
                             if (config.value.type == 'custom') {
                               return {
+                                ...config.value,
                                 url: config.value.url,
                               };
                             } else if (config.value.type == 'reference') {
@@ -191,6 +192,7 @@ export default buildConfig({
 
                               if (lastCrumb) {
                                 return {
+                                  ...config.value,
                                   url: lastCrumb.url,
                                 };
                               }
@@ -199,11 +201,12 @@ export default buildConfig({
                         ],
                       },
                       typescriptSchema: [
-                        () => {
+                        ({ jsonSchema }) => {
                           return {
                             type: 'object',
                             additionalProperties: false,
                             properties: {
+                              ...jsonSchema.properties,
                               url: {
                                 required: true,
                                 type: ['string'],

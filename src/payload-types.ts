@@ -851,6 +851,11 @@ export interface MainNav {
                 | {
                     label?: string | null;
                     link?: {
+                      type?: ('reference' | 'custom') | null;
+                      reference?: {
+                        relationTo: 'pages';
+                        value: string | Page;
+                      } | null;
                       url?: string;
                     };
                     id?: string | null;
