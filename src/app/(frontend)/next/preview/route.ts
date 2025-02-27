@@ -4,6 +4,7 @@ import { draftMode } from 'next/headers';
 import { redirect } from 'next/navigation';
 
 import configPromise from '@payload-config';
+import { Page } from '@/payload-types';
 
 export async function GET(
   req: {
@@ -70,5 +71,29 @@ export async function GET(
 
   draft.enable();
 
+  const result = await payload.find({
+    collection,
+    where: {
+      slug: {
+        equals: slug,
+      },
+    },
+  });
+
+  const doc = result.docs[0];
+  if (isPage(doc)) {
+    const lastCrumb = doc.breadcrumbs?.pop();
+    if (lastCrumb) {
+      const url = lastCrumb.url;
+      if (url) {
+        redirect(url);
+      }
+    }
+  }
+
   redirect(path);
+}
+
+function isPage(doc: unknown): doc is Page {
+  return !!doc && typeof doc == 'object' && 'breadcrumbs' in doc;
 }
