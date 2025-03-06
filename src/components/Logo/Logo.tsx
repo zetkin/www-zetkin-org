@@ -5,6 +5,7 @@ interface Props {
   className?: string;
   loading?: 'lazy' | 'eager';
   priority?: 'auto' | 'high' | 'low';
+  expanded?: boolean;
 }
 
 export const Logo = (props: Props) => {
@@ -12,22 +13,20 @@ export const Logo = (props: Props) => {
     loading: loadingFromProps,
     priority: priorityFromProps,
     className,
+    expanded
   } = props;
 
   const loading = loadingFromProps || 'lazy';
   const priority = priorityFromProps || 'low';
 
   return (
-    /* eslint-disable @next/next/no-img-element */
     <img
       alt="Payload Logo"
-      className={clsx('max-w-[9.375rem] w-full h-[34px]', className)}
       decoding="async"
       fetchPriority={priority}
-      height={34}
       loading={loading}
-      src="https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg"
-      width={193}
+      src={expanded ? "/logo_text.webp" : "/logo.webp"}
+      width={expanded ? 80 : 36}
     />
   );
 };
