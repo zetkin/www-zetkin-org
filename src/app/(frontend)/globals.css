@@ -73,6 +73,7 @@
 }
 
 @theme {
+  --color-primary: black;
   --color-z-red: #C91E40;
   --color-z-green: #0A7363;
   --color-z-purple: #7801DD;
