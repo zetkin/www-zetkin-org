@@ -173,7 +173,7 @@ export interface Page {
       | null;
     media?: (string | null) | Media;
   };
-  layout: (ContentBlock | MediaBlock)[];
+  layout?: (ContentBlock | MediaBlock)[] | null;
   meta?: {
     title?: string | null;
     /**
