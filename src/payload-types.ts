@@ -843,6 +843,7 @@ export interface MainNav {
         };
         midItems?:
           | {
+              icon?: (string | null) | Media;
               label?: string | null;
               description?: string | null;
               showInFooter?: boolean | null;
@@ -901,6 +902,7 @@ export interface MainNavSelect<T extends boolean = true> {
         midItems?:
           | T
           | {
+              icon?: T;
               label?: T;
               description?: T;
               showInFooter?: T;

@@ -61,6 +61,13 @@ export const MainNav: GlobalConfig = {
                     type: 'array',
                     fields: [
                         {
+                            name: 'icon',
+                            label: 'Icon',
+                            type: 'upload',
+                            relationTo: 'media',
+                            required: false, //should be set to true later
+                        },
+                        {
                             name: 'label',
                             type: 'text',
                             label: 'Label',

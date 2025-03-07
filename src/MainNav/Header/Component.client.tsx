@@ -7,6 +7,7 @@ import { CMSLink as Link } from '@/components/Link';
 import type { MainNav } from '@/payload-types';
 import { useHeaderTheme } from '@/providers/HeaderTheme';
 import { Logo } from '@/components/Logo/Logo';
+import { ImageMedia } from '@/components/Media/ImageMedia';
 
 interface HeaderClientProps {
   data: MainNav;
@@ -77,6 +78,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
               const linkIsSelected = pathname == url;
               return (
                 <li key={midItem.id} className="w-60">
+                  {midItem.icon && (
+                    <div className='w-8 h-8 relative'>
+                      <ImageMedia
+                        resource={midItem.icon}
+                        fill
+                      />
+                    </div>
+                  )}
                   <h3
                     key={midItem.id}
                     className={cx({
