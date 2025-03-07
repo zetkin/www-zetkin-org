@@ -6,7 +6,7 @@ import { draftMode } from 'next/headers';
 
 import { cn } from '@/utilities/ui';
 import { AdminBar } from '@/components/AdminBar';
-import { Header } from '@/Header/Component';
+import { Header } from '@/MainNav/Header/Component';
 import { Providers } from '@/providers';
 import { InitTheme } from '@/providers/Theme/InitTheme';
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
