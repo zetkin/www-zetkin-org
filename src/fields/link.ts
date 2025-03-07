@@ -1,6 +1,7 @@
 import type { Field, GroupField } from 'payload';
 
 import deepMerge from '@/utilities/deepMerge';
+import { Page } from '@/payload-types';
 
 export type LinkAppearances = 'default' | 'outline';
 
@@ -20,13 +21,11 @@ export const appearanceOptions: Record<
 
 type LinkType = (options?: {
   appearances?: LinkAppearances[] | false;
-  disableLabel?: boolean;
   overrides?: Partial<GroupField>;
 }) => Field;
 
 export const link: LinkType = ({
   appearances,
-  disableLabel = false,
   overrides = {},
 } = {}) => {
   const linkResult: GroupField = {
@@ -35,6 +34,59 @@ export const link: LinkType = ({
     admin: {
       hideGutter: true,
     },
+    hooks: {
+      afterRead: [
+        async (config) => {
+          if (!config.value) return config.value;
+
+          if (config.value.type == 'custom') {
+            return {
+              ...config.value,
+              url: config.value.url,
+            };
+          } else if (config.value.type == 'reference') {
+
+            if (!config.value.reference || !config.value.reference.relationTo) {
+              console.warn('Missing reference or relationTo field:', config.value);
+              return config.value;
+            }
+
+            const payload = config.req.payload;
+
+            const result = (await payload.findByID({
+              collection: config.value.reference.relationTo,
+              id: config.value.reference.value,
+            })) as Page | null;
+
+            const lastCrumb = result?.breadcrumbs?.pop();
+
+            if (lastCrumb) {
+              return {
+                ...config.value,
+                url: lastCrumb.url,
+              };
+            }
+          }
+
+          return config.value;
+        },
+      ],
+    },
+    typescriptSchema: [
+      ({ jsonSchema }) => {
+        return {
+          type: 'object',
+          additionalProperties: false,
+          properties: {
+            ...jsonSchema.properties,
+            url: {
+              required: true,
+              type: ['string'],
+            },
+          },
+        };
+      },
+    ],
     fields: [
       {
         type: 'row',
@@ -58,71 +110,43 @@ export const link: LinkType = ({
               },
             ],
           },
-          {
-            name: 'newTab',
-            type: 'checkbox',
-            admin: {
-              style: {
-                alignSelf: 'flex-end',
-              },
-              width: '50%',
-            },
-            label: 'Open in new tab',
-          },
         ],
+      },
+      {
+        name: 'reference',
+        type: 'relationship',
+        admin: {
+          condition: (_, siblingData) =>
+            siblingData?.type === 'reference',
+        },
+        label: 'Document to link to',
+        relationTo: ['pages'],
+        required: true,
+      },
+      {
+        name: 'url',
+        type: 'text',
+        admin: {
+          condition: (_, siblingData) =>
+            siblingData?.type === 'custom',
+        },
+        label: 'Custom URL',
+        required: true,
+      },
+      {
+        name: 'newTab',
+        type: 'checkbox',
+        admin: {
+          style: {
+            alignSelf: 'flex-end',
+          },
+          width: '50%',
+        },
+        label: 'Open in new tab',
       },
     ],
   };
 
-  const linkTypes: Field[] = [
-    {
-      name: 'reference',
-      type: 'relationship',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'reference',
-      },
-      label: 'Document to link to',
-      relationTo: ['pages'],
-      required: true,
-    },
-    {
-      name: 'url',
-      type: 'text',
-      admin: {
-        condition: (_, siblingData) => siblingData?.type === 'custom',
-      },
-      label: 'Custom URL',
-      required: true,
-    },
-  ];
-
-  if (!disableLabel) {
-    linkTypes.map((linkType) => ({
-      ...linkType,
-      admin: {
-        ...linkType.admin,
-        width: '50%',
-      },
-    }));
-
-    linkResult.fields.push({
-      type: 'row',
-      fields: [
-        ...linkTypes,
-        {
-          name: 'label',
-          type: 'text',
-          admin: {
-            width: '50%',
-          },
-          label: 'Label',
-          required: true,
-        },
-      ],
-    });
-  } else {
-    linkResult.fields = [...linkResult.fields, ...linkTypes];
-  }
 
   if (appearances !== false) {
     let appearanceOptionsToUse = [

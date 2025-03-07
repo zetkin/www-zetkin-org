@@ -1,10 +1,9 @@
 'use client';
 
 import cx from 'classnames';
-import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
-
+import { CMSLink as Link } from '@/components/Link';
 import type { MainNav } from '@/payload-types';
 import { useHeaderTheme } from '@/providers/HeaderTheme';
 import { Logo } from '@/components/Logo/Logo';
@@ -39,7 +38,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       {...(theme ? { 'data-theme': theme } : {})}
     >
       <div className="py-8 flex justify-between">
-        <Link href="/">
+        <Link url="/">
           <Logo
             className="invert dark:invert-0"
             loading="eager"
@@ -50,12 +49,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <nav className="">
           <ul className="flex gap-4">
             {data.topItems?.map((topItem) => {
+              const url = topItem.link?.url ?? '/';
+              const linkIsSelected = pathname == url;
               return (
                 <li
                   key={topItem.id}
                   onMouseEnter={() => setOpenId(topItem.id || null)}
+                  className={cx({
+                    'font-bold': linkIsSelected,
+                    underline: linkIsSelected,
+                  })}
                 >
-                  {topItem.label}
+                  <Link url={url}>
+                    {topItem.label}
+                  </Link>
                 </li>
               );
             })}
@@ -65,24 +72,36 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       <nav className="relative">
         {selectedItem && (
           <ul className="absolute left-0 right-0 flex gap-4 justify-end">
-            {selectedItem.items?.map((item) => {
+            {selectedItem.midItems?.map((midItem) => {
+              const url = midItem.link?.url ?? '/';
+              const linkIsSelected = pathname == url;
               return (
-                <li key={item.id} className="w-60">
-                  <h3>{item.label}</h3>
-                  <p className="text-sm">{item.description}</p>
+                <li key={midItem.id} className="w-60">
+                  <h3
+                    key={midItem.id}
+                    className={cx({
+                      'font-bold': linkIsSelected,
+                      underline: linkIsSelected,
+                    })}
+                  >
+                    <Link url={url}>
+                      {midItem.label}
+                    </Link>
+                  </h3>
+                  <p className="text-sm">{midItem.description}</p>
                   <ul>
-                    {item.items?.map((subItem) => {
-                      const url = subItem.link?.url ?? '/';
+                    {midItem.bottomItems?.map((bottomItem) => {
+                      const url = bottomItem.link?.url ?? '/';
                       const linkIsSelected = pathname == url;
                       return (
                         <li
-                          key={subItem.id}
+                          key={bottomItem.id}
                           className={cx({
                             'font-bold': linkIsSelected,
                             underline: linkIsSelected,
                           })}
                         >
-                          <Link href={url}>{subItem.label}</Link>
+                          <Link url={url}>{bottomItem.label}</Link>
                         </li>
                       );
                     })}

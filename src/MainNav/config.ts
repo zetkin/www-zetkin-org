@@ -3,14 +3,16 @@ import type { GlobalConfig } from 'payload'
 import { revalidateNav } from './hooks/revalidateNav'
 
 import { Page } from '../payload-types'
+import { link } from '@/fields/link'
 
 
 export const MainNav: GlobalConfig = {
     slug: 'mainNav',
-    label: 'Main navigation',   
+    label: 'Main navigation',
     fields: [
         {
             name: 'topItems',
+            label: 'Top-level items',
             labels: {
                 plural: 'Top-level items',
                 singular: 'Top-level item',
@@ -41,7 +43,21 @@ export const MainNav: GlobalConfig = {
                     ],
                 },
                 {
-                    name: 'items',
+                    name: 'showInFooter',
+                    type: 'checkbox',
+                    label: 'Show in footer',
+                    defaultValue: true,
+                },
+                link({
+                    appearances: false,
+                }),
+                {
+                    name: 'midItems',
+                    label: 'Mid-level items',
+                    labels: {
+                        plural: 'Mid-level items',
+                        singular: 'Mid-level item',
+                    },
                     type: 'array',
                     fields: [
                         {
@@ -55,166 +71,31 @@ export const MainNav: GlobalConfig = {
                             label: 'Description',
                         },
                         {
-                            name: 'link',
-                            type: 'group',
-                            admin: {
-                                hideGutter: true,
-                            },
-                            fields: [
-                                {
-                                    type: 'row',
-                                    fields: [
-                                        {
-                                            name: 'type',
-                                            type: 'radio',
-                                            admin: {
-                                                layout: 'horizontal',
-                                                width: '50%',
-                                            },
-                                            defaultValue: 'reference',
-                                            options: [
-                                                {
-                                                    label: 'Internal link',
-                                                    value: 'reference',
-                                                },
-                                                {
-                                                    label: 'Custom URL',
-                                                    value: 'custom',
-                                                },
-                                            ],
-                                        },
-                                    ],
-                                },
-                                {
-                                    name: 'reference',
-                                    type: 'relationship',
-                                    admin: {
-                                        condition: (_, siblingData) =>
-                                            siblingData?.type === 'reference',
-                                    },
-                                    label: 'Document to link to',
-                                    relationTo: ['pages'],
-                                    required: true,
-                                },
-                                {
-                                    name: 'url',
-                                    type: 'text',
-                                    admin: {
-                                        condition: (_, siblingData) =>
-                                            siblingData?.type === 'custom',
-                                    },
-                                    label: 'Custom URL',
-                                    required: true,
-                                },
-                            ],
+                            name: 'showInFooter',
+                            type: 'checkbox',
+                            label: 'Show in footer',
+                            defaultValue: true,
                         },
+                        link({
+                            appearances: false,
+                        }),
                         {
-                            name: 'items',
+                            name: 'bottomItems',
                             type: 'array',
-                            label: 'Items',
+                            label: 'Bottom-level items',
+                            labels: {
+                                singular: 'Bottom-level item',
+                                plural: 'Bottom-level items',
+                            },
                             fields: [
                                 {
                                     name: 'label',
                                     type: 'text',
                                     label: 'Label',
                                 },
-                                {
-                                    name: 'link',
-                                    type: 'group',
-                                    admin: {
-                                        hideGutter: true,
-                                    },
-                                    hooks: {
-                                        afterRead: [
-                                            async (config) => {
-                                                if (config.value.type == 'custom') {
-                                                    return {
-                                                        ...config.value,
-                                                        url: config.value.url,
-                                                    };
-                                                } else if (config.value.type == 'reference') {
-                                                    const payload = config.req.payload;
-
-                                                    const result = (await payload.findByID({
-                                                        collection: config.value.reference.relationTo,
-                                                        id: config.value.reference.value,
-                                                    })) as Page | null;
-
-                                                    const lastCrumb = result?.breadcrumbs?.pop();
-
-                                                    if (lastCrumb) {
-                                                        return {
-                                                            ...config.value,
-                                                            url: lastCrumb.url,
-                                                        };
-                                                    }
-                                                }
-                                            },
-                                        ],
-                                    },
-                                    typescriptSchema: [
-                                        ({ jsonSchema }) => {
-                                            return {
-                                                type: 'object',
-                                                additionalProperties: false,
-                                                properties: {
-                                                    ...jsonSchema.properties,
-                                                    url: {
-                                                        required: true,
-                                                        type: ['string'],
-                                                    },
-                                                },
-                                            };
-                                        },
-                                    ],
-                                    fields: [
-                                        {
-                                            type: 'row',
-                                            fields: [
-                                                {
-                                                    name: 'type',
-                                                    type: 'radio',
-                                                    admin: {
-                                                        layout: 'horizontal',
-                                                        width: '50%',
-                                                    },
-                                                    defaultValue: 'reference',
-                                                    options: [
-                                                        {
-                                                            label: 'Internal link',
-                                                            value: 'reference',
-                                                        },
-                                                        {
-                                                            label: 'Custom URL',
-                                                            value: 'custom',
-                                                        },
-                                                    ],
-                                                },
-                                            ],
-                                        },
-                                        {
-                                            name: 'reference',
-                                            type: 'relationship',
-                                            admin: {
-                                                condition: (_, siblingData) =>
-                                                    siblingData?.type === 'reference',
-                                            },
-                                            label: 'Document to link to',
-                                            relationTo: ['pages'],
-                                            required: true,
-                                        },
-                                        {
-                                            name: 'url',
-                                            type: 'text',
-                                            admin: {
-                                                condition: (_, siblingData) =>
-                                                    siblingData?.type === 'custom',
-                                            },
-                                            label: 'Custom URL',
-                                            required: true,
-                                        },
-                                    ],
-                                },
+                                link({
+                                    appearances: false,
+                                }),
                             ],
                         },
                     ],
