@@ -6,6 +6,7 @@ interface Props {
   loading?: 'lazy' | 'eager';
   priority?: 'auto' | 'high' | 'low';
   expanded?: boolean;
+  mobile?: boolean;
 }
 
 export const Logo = (props: Props) => {
@@ -13,7 +14,8 @@ export const Logo = (props: Props) => {
     loading: loadingFromProps,
     priority: priorityFromProps,
     className,
-    expanded
+    expanded,
+    mobile
   } = props;
 
   const loading = loadingFromProps || 'lazy';
@@ -26,7 +28,7 @@ export const Logo = (props: Props) => {
       fetchPriority={priority}
       loading={loading}
       src={expanded ? "/logo_text.webp" : "/logo.webp"}
-      width={expanded ? 80 : 36}
+      className={`${expanded ? 'w-30 sm:w-20' : 'w-10 sm:w-9'}`}
     />
   );
 };

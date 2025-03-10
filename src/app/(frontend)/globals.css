@@ -77,6 +77,10 @@
   --color-z-red: #C91E40;
   --color-z-green: #0A7363;
   --color-z-purple: #7801DD;
+  --color-z-gray-100: #F9F9F8;
+  --color-z-gray-200: #EAEBEA;
+  --color-z-gray-300: #A5A5A5;
+  --color-z-gray-400: #787878;
 }
 
 @layer base {
@@ -179,6 +183,7 @@ html[data-theme='light'] {
   opacity: initial;
 }
 
+@layer base {
 
  /* Default heading styles */
  h1 {
@@ -247,4 +252,5 @@ h6 {
   .srf-h3 {
     @apply text-[2.313rem];
   }
+}
 }
