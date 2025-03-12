@@ -37,7 +37,7 @@ export const link: LinkType = ({
     hooks: {
       afterRead: [
         async (config) => {
-          if (!config.value) return config.value;
+          if (!config.value) { return config.value; }
 
           if (config.value.type == 'custom') {
             return {
@@ -47,7 +47,6 @@ export const link: LinkType = ({
           } else if (config.value.type == 'reference') {
 
             if (!config.value.reference || !config.value.reference.relationTo) {
-              console.warn('Missing reference or relationTo field:', config.value);
               return config.value;
             }
 

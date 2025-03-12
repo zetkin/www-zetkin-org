@@ -1,4 +1,3 @@
-import clsx from 'clsx';
 import React from 'react';
 
 interface Props {
@@ -6,7 +5,6 @@ interface Props {
   loading?: 'lazy' | 'eager';
   priority?: 'auto' | 'high' | 'low';
   expanded?: boolean;
-  mobile?: boolean;
 }
 
 export const Logo = (props: Props) => {
@@ -15,7 +13,6 @@ export const Logo = (props: Props) => {
     priority: priorityFromProps,
     className,
     expanded,
-    mobile
   } = props;
 
   const loading = loadingFromProps || 'lazy';
@@ -24,11 +21,11 @@ export const Logo = (props: Props) => {
   return (
     <img
       alt="Payload Logo"
+      className={`${expanded ? 'w-30 sm:w-20' : 'w-10 sm:w-9'}` + ' ' + className}
       decoding="async"
       fetchPriority={priority}
       loading={loading}
       src={expanded ? "/logo_text.webp" : "/logo.webp"}
-      className={`${expanded ? 'w-30 sm:w-20' : 'w-10 sm:w-9'}`}
     />
   );
 };

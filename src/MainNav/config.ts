@@ -1,9 +1,7 @@
 import type { GlobalConfig } from 'payload'
 
-import { revalidateNav } from './hooks/revalidateNav'
-
-import { Page } from '../payload-types'
 import { link } from '@/fields/link'
+import { revalidateNav } from './hooks/revalidateNav'
 
 
 export const MainNav: GlobalConfig = {
