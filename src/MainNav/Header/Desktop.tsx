@@ -17,28 +17,19 @@ import type { MainNav } from '@/payload-types';
 import { useHeaderTheme } from '@/providers/HeaderTheme';
 import { Logo } from '@/components/Logo/Logo';
 import { ImageMedia } from '@/components/Media/ImageMedia';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
 
-interface HeaderClientProps {
+interface DesktopHeaderProps {
   data: MainNav;
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
+export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data }) => {
 
   const [theme, setTheme] = useState<string | null>(null);
   const [openId, setOpenId] = useState<string | null>(null);
   const [navigatedItem, setNavigatedItem] = useState(data.topItems ? data.topItems[0] : null);
 
-  const [menuOpen, setMenuOpen] = useState(false);
   const [expandedBottomItems, setExpandedBottomItems] = useState<Record<string, boolean>>({});
   const [scrollTop, setScrollTop] = useState(true);
-
-  const [mobile, setMobile] = useState(true);
 
 
   const { headerTheme, setHeaderTheme } = useHeaderTheme();
@@ -50,16 +41,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
 
   useEffect(() => {
-    const handleResize = () => setMobile(window.innerWidth <= 640);
-
-    handleResize();
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-
-  useEffect(() => {
     setHeaderTheme(null);
   }, [pathname]);
 
@@ -68,6 +49,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       setTheme(headerTheme);
     }
   }, [headerTheme]);
+
 
   useEffect(() => {
     if (pathname === '/') {
@@ -86,16 +68,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Toggle fullscreen menu on mobile
 
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-    if (menuOpen) {
-      setExpandedBottomItems({});
-    }
-  };
-
-  // Show more options in hover menu and in fullscreen mobile menu
+  // Show more options in hover menu
 
   const showMore = (midItemId: string) => {
     setExpandedBottomItems(prev => ({
@@ -123,9 +97,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
       onMouseLeave={() => setOpenId(null)}
       {...(theme ? { 'data-theme': theme } : {})}
     >
-      <motion.div animate={{ height: scrollTop ? (mobile ? "auto" : "67.5px") : (mobile ? "auto" : "45px") }}
+      <motion.div
         className={`sm:w-full sm:flex sm:px-5 sm:py-3 sm:justify-center sm:border-b sm:border-[rgba(238,238,238,0.7)] sm:bg-white/95 sm:backdrop-blur-[16px]`}
-        initial={{ height: (mobile ? (pathname === '/' ? "auto" : "auto") : "67.5px") }}
         layout="size"
       >
         <div className='sm:w-full sm:flex sm:items-center sm:justify-between sm:max-w-[1000px]'>
@@ -137,54 +110,17 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                   <AnimatePresence mode="wait">
                     <motion.div
                       key={scrollTop ? "logo-small" : "logo-large"}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      initial={{ opacity: 0 }}
-                      transition={{ duration: 0.2 }}
                     >
                       <Logo
                         expanded={scrollTop}
-                        loading="eager"
-                        priority="high"
                       />
                     </motion.div>
                   </AnimatePresence>
                 </Link>
               </motion.div>
-              <button
-                aria-expanded={menuOpen}
-                aria-label="Menu"
-                className="absolute w-8 h-8 focus:outline-none right-7 top-1/2 -translate-y-1/2 sm:hidden"
-                onClick={toggleMenu}
-              >
-                <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
-                  <span
-                    className={`absolute bg-black h-[2.9px] w-7 transition-all duration-300 ease-in-out 
-                      ${menuOpen
-                        ? 'top-1/2 -mt-px transform rotate-45'
-                        : 'top-2/7 -mt-px transform rotate-0'
-                      }`}
-                  />
-                  <span
-                    className={`absolute bg-black h-[2.9px] w-7 transition-all duration-300 ease-in-out 
-                      ${menuOpen
-                        ? 'top-1/2 -mt-px transform -rotate-45'
-                        : 'top-5/7 -mt-px transform rotate-0'
-                      }`}
-                  />
-                </div>
-              </button>
             </div>
           </div>
-          {/* Mobile title not visible in home */}
-          {pathname !== '/' &&
-            <div className='py-3.5 static w-full bg-white flex justify-center border-t border-b border-z-gray-200 sm:hidden'>
-              <h1 className='text-lg font-semibold'>
-                {navigatedItem?.label}
-              </h1>
-            </div>
-          }
-          {/* Main-nav visible in Desktop and mobile home */}
+          {/* Main-nav */}
           <nav className={`${pathname === '/' ? 'flex' : 'hidden'} sm:flex px-10 border-y border-z-gray-200 pt-3.5 pb-5 sm:border-0 sm:m-0 sm:p-0 sm:w-full sm:justify-end`}>
             <ul className="flex flex-wrap justify-center gap-x-7 gap-y-5">
               {data.topItems?.map((topItem) => {
@@ -245,7 +181,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           </nav>
         </div>
       }
-      {/* Sub-nav visible on hover on desktop */}
+      {/* Sub-nav visible on hover */}
       <motion.nav
         animate={{ height: hoveredItem ? "auto" : 0 }}
         className={`hidden sm:flex absolute w-full px-5 bg-white/95 backdrop-blur-[16px] overflow-hidden justify-center left-0 right-0 ${scrollTop ? 'top-[67.5px]' : 'top-[45px]'}`}
@@ -332,94 +268,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
           )}
         </AnimatePresence>
       </motion.nav>
-      {/* Full page mobile menu */}
-      <div className={`fixed top-0 left-0 w-full h-full bg-white z-10 transform transition-opacity duration-200 ease-in-out 
-        ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-      >
-        <Accordion className='mt-[170px] px-5' collapsible type='single'>
-          {data.topItems?.map((topItem) => {
-            return (
-              <AccordionItem key={topItem.id} value={topItem.id || ""}>
-                <AccordionTrigger>
-                  <p className='text-lg font-semibold'>
-                    <Link url={topItem.link?.url ?? '/'}>
-                      {topItem.label}
-                    </Link>
-                  </p>
-                </AccordionTrigger>
-                <AccordionContent className='pt-6'>
-                  <ul className="flex flex-col gap-8">
-                    {topItem.midItems?.map((midItem) => {
-                      const isExpanded = expandedBottomItems[midItem.id || ''] || false;
-                      const itemsToShow = isExpanded
-                        ? midItem.bottomItems?.length
-                        : Math.min(4, midItem.bottomItems?.length || 0);
-                      const needsShowMore = (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
-                      return (
-                        <li key={midItem.id} className="">
-                          <div className='flex gap-4'>
-                            {midItem.icon && (
-                              <div className='w-8 h-8 relative flex-shrink-0'>
-                                <ImageMedia
-                                  className="object-contain"
-                                  fill
-                                  resource={midItem.icon}
-                                />
-                              </div>
-                            )}
-                            <div className='flex flex-col gap-4'>
-                              <h3 className='text-lg font-semibold'>
-                                <Link url={midItem.link?.url ?? '/'}>
-                                  <button onClick={toggleMenu}>
-                                    {midItem.label}
-                                  </button>
-                                </Link>
-                              </h3>
-                              <div className='flex flex-col gap-5'>
-                                <p className='text-[16px]'>
-                                  {midItem.description}
-                                </p>
-                                <ul className='grid grid-cols-2 gap-y-3 gap-x-6'>
-                                  {midItem.bottomItems?.slice(0, itemsToShow).map((bottomItem) => {
-                                    return (
-                                      <li key={bottomItem.id}>
-                                        <p className='text-[15px] leading-[1.7]'>
-                                          <Link url={bottomItem.link?.url ?? '/'}>
-                                            <button onClick={toggleMenu}>
-                                              {bottomItem.label}
-                                            </button>
-                                          </Link>
-                                        </p>
-                                      </li>
-                                    );
-                                  })}
-                                  {needsShowMore && (
-                                    <li className="col-span-2 mt-1">
-                                      <button
-                                        className="text-[15px] underline"
-                                        onClick={(e) => {
-                                          e.preventDefault();
-                                          showMore(midItem.id || '');
-                                        }}
-                                      >
-                                        Show more...
-                                      </button>
-                                    </li>
-                                  )}
-                                </ul>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                </AccordionContent>
-              </AccordionItem>
-            );
-          })}
-        </Accordion>
-      </div>
     </header>
   );
 };
