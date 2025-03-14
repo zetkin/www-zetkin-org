@@ -1,3 +1,5 @@
+import './globals.css';
+
 import type { Metadata } from 'next';
 import { GeistMono } from 'geist/font/mono';
 import { GeistSans } from 'geist/font/sans';
@@ -6,11 +8,10 @@ import { draftMode } from 'next/headers';
 
 import { cn } from '@/utilities/ui';
 import { AdminBar } from '@/components/AdminBar';
-import { Header } from '@/Header/Component';
+import { Header } from '@/MainNav/Header/Component';
 import { Providers } from '@/providers';
 import { InitTheme } from '@/providers/Theme/InitTheme';
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
-import './globals.css';
 import { getServerSideURL } from '@/utilities/getURL';
 
 export default async function RootLayout({

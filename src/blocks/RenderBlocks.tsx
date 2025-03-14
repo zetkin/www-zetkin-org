@@ -10,7 +10,7 @@ const blockComponents = {
 };
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][];
+  blocks: Page['layout'];
 }> = (props) => {
   const { blocks } = props;
 
@@ -20,24 +20,24 @@ export const RenderBlocks: React.FC<{
     return (
       <Fragment>
         {blocks.map((block, index) => {
-          const { blockType } = block;
+          const { blockType } = block
 
           if (blockType && blockType in blockComponents) {
-            const Block = blockComponents[blockType];
+            const Block = blockComponents[blockType]
 
             if (Block) {
               return (
-                <div key={index} className="my-16">
+                <div key={index} className="w-full h-full flex justify-center">
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>
-              );
+              )
             }
           }
-          return null;
+          return null
         })}
       </Fragment>
-    );
+    )
   }
 
   return null;
