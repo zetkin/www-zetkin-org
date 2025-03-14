@@ -830,8 +830,10 @@ export interface MainNav {
   topItems?:
     | {
         label?: string | null;
+        longLabel?: string | null;
         color?: ('purple' | 'red' | 'green') | null;
         showInFooter?: boolean | null;
+        hasChildren?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
           reference?: {
@@ -889,8 +891,10 @@ export interface MainNavSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        longLabel?: T;
         color?: T;
         showInFooter?: T;
+        hasChildren?: T;
         link?:
           | T
           | {

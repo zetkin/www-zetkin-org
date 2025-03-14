@@ -38,6 +38,12 @@ const config = {
         sans: ['Plus Jakarta Sans'],
         serif: ['Playfair Display']
       },
+      boxShadow: {
+        'z-gray': '0px 4px 32px 0px rgba(0, 0, 0, 0.04)',
+        'z-purple': '0px 4px 32px 0px rgba(120, 1, 221, 0.06)',
+        'z-red': '0px 4px 32px 0px rgba(220, 39, 80, 0.06)',
+        'z-green': '0px 4px 32px 0px rgba(15, 116, 115, 0.06)',
+      },
     },
   },
 }

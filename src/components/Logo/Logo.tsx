@@ -1,21 +1,22 @@
 "use client"
 
-import { motion, useScroll, useTransform } from "motion/react"
+import { motion, useTransform, MotionValue } from "motion/react"
 interface Props {
   className?: string;
+  scrollY: MotionValue<number>;
+  forceFull?: boolean;
 }
 
 export const Logo = (props: Props) => {
   const {
     className,
+    scrollY,
+    forceFull
   } = props;
 
 
-  const { scrollY } = useScroll();
-
-  const opacity = useTransform(scrollY, [0, 190, 200], [1, 1, 0]);
-  const maxHeight = useTransform(scrollY, [0, 200], [200, 0]);
-
+  const opacity = useTransform(scrollY, [120, 180], [1, 0]);
+  const maxHeight = useTransform(scrollY, [120, 200], [200, 0]);
 
   return (
     <div className={'flex flex-col items-center gap-[3.27px] sm:gap-[2.21px] ' + className}>
@@ -31,10 +32,8 @@ export const Logo = (props: Props) => {
       <motion.div
         className='flex flex-col items-center gap-[2.24px] sm:gap-[1.51px] overflow-hidden origin-top'
         style={{
-
-          opacity,
-          maxHeight
-
+          opacity: forceFull ? 1 : opacity,
+          maxHeight: forceFull ? 200 : maxHeight,
         }}>
         <svg className='w-[66px] sm:w-[44px]' fill="none" viewBox="0 0 66 19" xmlns="http://www.w3.org/2000/svg">
           <path d="M24.1585 8.77634C23.8841 8.02971 23.4601 7.38262 22.9363 6.8102C22.4126 6.23778 21.7641 5.7898 21.0159 5.46626C20.2676 5.14272 19.3698 4.96851 18.3721 4.96851C17.1749 4.96851 16.1025 5.26716 15.1547 5.83958C14.182 6.412 13.4338 7.20841 12.8851 8.17903C12.3364 9.17455 12.062 10.2945 12.062 11.5887C12.062 12.8082 12.3364 13.953 12.8851 14.9485C13.4338 15.9689 14.2069 16.7653 15.1797 17.3626C16.1524 17.9599 17.2996 18.2586 18.6215 18.2586C19.4945 18.2586 20.2926 18.1342 21.0159 17.8604C21.7392 17.5866 22.3627 17.2382 22.9114 16.7653C23.4601 16.2925 23.8342 15.7698 24.0836 15.1476L21.6145 13.9281C21.3401 14.4259 20.9411 14.8241 20.4672 15.1227C19.9933 15.4214 19.3698 15.5707 18.6714 15.5707C17.9731 15.5707 17.3495 15.3965 16.8008 15.073C16.2521 14.7494 15.8531 14.2765 15.5787 13.6792C15.4041 13.3059 15.3044 12.9077 15.2794 12.4846H24.4578C24.5076 12.3104 24.5575 12.1113 24.5825 11.8873C24.6074 11.6633 24.6074 11.4144 24.6074 11.2153C24.5825 10.3194 24.4328 9.52298 24.1585 8.77634ZM16.6761 7.95504C17.1749 7.6315 17.7486 7.48217 18.3971 7.48217C19.0705 7.48217 19.6441 7.65639 20.118 7.97993C20.5919 8.30347 20.9411 8.75145 21.1406 9.32387C21.2403 9.57275 21.2902 9.84652 21.3152 10.1452H15.3293C15.3792 9.87141 15.454 9.62253 15.5538 9.39854C15.8032 8.75145 16.1773 8.27859 16.6761 7.95504Z" fill="black" />

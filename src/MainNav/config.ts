@@ -23,6 +23,11 @@ export const MainNav: GlobalConfig = {
                     label: 'Label',
                 },
                 {
+                    name: 'longLabel',
+                    type: 'text',
+                    label: 'Longer label for mobile full screen menu',
+                },
+                {
                     name: 'color',
                     type: 'select',
                     options: [
@@ -44,6 +49,12 @@ export const MainNav: GlobalConfig = {
                     name: 'showInFooter',
                     type: 'checkbox',
                     label: 'Show in footer',
+                    defaultValue: true,
+                },
+                {
+                    name: 'hasChildren',
+                    type: 'checkbox',
+                    label: 'Has children',
                     defaultValue: true,
                 },
                 link({
@@ -106,6 +117,9 @@ export const MainNav: GlobalConfig = {
                     ],
                     admin: {
                         initCollapsed: true,
+                        condition: (_, siblingData) => {
+                            return siblingData?.hasChildren;
+                        }
                     },
                 },
             ],
