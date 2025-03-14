@@ -34,7 +34,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
   return (
     <header
-      className="container z-20"
+      className="z-20"
       onMouseLeave={() => setOpenId(null)}
       {...(theme ? { 'data-theme': theme } : {})}
     >
@@ -42,8 +42,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
         <Link href="/">
           <Logo
             className="invert dark:invert-0"
-            loading="eager"
-            priority="high"
           />
         </Link>
         <nav className="">
