@@ -88,7 +88,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           {/* Logo */}
           <div className="w-fit py-0 relative bg-transparent flex ">
             <Link aria-label="Go to homepage" url="/">
-              <Logo scrollY={scrollY} />
+              <Logo />
             </Link>
           </div>
           {/* Main-nav */}

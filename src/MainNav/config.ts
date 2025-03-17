@@ -108,6 +108,53 @@ export const MainNav: GlobalConfig = {
         },
       ],
     },
+    {
+      name: 'socialLinks',
+      label: 'Social Links',
+      type: 'array',
+      fields: [
+        {
+          name: 'platform',
+          type: 'select',
+          required: true,
+          options: [
+            {
+              label: 'Instagram',
+              value: 'instagram',
+            },
+            {
+              label: 'Facebook',
+              value: 'facebook',
+            },
+            {
+              label: 'Github',
+              value: 'github',
+            },
+          ],
+        },
+        {
+          name: 'link',
+          type: 'text',
+          label: 'URL',
+          required: true,
+          validate: (value: string | string[] | null | undefined) => {
+            if (typeof value !== 'string') {
+              return 'Invalid URL';
+            }
+            const urlPattern = new RegExp(
+              '^(https?:\\/\\/)?' + // protocol
+                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
+                '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+                '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+                '(\\#[-a-z\\d_]*)?$',
+              'i',
+            ); // fragment locator
+            return !!urlPattern.test(value) || 'Invalid URL';
+          },
+        },
+      ],
+    },
   ],
   access: {
     read: () => true,
