@@ -23,8 +23,8 @@ export default function MainNav({
     >
       <ul className="flex flex-wrap justify-center gap-x-7 gap-y-5">
         {data.topItems?.map((topItem) => {
-          const url = topItem.link?.url ?? '/';
-          const linkIsSelected = pathname.includes(url);
+          const url = topItem.link?.url ?? null;
+          const linkIsSelected = url !== null && (pathname === url || pathname.startsWith('/' + url));
           return (
             <li
               key={topItem.id}
