@@ -152,21 +152,9 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
-    links: {
-      link?: {
-        type?: ('reference' | 'custom') | null;
-        reference?: {
-          relationTo: 'pages';
-          value: string | Page;
-        } | null;
-        url?: string;
-        newTab?: boolean | null;
-      };
-      id?: string | null;
-    }[];
     media?: (string | null) | Media;
   };
-  layout?: (ContentBlock | MediaBlock)[] | null;
+  layout?: (ContentBlock | MediaBlock | LandingBlock)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -332,6 +320,34 @@ export interface MediaBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingBlock".
+ */
+export interface LandingBlock {
+  leftTitle: string;
+  rightTitle: string;
+  subtitle: string;
+  buttons?:
+    | {
+        label: string;
+        variant?: ('primary' | 'outline') | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'landing';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -544,19 +560,6 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         type?: T;
         richText?: T;
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    reference?: T;
-                    url?: T;
-                    newTab?: T;
-                  };
-              id?: T;
-            };
         media?: T;
       };
   layout?:
@@ -564,6 +567,7 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
+        landing?: T | LandingBlockSelect<T>;
       };
   meta?:
     | T
@@ -618,6 +622,32 @@ export interface ContentBlockSelect<T extends boolean = true> {
  */
 export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingBlock_select".
+ */
+export interface LandingBlockSelect<T extends boolean = true> {
+  leftTitle?: T;
+  rightTitle?: T;
+  subtitle?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        variant?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              reference?: T;
+              url?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

@@ -16,6 +16,7 @@ import { slugField } from '@/fields/slug';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { generatePreviewPath } from '../../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
+import { Landing } from '@/blocks/home/Landing/config';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -71,7 +72,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [Content, MediaBlock],
+              blocks: [Content, MediaBlock, Landing],
               required: false,
               admin: {
                 initCollapsed: true,
