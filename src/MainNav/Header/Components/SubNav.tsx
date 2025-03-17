@@ -1,6 +1,4 @@
-import cx from 'classnames';
-
-import useColorToTailwind from '@/MainNav/hooks/useColorToTailwind';
+import colorToTailwind from '@/utilities/colorToTailwind';
 import { CMSLink as Link } from '@/components/Link';
 import { Media, Page } from '@/payload-types';
 
@@ -56,8 +54,6 @@ interface navigatedItemType {
 
 export default function SubNav({ pathname, navigatedItem }: { pathname: string; navigatedItem: navigatedItemType | null }) {
 
-    const colorToTailwind = useColorToTailwind();
-
     return (
         <div className='sm:w-full sm:flex sm:px-5 sm:justify-center sm:border-b sm:border-[rgba(238,238,238,0.7)] sm:bg-white/75 sm:backdrop-blur-[12px]'>
             <nav className="px-10 pt-3.5 pb-5 border-b border-z-gray-200 sm:w-full sm:flex sm:max-w-[1000px] sm:justify-end sm:px-0 sm:py-3 sm:border-b-0">
@@ -67,11 +63,9 @@ export default function SubNav({ pathname, navigatedItem }: { pathname: string; 
                             const url = midItem.link?.url ?? '/';
                             const linkIsSelected = pathname.includes(url);
                             return (
-                                <li key={midItem.id} className={cx(
-                                    { 'font-semibold': linkIsSelected },
-                                    linkIsSelected ? "text-" + colorToTailwind(navigatedItem.color || "") : ''
-                                ) +
-                                    ' sm:text-[13px]'}>
+                                <li key={midItem.id} className={"sm:text-[13px] " +
+                                    (linkIsSelected && "font-semibold text-" + colorToTailwind(navigatedItem.color || ""))
+                                }>
                                     <Link url={url}>
                                         {midItem.label}
                                     </Link>

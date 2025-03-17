@@ -1,6 +1,5 @@
 'use client';
 
-import cx from 'classnames';
 import React,
 {
   useEffect,
@@ -18,7 +17,7 @@ import type { MainNav as MainNavTypes } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import MainNav from './Components/MainNav';
-import useColorToTailwind from '../hooks/useColorToTailwind';
+import colorToTailwind from '../../utilities/colorToTailwind';
 import SubNav from './Components/SubNav';
 
 interface DesktopHeaderProps {
@@ -51,9 +50,6 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
       [midItemId]: true
     }));
   };
-
-  // Interpret color selections to color variables
-  const colorToTailwind = useColorToTailwind()
 
   // Fade in shadow
 
@@ -139,9 +135,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
                                 />
                               </div>
                             )}
-                            <h3 key={midItem.id} className={cx(
-                              linkIsSelected ? "text-" + colorToTailwind(hoveredItem.color || "") : ''
-                            ) + ' text-[16px] font-semibold'}
+                            <h3 key={midItem.id} className={
+                              "text-[16px] font-semibold" +
+                              (linkIsSelected && `text-${colorToTailwind(hoveredItem.color || "")}`)
+                            }
                             >
                               <Link aria-label={midItem.label} url={url}>
                                 {midItem.label}
@@ -158,10 +155,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
                             return (
                               <li
                                 key={bottomItem.id}
-                                className={cx(
-                                  { 'font-semibold': linkIsSelected },
-                                  linkIsSelected ? "text-" + colorToTailwind(hoveredItem.color || "") : ''
-                                ) + ' text-[13px] truncate leading-[1.7]'}>
+                                className={'text-[13px] truncate leading-[1.7] ' +
+                                  (linkIsSelected && 'font-semibold text-' + colorToTailwind(hoveredItem.color || ""))
+                                }
+                              >
                                 <Link aria-label={bottomItem.label} url={url}>
                                   {bottomItem.label}
                                 </Link>

@@ -115,7 +115,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ data, pathname, them
           borderBottom: bottomBorder
         }}>
         <div className="flex flex-col justify-between items-center">
-          <motion.div layout>
+          <motion.div layout onClick={() => setMenuOpen(false)}>
             <Link url="/">
               <Logo forceFull={menuOpen} scrollY={scrollY} />
             </Link>
@@ -157,7 +157,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ data, pathname, them
         {/* Main-nav visible in mobile home */}
         <MainNav data={data} openId={openId} pathname={pathname} setNavigatedItem={setNavigatedItem} setOpenId={setOpenId} />
         {/* Sub-nav not visible in home */}
-        {pathname !== '/' && navigatedItem?.hasChildren &&
+        {pathname !== '/' && Array.isArray(navigatedItem?.midItems) && navigatedItem.midItems.length > 0 &&
           <SubNav navigatedItem={navigatedItem} pathname={pathname} />
         }
       </div>
@@ -167,7 +167,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({ data, pathname, them
       >
         <Accordion className='mt-[170px] px-5' collapsible type='single'>
           {data.topItems?.map((topItem) => {
-            if (topItem.hasChildren) {
+            if ((topItem.midItems?.length ?? 0) > 0) {
               return (
                 <AccordionItem key={topItem.id} value={topItem.id || ""}>
                   <AccordionTrigger>

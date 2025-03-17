@@ -152,24 +152,18 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
-    links?:
-      | {
-          link?: {
-            type?: ('reference' | 'custom') | null;
-            reference?: {
-              relationTo: 'pages';
-              value: string | Page;
-            } | null;
-            url?: string;
-            newTab?: boolean | null;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
+    links: {
+      link?: {
+        type?: ('reference' | 'custom') | null;
+        reference?: {
+          relationTo: 'pages';
+          value: string | Page;
+        } | null;
+        url?: string;
+        newTab?: boolean | null;
+      };
+      id?: string | null;
+    }[];
     media?: (string | null) | Media;
   };
   layout?: (ContentBlock | MediaBlock)[] | null;
@@ -321,10 +315,6 @@ export interface ContentBlock {
           } | null;
           url?: string;
           newTab?: boolean | null;
-          /**
-           * Choose how the link should be rendered.
-           */
-          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
@@ -564,7 +554,6 @@ export interface PagesSelect<T extends boolean = true> {
                     reference?: T;
                     url?: T;
                     newTab?: T;
-                    appearance?: T;
                   };
               id?: T;
             };
@@ -617,7 +606,6 @@ export interface ContentBlockSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               newTab?: T;
-              appearance?: T;
             };
         id?: T;
       };
@@ -833,7 +821,6 @@ export interface MainNav {
         longLabel?: string | null;
         color?: ('purple' | 'red' | 'green') | null;
         showInFooter?: boolean | null;
-        hasChildren?: boolean | null;
         link?: {
           type?: ('reference' | 'custom') | null;
           reference?: {
@@ -894,7 +881,6 @@ export interface MainNavSelect<T extends boolean = true> {
         longLabel?: T;
         color?: T;
         showInFooter?: T;
-        hasChildren?: T;
         link?:
           | T
           | {

@@ -51,15 +51,7 @@ export const MainNav: GlobalConfig = {
                     label: 'Show in footer',
                     defaultValue: true,
                 },
-                {
-                    name: 'hasChildren',
-                    type: 'checkbox',
-                    label: 'Has children',
-                    defaultValue: true,
-                },
-                link({
-                    appearances: false,
-                }),
+                link(),
                 {
                     name: 'midItems',
                     label: 'Mid-level items',
@@ -92,9 +84,7 @@ export const MainNav: GlobalConfig = {
                             label: 'Show in footer',
                             defaultValue: true,
                         },
-                        link({
-                            appearances: false,
-                        }),
+                        link(),
                         {
                             name: 'bottomItems',
                             type: 'array',
@@ -109,17 +99,12 @@ export const MainNav: GlobalConfig = {
                                     type: 'text',
                                     label: 'Label',
                                 },
-                                link({
-                                    appearances: false,
-                                }),
+                                link(),
                             ],
                         },
                     ],
                     admin: {
                         initCollapsed: true,
-                        condition: (_, siblingData) => {
-                            return siblingData?.hasChildren;
-                        }
                     },
                 },
             ],

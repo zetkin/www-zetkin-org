@@ -3,29 +3,12 @@ import type { Field, GroupField } from 'payload';
 import deepMerge from '@/utilities/deepMerge';
 import { Page } from '@/payload-types';
 
-export type LinkAppearances = 'default' | 'outline';
-
-export const appearanceOptions: Record<
-  LinkAppearances,
-  { label: string; value: string }
-> = {
-  default: {
-    label: 'Default',
-    value: 'default',
-  },
-  outline: {
-    label: 'Outline',
-    value: 'outline',
-  },
-};
 
 type LinkType = (options?: {
-  appearances?: LinkAppearances[] | false;
   overrides?: Partial<GroupField>;
 }) => Field;
 
 export const link: LinkType = ({
-  appearances,
   overrides = {},
 } = {}) => {
   const linkResult: GroupField = {
@@ -145,30 +128,6 @@ export const link: LinkType = ({
       },
     ],
   };
-
-
-  if (appearances !== false) {
-    let appearanceOptionsToUse = [
-      appearanceOptions.default,
-      appearanceOptions.outline,
-    ];
-
-    if (appearances) {
-      appearanceOptionsToUse = appearances.map(
-        (appearance) => appearanceOptions[appearance],
-      );
-    }
-
-    linkResult.fields.push({
-      name: 'appearance',
-      type: 'select',
-      admin: {
-        description: 'Choose how the link should be rendered.',
-      },
-      defaultValue: 'default',
-      options: appearanceOptionsToUse,
-    });
-  }
 
   return deepMerge(linkResult, overrides);
 };
