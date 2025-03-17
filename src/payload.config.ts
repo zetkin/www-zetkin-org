@@ -53,8 +53,7 @@ export default buildConfig({
   }),
   collections: [Pages, Media, Users],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [MainNav
-  ],
+  globals: [MainNav],
   plugins: [
     ...plugins,
     // storage-adapter-placeholder

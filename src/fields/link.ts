@@ -3,14 +3,9 @@ import type { Field, GroupField } from 'payload';
 import deepMerge from '@/utilities/deepMerge';
 import { Page } from '@/payload-types';
 
+type LinkType = (options?: { overrides?: Partial<GroupField> }) => Field;
 
-type LinkType = (options?: {
-  overrides?: Partial<GroupField>;
-}) => Field;
-
-export const link: LinkType = ({
-  overrides = {},
-} = {}) => {
+export const link: LinkType = ({ overrides = {} } = {}) => {
   const linkResult: GroupField = {
     name: 'link',
     type: 'group',
@@ -20,7 +15,9 @@ export const link: LinkType = ({
     hooks: {
       afterRead: [
         async (config) => {
-          if (!config.value) { return config.value; }
+          if (!config.value) {
+            return config.value;
+          }
 
           if (config.value.type == 'custom') {
             return {
@@ -28,7 +25,6 @@ export const link: LinkType = ({
               url: config.value.url,
             };
           } else if (config.value.type == 'reference') {
-
             if (!config.value.reference || !config.value.reference.relationTo) {
               return config.value;
             }
@@ -98,8 +94,7 @@ export const link: LinkType = ({
         name: 'reference',
         type: 'relationship',
         admin: {
-          condition: (_, siblingData) =>
-            siblingData?.type === 'reference',
+          condition: (_, siblingData) => siblingData?.type === 'reference',
         },
         label: 'Document to link to',
         relationTo: ['pages'],
@@ -109,8 +104,7 @@ export const link: LinkType = ({
         name: 'url',
         type: 'text',
         admin: {
-          condition: (_, siblingData) =>
-            siblingData?.type === 'custom',
+          condition: (_, siblingData) => siblingData?.type === 'custom',
         },
         label: 'Custom URL',
         required: true,

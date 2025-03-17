@@ -1,16 +1,7 @@
 'use client';
 
-import React,
-{
-  useEffect,
-  useState
-} from 'react';
-import {
-  AnimatePresence,
-  motion,
-  useScroll,
-  useTransform
-} from "motion/react"
+import React, { useEffect, useState } from 'react';
+import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav as MainNavTypes } from '@/payload-types';
@@ -26,15 +17,21 @@ interface DesktopHeaderProps {
   theme?: string | null;
 }
 
-export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, theme }) => {
-
+export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
+  data,
+  pathname,
+  theme,
+}) => {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [navigatedItem, setNavigatedItem] = useState(data.topItems?.[0] ?? null);
+  const [navigatedItem, setNavigatedItem] = useState(
+    data.topItems?.[0] ?? null,
+  );
 
-  const [expandedBottomItems, setExpandedBottomItems] = useState<Record<string, boolean>>({});
+  const [expandedBottomItems, setExpandedBottomItems] = useState<
+    Record<string, boolean>
+  >({});
 
   const hoveredItem = data.topItems?.find((item) => item.id == openId);
-
 
   useEffect(() => {
     if (pathname === '/') {
@@ -45,9 +42,9 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
   // Show more options in hover menu
 
   const showMore = (midItemId: string) => {
-    setExpandedBottomItems(prev => ({
+    setExpandedBottomItems((prev) => ({
       ...prev,
-      [midItemId]: true
+      [midItemId]: true,
     }));
   };
 
@@ -57,18 +54,18 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
 
   const opacity = useTransform(scrollY, [120, 180], [0, 0.06]);
 
-  let headerShadow = "0, 0, 0,"
+  let headerShadow = '0, 0, 0,';
 
   switch (navigatedItem?.color) {
-    case "purple":
-      headerShadow = "120, 1, 221,"
-      break
-    case "green":
-      headerShadow = "15, 116, 115,"
-      break
-    case "red":
-      headerShadow = "220, 39, 80,"
-      break
+    case 'purple':
+      headerShadow = '120, 1, 221,';
+      break;
+    case 'green':
+      headerShadow = '15, 116, 115,';
+      break;
+    case 'red':
+      headerShadow = '220, 39, 80,';
+      break;
   }
 
   return (
@@ -76,7 +73,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
       className={`z-20 flex flex-col fixed w-full ${headerShadow}`}
       onMouseLeave={() => setOpenId(null)}
       style={{
-        boxShadow: useTransform(opacity, (o) => `0px 4px 32px 0px rgba(${headerShadow}${o})`)
+        boxShadow: useTransform(
+          opacity,
+          (o) => `0px 4px 32px 0px rgba(${headerShadow}${o})`,
+        ),
       }}
       {...(theme ? { 'data-theme': theme } : {})}
     >
@@ -84,23 +84,29 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
         className={`z-30 w-full flex px-5 py-3 justify-center border-b border-[rgba(238,238,238,0.7)] bg-white/95 backdrop-blur-[16px]`}
         layout="size"
       >
-        <div className='w-full flex items-center justify-between max-w-[1000px]'>
+        <div className="w-full flex items-center justify-between max-w-[1000px]">
           {/* Logo */}
-          <div className='w-fit py-0 relative bg-transparent flex '>
+          <div className="w-fit py-0 relative bg-transparent flex ">
             <Link aria-label="Go to homepage" url="/">
               <Logo scrollY={scrollY} />
             </Link>
           </div>
           {/* Main-nav */}
-          <MainNav data={data} openId={openId} pathname={pathname} setNavigatedItem={setNavigatedItem} setOpenId={setOpenId} />
+          <MainNav
+            data={data}
+            openId={openId}
+            pathname={pathname}
+            setNavigatedItem={setNavigatedItem}
+            setOpenId={setOpenId}
+          />
         </div>
         {/* Sub-nav visible on hover */}
         <AnimatePresence mode="wait">
           {hoveredItem && (
             <motion.nav
-              animate={{ height: "auto" }}
+              animate={{ height: 'auto' }}
               aria-live="polite"
-              className='flex absolute w-full px-5 bg-white/95 backdrop-blur-[16px] overflow-hidden justify-center left-0 right-0 top-full border-b'
+              className="flex absolute w-full px-5 bg-white/95 backdrop-blur-[16px] overflow-hidden justify-center left-0 right-0 top-full border-b"
               exit={{ height: 0 }}
               initial={{ height: 0 }}
               layout="size"
@@ -117,54 +123,68 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
                   {hoveredItem.midItems?.map((midItem) => {
                     const url = midItem.link?.url ?? '/';
                     const linkIsSelected = pathname == url;
-                    const isExpanded = expandedBottomItems[midItem.id || ''] || false;
+                    const isExpanded =
+                      expandedBottomItems[midItem.id || ''] || false;
                     const itemsToShow = isExpanded
                       ? midItem.bottomItems?.length
                       : Math.min(4, midItem.bottomItems?.length || 0);
-                    const needsShowMore = (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
+                    const needsShowMore =
+                      (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
                     return (
                       <li key={midItem.id} className="flex flex-col gap-4">
-                        <div className='flex flex-col gap-3'>
-                          <div className='flex gap-2.5 items-center'>
+                        <div className="flex flex-col gap-3">
+                          <div className="flex gap-2.5 items-center">
                             {midItem.icon && (
-                              <div className='w-6 h-6 relative'>
+                              <div className="w-6 h-6 relative">
                                 <ImageMedia
-                                  alt={midItem.label || "navigation icon"}
+                                  alt={midItem.label || 'navigation icon'}
                                   fill
                                   resource={midItem.icon}
                                 />
                               </div>
                             )}
-                            <h3 key={midItem.id} className={
-                              "text-[16px] font-semibold" +
-                              (linkIsSelected && `text-${colorToTailwind(hoveredItem.color || "")}`)
-                            }
+                            <h3
+                              key={midItem.id}
+                              className={
+                                'text-[16px] font-semibold' +
+                                (linkIsSelected &&
+                                  `text-${colorToTailwind(hoveredItem.color || '')}`)
+                              }
                             >
                               <Link aria-label={midItem.label} url={url}>
                                 {midItem.label}
                               </Link>
                             </h3>
                           </div>
-                          <p className="text-sm leading-[1.7]">{midItem.description}</p>
+                          <p className="text-sm leading-[1.7]">
+                            {midItem.description}
+                          </p>
                         </div>
-                        <ul className='grid grid-cols-2 gap-y-2 gap-x-6'>
-                          {midItem.bottomItems?.slice(0, itemsToShow).map((bottomItem) => {
-                            const url = bottomItem.link?.url ?? '/';
-                            const linkIsSelected = pathname == url;
+                        <ul className="grid grid-cols-2 gap-y-2 gap-x-6">
+                          {midItem.bottomItems
+                            ?.slice(0, itemsToShow)
+                            .map((bottomItem) => {
+                              const url = bottomItem.link?.url ?? '/';
+                              const linkIsSelected = pathname == url;
 
-                            return (
-                              <li
-                                key={bottomItem.id}
-                                className={'text-[13px] truncate leading-[1.7] ' +
-                                  (linkIsSelected && 'font-semibold text-' + colorToTailwind(hoveredItem.color || ""))
-                                }
-                              >
-                                <Link aria-label={bottomItem.label} url={url}>
-                                  {bottomItem.label}
-                                </Link>
-                              </li>
-                            );
-                          })}
+                              return (
+                                <li
+                                  key={bottomItem.id}
+                                  className={
+                                    'text-[13px] truncate leading-[1.7] ' +
+                                    (linkIsSelected &&
+                                      'font-semibold text-' +
+                                        colorToTailwind(
+                                          hoveredItem.color || '',
+                                        ))
+                                  }
+                                >
+                                  <Link aria-label={bottomItem.label} url={url}>
+                                    {bottomItem.label}
+                                  </Link>
+                                </li>
+                              );
+                            })}
                           {needsShowMore && (
                             <li className="col-span-2">
                               <button
@@ -190,9 +210,9 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({ data, pathname, th
         </AnimatePresence>
       </motion.div>
       {/* Sub-nav not visible in home */}
-      {pathname !== '/' &&
+      {pathname !== '/' && (
         <SubNav navigatedItem={navigatedItem} pathname={pathname} />
-      }
+      )}
     </motion.header>
   );
 };

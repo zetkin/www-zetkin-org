@@ -7,7 +7,5 @@ import { HeaderClient } from './Component.client';
 export async function Header() {
   const navData: MainNav = await getCachedGlobal('mainNav', 1)();
 
-  return (
-    <HeaderClient navData={navData} />
-  );
+  return <HeaderClient navData={navData} />;
 }
