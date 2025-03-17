@@ -2,6 +2,83 @@
 
 @config '../../../tailwind.config.mjs';
 
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/PlayfairDisplay-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/PlayfairDisplay-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-MediumItalic.ttf') format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-SemiBoldItalic.ttf') format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Plus Jakarta Sans';
+  src: url('/PlusJakartaSans-BoldItalic.ttf') format('truetype');
+  font-weight: 700;
+  font-style: italic;
+}
+
+@theme {
+  --color-primary: black;
+  --color-z-red: #C91E40;
+  --color-z-green: #0A7363;
+  --color-z-purple: #7801DD;
+}
+
 @layer base {
   *,
   ::after,
@@ -13,15 +90,6 @@
 }
 
 @layer base {
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-size: unset;
-    font-weight: unset;
-  }
 
   :root {
     --background: 0 0% 100%;
@@ -96,10 +164,9 @@
 
 @layer base {
   * {
-    @apply border-border;
   }
   body {
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    @apply min-h-[100vh] flex flex-col;
   }
 }
 
@@ -110,4 +177,74 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+
+ /* Default heading styles */
+ h1 {
+  @apply text-[3.25rem] leading-[1.30] font-bold font-sans;
+}
+
+h2 {
+  @apply text-[2.188rem] leading-[1.30] font-semibold font-sans;
+}
+
+h3 {
+  @apply text-[1.375rem] leading-[1.30] font-semibold font-sans;
+}
+
+h4 {
+  @apply text-[1.875rem] leading-[1.20] font-semibold font-sans;
+}
+
+h5 {
+  @apply text-[1.25rem] leading-[1.30] font-semibold font-sans;
+}
+
+h6 {
+  @apply text-[1.25rem] leading-[1.70] font-medium font-sans;
+}
+
+/* Serif heading styles */
+.srf-h1 {
+  @apply text-[3.375rem] leading-[1.30] font-serif font-normal;
+}
+
+.srf-h2 {
+  @apply text-[2.313rem] leading-[1.30] font-serif font-normal;
+}
+
+.srf-h3 {
+  @apply text-[1.5rem] leading-[1.30] font-serif font-normal;
+}
+
+/* Responsive styles for small screens */
+@media (min-width: 640px) {
+  h1 {
+    @apply text-[5rem];
+  }
+  
+  h2 {
+    @apply text-[3.25rem];
+  }
+  
+  h3 {
+    @apply text-[2.188rem];
+  }
+  
+  h4 {
+    @apply text-[2.188rem];
+  }
+  
+  .srf-h1 {
+    @apply text-[5.125rem];
+  }
+  
+  .srf-h2 {
+    @apply text-[3.375rem];
+  }
+  
+  .srf-h3 {
+    @apply text-[2.313rem];
+  }
 }
