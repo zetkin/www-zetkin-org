@@ -153,8 +153,8 @@ export interface Page {
       [k: string]: unknown;
     } | null;
     links: {
-      link?: {
-        type?: ('reference' | 'custom') | null;
+      link: {
+        type?: 'reference' | 'custom';
         reference?: {
           relationTo: 'pages';
           value: string | Page;
@@ -308,7 +308,7 @@ export interface ContentBlock {
         } | null;
         enableLink?: boolean | null;
         link?: {
-          type?: ('reference' | 'custom') | null;
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -821,8 +821,8 @@ export interface MainNav {
         longLabel?: string | null;
         color?: ('purple' | 'red' | 'green') | null;
         showInFooter?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -836,8 +836,8 @@ export interface MainNav {
               label?: string | null;
               description?: string | null;
               showInFooter?: boolean | null;
-              link?: {
-                type?: ('reference' | 'custom') | null;
+              link: {
+                type?: 'reference' | 'custom';
                 reference?: {
                   relationTo: 'pages';
                   value: string | Page;
@@ -848,8 +848,8 @@ export interface MainNav {
               bottomItems?:
                 | {
                     label?: string | null;
-                    link?: {
-                      type?: ('reference' | 'custom') | null;
+                    link: {
+                      type?: 'reference' | 'custom';
                       reference?: {
                         relationTo: 'pages';
                         value: string | Page;
