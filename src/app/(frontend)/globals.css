@@ -74,9 +74,13 @@
 
 @theme {
   --color-primary: black;
-  --color-z-red: #C91E40;
-  --color-z-green: #0A7363;
-  --color-z-purple: #7801DD;
+  --color-z-red: #c91e40;
+  --color-z-green: #0a7363;
+  --color-z-purple: #7801dd;
+  --color-z-gray-100: #f9f9f8;
+  --color-z-gray-200: #eaebea;
+  --color-z-gray-300: #a5a5a5;
+  --color-z-gray-400: #787878;
 }
 
 @layer base {
@@ -90,7 +94,6 @@
 }
 
 @layer base {
-
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
@@ -179,72 +182,73 @@ html[data-theme='light'] {
   opacity: initial;
 }
 
-
- /* Default heading styles */
- h1 {
-  @apply text-[3.25rem] leading-[1.30] font-bold font-sans;
-}
-
-h2 {
-  @apply text-[2.188rem] leading-[1.30] font-semibold font-sans;
-}
-
-h3 {
-  @apply text-[1.375rem] leading-[1.30] font-semibold font-sans;
-}
-
-h4 {
-  @apply text-[1.875rem] leading-[1.20] font-semibold font-sans;
-}
-
-h5 {
-  @apply text-[1.25rem] leading-[1.30] font-semibold font-sans;
-}
-
-h6 {
-  @apply text-[1.25rem] leading-[1.70] font-medium font-sans;
-}
-
-/* Serif heading styles */
-.srf-h1 {
-  @apply text-[3.375rem] leading-[1.30] font-serif font-normal;
-}
-
-.srf-h2 {
-  @apply text-[2.313rem] leading-[1.30] font-serif font-normal;
-}
-
-.srf-h3 {
-  @apply text-[1.5rem] leading-[1.30] font-serif font-normal;
-}
-
-/* Responsive styles for small screens */
-@media (min-width: 640px) {
+@layer base {
+  /* Default heading styles */
   h1 {
-    @apply text-[5rem];
+    @apply text-[3.25rem] leading-[1.30] font-bold font-sans;
   }
-  
+
   h2 {
-    @apply text-[3.25rem];
+    @apply text-[2.188rem] leading-[1.30] font-semibold font-sans;
   }
-  
+
   h3 {
-    @apply text-[2.188rem];
+    @apply text-[1.375rem] leading-[1.30] font-semibold font-sans;
   }
-  
+
   h4 {
-    @apply text-[2.188rem];
+    @apply text-[1.875rem] leading-[1.20] font-semibold font-sans;
   }
-  
+
+  h5 {
+    @apply text-[1.25rem] leading-[1.30] font-semibold font-sans;
+  }
+
+  h6 {
+    @apply text-[1.25rem] leading-[1.70] font-medium font-sans;
+  }
+
+  /* Serif heading styles */
   .srf-h1 {
-    @apply text-[5.125rem];
+    @apply text-[3.375rem] leading-[1.30] font-serif font-normal;
   }
-  
+
   .srf-h2 {
-    @apply text-[3.375rem];
+    @apply text-[2.313rem] leading-[1.30] font-serif font-normal;
   }
-  
+
   .srf-h3 {
-    @apply text-[2.313rem];
+    @apply text-[1.5rem] leading-[1.30] font-serif font-normal;
+  }
+
+  /* Responsive styles for small screens */
+  @media (min-width: 640px) {
+    h1 {
+      @apply text-[5rem];
+    }
+
+    h2 {
+      @apply text-[3.25rem];
+    }
+
+    h3 {
+      @apply text-[2.188rem];
+    }
+
+    h4 {
+      @apply text-[2.188rem];
+    }
+
+    .srf-h1 {
+      @apply text-[5.125rem];
+    }
+
+    .srf-h2 {
+      @apply text-[3.375rem];
+    }
+
+    .srf-h3 {
+      @apply text-[2.313rem];
+    }
   }
 }

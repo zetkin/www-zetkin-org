@@ -10,7 +10,7 @@ const blockComponents = {
 };
 
 export const RenderBlocks: React.FC<{
-  blocks: Page['layout'][0][];
+  blocks: Page['layout'];
 }> = (props) => {
   const { blocks } = props;
 
@@ -27,7 +27,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div key={index} className="my-16">
+                <div key={index} className="w-full h-full flex justify-center">
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>
