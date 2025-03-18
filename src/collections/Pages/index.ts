@@ -17,6 +17,7 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt';
 import { generatePreviewPath } from '../../utilities/generatePreviewPath';
 import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
 import { Landing } from '@/blocks/home/Landing/config';
+import { Gradient } from '@/blocks/home/Gradient/config';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -72,7 +73,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [Content, MediaBlock, Landing],
+              blocks: [Content, MediaBlock, Landing, Gradient],
               required: false,
               admin: {
                 initCollapsed: true,
