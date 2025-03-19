@@ -154,6 +154,7 @@ export interface Page {
     } | null;
     media?: (string | null) | Media;
   };
+  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -399,14 +400,47 @@ export interface GradientBlock {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "WhiteBg".
  */
+export interface WhiteBg {
+  layout?: ('uiCenter' | 'uiLeft' | 'imagesCenter' | 'imagesLeft' | 'imagesRight' | 'illustration') | null;
+  accentColor?: ('purple' | 'green' | 'red') | null;
+  title: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  subtitle: string;
+  buttons?:
     | {
-        image: string | Media;
+        label: string;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string;
+          newTab?: boolean | null;
+        };
         id?: string | null;
       }[]
     | null;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
   id?: string | null;
   blockName?: string | null;
-  blockType: 'gradient';
+  blockType: 'whiteBg';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -628,6 +662,7 @@ export interface PagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         landing?: T | LandingBlockSelect<T>;
         gradient?: T | GradientBlockSelect<T>;
+        whiteBg?: T | WhiteBgSelect<T>;
       };
   meta?:
     | T
@@ -748,6 +783,11 @@ export interface GradientBlockSelect<T extends boolean = true> {
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "WhiteBg_select".
  */
+export interface WhiteBgSelect<T extends boolean = true> {
+  layout?: T;
+  accentColor?: T;
+  title?: T;
+  subtitle?: T;
   buttons?:
     | T
     | {
