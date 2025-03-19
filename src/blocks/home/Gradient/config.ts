@@ -1,7 +1,6 @@
 import type { Block } from 'payload';
 import {
   FixedToolbarFeature,
-  HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical';
@@ -11,10 +10,16 @@ import { link } from '@/fields/link';
 export const Gradient: Block = {
   slug: 'gradient',
   interfaceName: 'GradientBlock',
+  labels: {
+    singular: 'Home - Gradient block',
+    plural: 'Home - Gradient blocks',
+  },
   fields: [
     {
       name: 'layout',
       type: 'select',
+      required: true,
+      label: 'Layout',
       options: [
         {
           label: 'Right aligned 1',
@@ -36,7 +41,7 @@ export const Gradient: Block = {
           label: 'Single image left/bottom overlap',
           value: 'singleImageLeftBottomOverlap',
         },
-      ]
+      ],
     },
     {
       name: 'title',
@@ -44,15 +49,14 @@ export const Gradient: Block = {
       label: 'Title',
       required: true,
       editor: lexicalEditor({
-            features: ({ rootFeatures }) => {
-              return [
-                ...rootFeatures,
-                HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
-                FixedToolbarFeature(),
-                InlineToolbarFeature(),
-              ];
-            },
-          }),
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ];
+        },
+      }),
     },
     {
       name: 'subtitle',
@@ -74,9 +78,24 @@ export const Gradient: Block = {
       ],
     },
     {
+      name: 'backgroundImageDesktop',
+      label: 'Background Image Desktop',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+    },
+    {
+      name: 'backgroundImageMobile',
+      label: 'Background Image Mobile',
+      type: 'upload',
+      relationTo: 'media',
+      required: true,
+    },
+    {
       name: 'images',
       type: 'array',
       label: 'Images',
+      required: true,
       maxRows: 2,
       fields: [
         {
@@ -86,6 +105,6 @@ export const Gradient: Block = {
           required: true,
         },
       ],
-    }
+    },
   ],
 };

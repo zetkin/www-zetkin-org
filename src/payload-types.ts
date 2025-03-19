@@ -154,7 +154,6 @@ export interface Page {
     } | null;
     media?: (string | null) | Media;
   };
-  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -354,9 +353,7 @@ export interface LandingBlock {
  * via the `definition` "GradientBlock".
  */
 export interface GradientBlock {
-  layout?:
-    | ('rightAligned1' | 'leftAligned1' | 'leftAligned2' | 'singleImageLeftOverlap' | 'singleImageLeftBottomOverlap')
-    | null;
+  layout: 'rightAligned1' | 'leftAligned1' | 'leftAligned2' | 'singleImageLeftOverlap' | 'singleImageLeftBottomOverlap';
   title: {
     root: {
       type: string;
@@ -388,7 +385,20 @@ export interface GradientBlock {
         id?: string | null;
       }[]
     | null;
-  images?:
+  backgroundImageDesktop: string | Media;
+  backgroundImageMobile: string | Media;
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gradient';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhiteBg".
+ */
     | {
         image: string | Media;
         id?: string | null;
@@ -709,6 +719,35 @@ export interface GradientBlockSelect<T extends boolean = true> {
   layout?: T;
   title?: T;
   subtitle?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              reference?: T;
+              url?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
+  backgroundImageDesktop?: T;
+  backgroundImageMobile?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhiteBg_select".
+ */
   buttons?:
     | T
     | {

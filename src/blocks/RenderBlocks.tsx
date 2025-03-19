@@ -10,7 +10,7 @@ const blockComponents = {
   content: ContentBlock,
   mediaBlock: MediaBlock,
   landing: LandingBlock,
-  gradient: GradientBlock
+  gradient: GradientBlock,
 };
 
 export const RenderBlocks: React.FC<{

@@ -73,7 +73,7 @@ export function FooterClient({ navData }: { navData: MainNav }) {
           </div>
         </div>
         <nav aria-label="Footer navigation">
-          <ul className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 md:flex md:gap-8">
+          <ul className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:flex lg:gap-8">
             {navData.topItems?.map((topItem) => (
               <li key={topItem.id} className="flex flex-col gap-5">
                 <Link
