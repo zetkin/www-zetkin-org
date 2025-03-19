@@ -154,6 +154,7 @@ export interface Page {
     } | null;
     media?: (string | null) | Media;
   };
+  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -391,19 +392,6 @@ export interface GradientBlock {
     image: string | Media;
     id?: string | null;
   }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'gradient';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "WhiteBg".
- */
-    | {
-        image: string | Media;
-        id?: string | null;
-      }[]
-    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'gradient';
@@ -735,33 +723,6 @@ export interface GradientBlockSelect<T extends boolean = true> {
       };
   backgroundImageDesktop?: T;
   backgroundImageMobile?: T;
-  images?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "WhiteBg_select".
- */
-  buttons?:
-    | T
-    | {
-        label?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              reference?: T;
-              url?: T;
-              newTab?: T;
-            };
-        id?: T;
-      };
   images?:
     | T
     | {
