@@ -141,7 +141,7 @@ export const MainNav: GlobalConfig = {
             try {
               if (typeof value === 'string') {
                 const url = new URL(value);
-                return !!url; 
+                return !!url;
               } else {
                 throw new Error('Invalid URL');
               }
