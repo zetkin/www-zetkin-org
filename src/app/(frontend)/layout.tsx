@@ -13,6 +13,7 @@ import { Providers } from '@/providers';
 import { InitTheme } from '@/providers/Theme/InitTheme';
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
 import { getServerSideURL } from '@/utilities/getURL';
+import { Footer } from '@/MainNav/Footer/Component';
 
 export default async function RootLayout({
   children,
@@ -42,6 +43,7 @@ export default async function RootLayout({
 
           <Header />
           {children}
+          <Footer />
         </Providers>
       </body>
     </html>

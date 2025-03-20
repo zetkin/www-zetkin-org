@@ -1,13 +1,14 @@
 import React from 'react';
-import { motion, useTransform, MotionValue } from 'motion/react';
+import { motion, useTransform, useScroll } from 'motion/react';
 interface Props {
   className?: string;
-  scrollY: MotionValue<number>;
   forceFull?: boolean;
 }
 
 export const Logo = (props: Props) => {
-  const { className, scrollY, forceFull } = props;
+  const { className, forceFull } = props;
+
+  const { scrollY } = useScroll();
 
   const opacity = useTransform(scrollY, [120, 180], [1, 0]);
   const maxHeight = useTransform(scrollY, [120, 200], [200, 0]);

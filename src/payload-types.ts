@@ -866,6 +866,13 @@ export interface MainNav {
         id?: string | null;
       }[]
     | null;
+  socialLinks?:
+    | {
+        platform: 'instagram' | 'facebook' | 'github';
+        link: string;
+        id?: string | null;
+      }[]
+    | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -920,6 +927,13 @@ export interface MainNavSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        link?: T;
         id?: T;
       };
   updatedAt?: T;

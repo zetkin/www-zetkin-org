@@ -14,13 +14,11 @@ import SubNav from './Components/SubNav';
 interface DesktopHeaderProps {
   data: MainNavTypes;
   pathname: string;
-  theme?: string | null;
 }
 
 export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   data,
   pathname,
-  theme,
 }) => {
   const [openId, setOpenId] = useState<string | null>(null);
   const [navigatedItem, setNavigatedItem] = useState(
@@ -78,7 +76,6 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           (o) => `0px 4px 32px 0px rgba(${headerShadow}${o})`,
         ),
       }}
-      {...(theme ? { 'data-theme': theme } : {})}
     >
       <motion.div
         className={`z-30 w-full flex px-5 py-3 justify-center border-b border-[rgba(238,238,238,0.7)] bg-white/95 backdrop-blur-[16px]`}
@@ -88,7 +85,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           {/* Logo */}
           <div className="w-fit py-0 relative bg-transparent flex ">
             <Link aria-label="Go to homepage" url="/">
-              <Logo scrollY={scrollY} />
+              <Logo />
             </Link>
           </div>
           {/* Main-nav */}

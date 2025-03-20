@@ -108,6 +108,50 @@ export const MainNav: GlobalConfig = {
         },
       ],
     },
+    {
+      name: 'socialLinks',
+      label: 'Social Links',
+      type: 'array',
+      fields: [
+        {
+          name: 'platform',
+          type: 'select',
+          required: true,
+          options: [
+            {
+              label: 'Instagram',
+              value: 'instagram',
+            },
+            {
+              label: 'Facebook',
+              value: 'facebook',
+            },
+            {
+              label: 'Github',
+              value: 'github',
+            },
+          ],
+        },
+        {
+          name: 'link',
+          type: 'text',
+          label: 'URL',
+          required: true,
+          validate: (value: string | string[] | null | undefined) => {
+            try {
+              if (typeof value === 'string') {
+                const url = new URL(value);
+                return !!url;
+              } else {
+                throw new Error('Invalid URL');
+              }
+            } catch (_err) {
+              return 'Invalid URL';
+            }
+          },
+        },
+      ],
+    },
   ],
   access: {
     read: () => true,
