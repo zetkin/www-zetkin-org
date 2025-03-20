@@ -422,6 +422,7 @@ export interface WhiteBg {
   buttons?:
     | {
         label: string;
+        variant: 'primary' | 'outline';
         link?: {
           type?: ('reference' | 'custom') | null;
           reference?: {
@@ -792,6 +793,7 @@ export interface WhiteBgSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        variant?: T;
         link?:
           | T
           | {

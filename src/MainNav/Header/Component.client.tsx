@@ -12,18 +12,6 @@ export function HeaderClient({ navData }: { navData: MainNav }) {
   const [theme, setTheme] = useState<string | null>(null);
   const { headerTheme, setHeaderTheme } = useHeaderTheme();
 
-  const _twPreDeclare = [
-    'text-z-purple',
-    'text-z-green',
-    'text-z-red',
-    'stroke-z-purple',
-    'stroke-z-green',
-    'stroke-z-red',
-    'shadow-z-purple',
-    'shadow-z-green',
-    'shadow-z-red',
-  ];
-
   const pathname = usePathname();
 
   useEffect(() => {

@@ -96,6 +96,21 @@ export const WhiteBg: Block = {
           label: 'Button label',
           required: true,
         },
+        {
+          name: 'variant',
+          type: 'select',
+          required: true,
+          options: [
+            {
+              label: 'Primary',
+              value: 'primary',
+            },
+            {
+              label: 'Outline',
+              value: 'outline',
+            },
+          ],
+        },
         link(),
       ],
     },
