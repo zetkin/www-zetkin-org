@@ -3,10 +3,12 @@ import React, { Fragment } from 'react';
 import type { Page } from '@/payload-types';
 import { ContentBlock } from '@/blocks/Content/Component';
 import { MediaBlock } from '@/blocks/MediaBlock/Component';
+import { LandingBlock } from './home/Landing/Component';
 
 const blockComponents = {
   content: ContentBlock,
   mediaBlock: MediaBlock,
+  landing: LandingBlock,
 };
 
 export const RenderBlocks: React.FC<{
