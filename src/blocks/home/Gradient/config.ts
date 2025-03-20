@@ -1,8 +1,9 @@
 import type { Block } from 'payload';
 import {
-  FixedToolbarFeature,
-  InlineToolbarFeature,
+  ItalicFeature,
   lexicalEditor,
+  InlineToolbarFeature,
+  FixedToolbarFeature
 } from '@payloadcms/richtext-lexical';
 
 import { link } from '@/fields/link';
@@ -49,13 +50,11 @@ export const Gradient: Block = {
       label: 'Title',
       required: true,
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ];
-        },
+        features: [
+          ItalicFeature(),
+          InlineToolbarFeature(),
+          FixedToolbarFeature(),
+        ]
       }),
     },
     {
@@ -108,3 +107,4 @@ export const Gradient: Block = {
     },
   ],
 };
+
