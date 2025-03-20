@@ -68,10 +68,12 @@ export const link: LinkType = ({ overrides = {} } = {}) => {
     fields: [
       {
         type: 'row',
+        required: true,
         fields: [
           {
             name: 'type',
             type: 'radio',
+            required: true,
             admin: {
               layout: 'horizontal',
               width: '50%',
