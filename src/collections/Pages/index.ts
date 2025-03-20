@@ -76,7 +76,6 @@ export const Pages: CollectionConfig<'pages'> = {
               type: 'blocks',
               blocks: [Content, MediaBlock, Landing, Gradient, WhiteBg],
               required: false,
-              blocks: [Content, MediaBlock, Landing, Gradient],
               admin: {
                 initCollapsed: true,
               },
