@@ -136,8 +136,11 @@ export interface Page {
   id: string;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText?: {
+    layout?:
+      | ('none' | 'twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter')
+      | null;
+    accentColor?: ('purple' | 'green' | 'red') | null;
+    title: {
       root: {
         type: string;
         children: {
@@ -151,10 +154,14 @@ export interface Page {
         version: number;
       };
       [k: string]: unknown;
-    } | null;
-    media?: (string | null) | Media;
+    };
+    readTime?: string | null;
+    images: {
+      image: string | Media;
+      id?: string | null;
+    }[];
   };
-  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg | Hero)[] | null;
+  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -445,37 +452,6 @@ export interface WhiteBg {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hero".
- */
-export interface Hero {
-  layout?: ('twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter') | null;
-  accentColor?: ('purple' | 'green' | 'red') | null;
-  title: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  readTime?: string | null;
-  images: {
-    image: string | Media;
-    id?: string | null;
-  }[];
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'hero';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -683,9 +659,16 @@ export interface PagesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
-        type?: T;
-        richText?: T;
-        media?: T;
+        layout?: T;
+        accentColor?: T;
+        title?: T;
+        readTime?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
       };
   layout?:
     | T
@@ -695,7 +678,6 @@ export interface PagesSelect<T extends boolean = true> {
         landing?: T | LandingBlockSelect<T>;
         gradient?: T | GradientBlockSelect<T>;
         whiteBg?: T | WhiteBgSelect<T>;
-        hero?: T | HeroSelect<T>;
       };
   meta?:
     | T
@@ -836,24 +818,6 @@ export interface WhiteBgSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  images?:
-    | T
-    | {
-        image?: T;
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hero_select".
- */
-export interface HeroSelect<T extends boolean = true> {
-  layout?: T;
-  accentColor?: T;
-  title?: T;
-  readTime?: T;
   images?:
     | T
     | {

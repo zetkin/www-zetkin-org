@@ -5,10 +5,19 @@ import { WhiteBg as WhiteBgProps } from '@/payload-types';
 import UICenter from './Layouts/UICenter';
 import colorToTailwind from '@/utilities/colorToTailwind';
 import ImagesCenter from './Layouts/ImagesCenter';
-import UIRight from './Layouts/UIRight';
+import UILeft from './Layouts/UILeft';
 import ImagesLeft from './Layouts/ImagesLeft';
 import ImagesRight from './Layouts/ImagesRight';
 import Illustration from './Layouts/Illustration';
+
+const layouts = {
+  imagesLeft: ImagesLeft,
+  imagesCenter: ImagesCenter,
+  imagesRight: ImagesRight,
+  uiLeft: UILeft,
+  uiCenter: UICenter,
+  illustration: Illustration,
+};
 
 export const WhiteBgBlock: React.FC<WhiteBgProps> = ({
   layout,
@@ -18,6 +27,16 @@ export const WhiteBgBlock: React.FC<WhiteBgProps> = ({
   images,
   accentColor,
 }) => {
+  if (!layout) {
+    return null;
+  }
+
+  const LayoutToRender = layouts[layout];
+
+  if (!LayoutToRender) {
+    return null;
+  }
+
   const html = convertLexicalToHTML({ data: title });
 
   const modifiedHtml = html
@@ -32,68 +51,14 @@ export const WhiteBgBlock: React.FC<WhiteBgProps> = ({
     )
     .replace(/<\/em>/g, '<\/span>');
 
-  function selectedLayout() {
-    switch (layout) {
-      case 'uiCenter':
-        return (
-          <Illustration
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'uiCenter':
-        return (
-          <ImagesRight
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'uiCenter':
-        return (
-          <ImagesLeft
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'uiCenter':
-        return (
-          <UIRight
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'uiCenter':
-        return (
-          <ImagesCenter
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'uiCenter':
-        return (
-          <UICenter
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-    }
-  }
-
   return (
     <div className="flex py-20 px-5 overflow-x-clip overflow-y-visible relative w-full justify-center">
-      {selectedLayout()}
+      <LayoutToRender
+        buttons={buttons}
+        html={modifiedHtml}
+        images={images}
+        subtitle={subtitle}
+      />
     </div>
   );
 };

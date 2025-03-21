@@ -1,8 +1,8 @@
 import type { Field } from 'payload';
 import {
   FixedToolbarFeature,
-  HeadingFeature,
   InlineToolbarFeature,
+  ItalicFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical';
 
@@ -11,55 +11,92 @@ export const hero: Field = {
   type: 'group',
   fields: [
     {
-      name: 'type',
+      name: 'layout',
+      label: 'Layout',
       type: 'select',
       defaultValue: 'none',
-      label: 'Type',
       options: [
         {
           label: 'None',
           value: 'none',
         },
         {
-          label: 'High Impact',
-          value: 'highImpact',
+          label: 'Two images - Left aligned',
+          value: 'twoImgLeft',
         },
         {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
+          label: 'Two images - Center aligned',
+          value: 'twoImgCenter',
         },
         {
-          label: 'Low Impact',
-          value: 'lowImpact',
+          label: 'One image - Left aligned',
+          value: 'oneImgLeft',
+        },
+        {
+          label: 'One image - Center aligned',
+          value: 'oneImgCenter',
+        },
+        {
+          label: 'Feature highlight - Left aligned',
+          value: 'featureLeft',
+        },
+        {
+          label: 'Feature highlight - Center aligned',
+          value: 'featureCenter',
         },
       ],
-      required: true,
     },
     {
-      name: 'richText',
-      type: 'richText',
-      editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ];
+      name: 'accentColor',
+      label: 'Accent Color',
+      type: 'select',
+      options: [
+        {
+          label: 'Purple',
+          value: 'purple',
         },
-      }),
-      label: false,
+        {
+          label: 'Green',
+          value: 'green',
+        },
+        {
+          label: 'Red',
+          value: 'red',
+        },
+      ],
     },
     {
-      name: 'media',
-      type: 'upload',
-      admin: {
-        condition: (_, { type } = {}) =>
-          ['highImpact', 'mediumImpact'].includes(type),
-      },
-      relationTo: 'media',
+      name: 'title',
+      type: 'richText',
+      label: 'Title',
       required: true,
+      editor: lexicalEditor({
+        features: [
+          ItalicFeature(),
+          InlineToolbarFeature(),
+          FixedToolbarFeature(),
+        ],
+      }),
+    },
+    {
+      name: 'readTime',
+      type: 'text',
+      label: 'Read time (in minutes)',
+    },
+    {
+      name: 'images',
+      type: 'array',
+      label: 'Images',
+      required: true,
+      maxRows: 2,
+      fields: [
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          required: true,
+        },
+      ],
     },
   ],
-  label: false,
 };
