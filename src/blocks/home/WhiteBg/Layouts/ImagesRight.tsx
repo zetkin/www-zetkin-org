@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { LayoutProps } from './LayoutProps';
 import { CMSLink as Link } from '@/components/Link';
 
-export default function LeftAligned1({
+export default function ImagesRight({
   subtitle,
   buttons,
   images = [],

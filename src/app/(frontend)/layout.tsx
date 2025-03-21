@@ -52,7 +52,6 @@ export default async function RootLayout({
               preview: isEnabled,
             }}
           />
-
           <Header />
           {children}
           <Footer />
