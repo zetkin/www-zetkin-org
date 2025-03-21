@@ -1,8 +1,3 @@
-// GradientBlock.tsx
-
-// 'use client'; can be kept for client-side rendering
-'use client';
-
 import React from 'react';
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html';
 

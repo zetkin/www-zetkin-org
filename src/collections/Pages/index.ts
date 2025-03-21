@@ -19,6 +19,7 @@ import { revalidateDelete, revalidatePage } from './hooks/revalidatePage';
 import { Landing } from '@/blocks/home/Landing/config';
 import { Gradient } from '@/blocks/home/Gradient/config';
 import { WhiteBg } from '@/blocks/home/WhiteBg/config';
+import { Hero } from '@/blocks/general/Hero/config';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -74,7 +75,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [Content, MediaBlock, Landing, Gradient, WhiteBg],
+              blocks: [Content, MediaBlock, Landing, Gradient, WhiteBg, Hero],
               required: false,
               admin: {
                 initCollapsed: true,

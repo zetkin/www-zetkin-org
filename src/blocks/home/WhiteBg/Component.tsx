@@ -1,8 +1,3 @@
-// GradientBlock.tsx
-
-// 'use client'; can be kept for client-side rendering
-'use client';
-
 import React from 'react';
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html';
 
@@ -15,7 +10,7 @@ import ImagesLeft from './Layouts/ImagesLeft';
 import ImagesRight from './Layouts/ImagesRight';
 import Illustration from './Layouts/Illustration';
 
-export const WhiteBg: React.FC<WhiteBgProps> = ({
+export const WhiteBgBlock: React.FC<WhiteBgProps> = ({
   layout,
   title,
   subtitle,

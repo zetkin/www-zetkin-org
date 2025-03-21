@@ -5,14 +5,16 @@ import { ContentBlock } from '@/blocks/Content/Component';
 import { MediaBlock } from '@/blocks/MediaBlock/Component';
 import { LandingBlock } from './home/Landing/Component';
 import { GradientBlock } from './home/Gradient/Component';
-import { WhiteBg } from './home/WhiteBg/Component';
+import { WhiteBgBlock } from './home/WhiteBg/Component';
+import { HeroBlock } from './general/Hero/Component';
 
 const blockComponents = {
   content: ContentBlock,
   mediaBlock: MediaBlock,
   landing: LandingBlock,
   gradient: GradientBlock,
-  whiteBg: WhiteBg,
+  whiteBg: WhiteBgBlock,
+  hero: HeroBlock,
 };
 
 export const RenderBlocks: React.FC<{
