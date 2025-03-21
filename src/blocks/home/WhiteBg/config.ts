@@ -2,6 +2,7 @@ import type { Block } from 'payload';
 import {
   FixedToolbarFeature,
   InlineToolbarFeature,
+  ItalicFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical';
 
@@ -71,13 +72,11 @@ export const WhiteBg: Block = {
       label: 'Title',
       required: true,
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ];
-        },
+        features: [
+          ItalicFeature(),
+          InlineToolbarFeature(),
+          FixedToolbarFeature(),
+        ],
       }),
     },
     {
