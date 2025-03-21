@@ -22,6 +22,18 @@ export default async function RootLayout({
 }) {
   const { isEnabled } = await draftMode();
 
+  const _twPreDeclare = [
+    'text-z-purple',
+    'text-z-green',
+    'text-z-red',
+    'stroke-z-purple',
+    'stroke-z-green',
+    'stroke-z-red',
+    'shadow-z-purple',
+    'shadow-z-green',
+    'shadow-z-red',
+  ];
+
   return (
     <html
       className={cn(GeistSans.variable, GeistMono.variable)}
