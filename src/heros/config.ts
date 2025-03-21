@@ -49,6 +49,9 @@ export const hero: Field = {
     {
       name: 'accentColor',
       label: 'Accent Color',
+      admin: {
+        condition: (_, { layout } = {}) => !['none'].includes(layout),
+      },
       type: 'select',
       options: [
         {
@@ -66,9 +69,17 @@ export const hero: Field = {
       ],
     },
     {
+      name: 'subtitle',
+      label: 'Sub-title',
+      type: 'text',
+    },
+    {
       name: 'title',
       type: 'richText',
       label: 'Title',
+      admin: {
+        condition: (_, { layout } = {}) => !['none'].includes(layout),
+      },
       required: true,
       editor: lexicalEditor({
         features: [
@@ -80,13 +91,19 @@ export const hero: Field = {
     },
     {
       name: 'readTime',
-      type: 'text',
+      type: 'number',
       label: 'Read time (in minutes)',
+      admin: {
+        condition: (_, { layout } = {}) => !['none'].includes(layout),
+      },
     },
     {
       name: 'images',
       type: 'array',
       label: 'Images',
+      admin: {
+        condition: (_, { layout } = {}) => !['none'].includes(layout),
+      },
       required: true,
       maxRows: 2,
       fields: [

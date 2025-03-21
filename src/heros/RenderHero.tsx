@@ -1,20 +1,30 @@
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html';
+import {
+  SerializedEditorState,
+  SerializedLexicalNode,
+} from '@payloadcms/richtext-lexical/lexical';
 
 import colorToTailwind from '@/utilities/colorToTailwind';
-import TwoImgLeft from './Layouts/TwoImgLeft';
 import { Page } from '@/payload-types';
+import TwoImgLeft from './Layouts/TwoImgLeft';
+import TwoImgCenter from './Layouts/TwoImgCenter';
+import OneImgLeft from './Layouts/OneImgLeft';
+import OneImgCenter from './Layouts/OneImgCenter';
+import FeatureLeft from './Layouts/FeatureLeft';
+import FeatureCenter from './Layouts/FeatureCenter';
 
 const heros = {
   twoImgLeft: TwoImgLeft,
-  twoImgCenter: TwoImgLeft,
-  oneImgLeft: TwoImgLeft,
-  oneImgCenter: TwoImgLeft,
-  featureLeft: TwoImgLeft,
-  featureCenter: TwoImgLeft,
+  twoImgCenter: TwoImgCenter,
+  oneImgLeft: OneImgLeft,
+  oneImgCenter: OneImgCenter,
+  featureLeft: FeatureLeft,
+  featureCenter: FeatureCenter,
 };
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const { layout, title, accentColor, readTime, images } = props || {};
+  const { layout, title, accentColor, readTime, images, subtitle } =
+    props || {};
 
   if (!layout || layout === 'none') {
     return null;
@@ -26,24 +36,29 @@ export const RenderHero: React.FC<Page['hero']> = (props) => {
     return null;
   }
 
-  const html = convertLexicalToHTML({ data: title });
+  const html = title
+    ? convertLexicalToHTML({
+        data: title as SerializedEditorState<SerializedLexicalNode>,
+      })
+    : '';
 
   const modifiedHtml = html
-    .replace(/<p>/g, '<h2 class="sm:text-[2.188rem]">')
+    .replace(/<p>/g, '<h2 class="">')
     .replace(/<\/p>/g, '<\/h2>')
     .replace(
       /<em>/g,
-      `<span class="srf-h2 sm:text-[2.313rem] text-${colorToTailwind(accentColor || 'purple')}">`,
+      `<span class="srf-h2 text-${colorToTailwind(accentColor || 'purple')}">`,
     )
     .replace(/<\/em>/g, '<\/span>');
 
   return (
-    <div className="flex py-20 px-5 overflow-x-clip overflow-y-visible relative w-full justify-center">
+    <div className="flex px-5 sm:pt-30 overflow-x-clip overflow-y-visible relative w-full justify-center">
       {
         <HeroToRender
           html={modifiedHtml}
-          images={images}
+          images={images || undefined}
           readTime={readTime || undefined}
+          subtitle={subtitle || undefined}
         />
       }
     </div>

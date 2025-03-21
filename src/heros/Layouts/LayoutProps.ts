@@ -1,7 +1,7 @@
 import { Media } from '@/payload-types';
 
 export type LayoutProps = {
-  readTime?: string;
+  readTime?: number;
   images:
     | {
         image: string | Media;
@@ -9,4 +9,5 @@ export type LayoutProps = {
       }[]
     | undefined;
   html: string;
+  subtitle?: string;
 };
