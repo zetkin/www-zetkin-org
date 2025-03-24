@@ -154,7 +154,7 @@ export interface Page {
     } | null;
     media?: (string | null) | Media;
   };
-  layout?: (ContentBlock | MediaBlock | LandingBlock)[] | null;
+  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -348,6 +348,64 @@ export interface LandingBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'landing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GradientBlock".
+ */
+export interface GradientBlock {
+  layout: 'rightAligned1' | 'leftAligned1' | 'leftAligned2' | 'singleImageLeftOverlap' | 'singleImageLeftBottomOverlap';
+  title: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  subtitle: string;
+  buttons?:
+    | {
+        label: string;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  frontColor: '#7801DD' | '#550096' | '#3F0071' | '#25E3B1' | '#0F7473' | '#0C5044' | '#123C3D' | '#C91E40' | '#82142D';
+  backgroundColor:
+    | '#7801DD'
+    | '#550096'
+    | '#3F0071'
+    | '#25E3B1'
+    | '#0F7473'
+    | '#0C5044'
+    | '#123C3D'
+    | '#C91E40'
+    | '#82142D';
+  desktopGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
+  mobileGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
+  images: {
+    image: string | Media;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gradient';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -568,6 +626,7 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         landing?: T | LandingBlockSelect<T>;
+        gradient?: T | GradientBlockSelect<T>;
       };
   meta?:
     | T
@@ -646,6 +705,41 @@ export interface LandingBlockSelect<T extends boolean = true> {
               url?: T;
               newTab?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GradientBlock_select".
+ */
+export interface GradientBlockSelect<T extends boolean = true> {
+  layout?: T;
+  title?: T;
+  subtitle?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              reference?: T;
+              url?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
+  frontColor?: T;
+  backgroundColor?: T;
+  desktopGradientPattern?: T;
+  mobileGradientPattern?: T;
+  images?:
+    | T
+    | {
+        image?: T;
         id?: T;
       };
   id?: T;

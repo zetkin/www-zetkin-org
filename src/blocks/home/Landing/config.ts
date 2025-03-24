@@ -5,6 +5,10 @@ import { link } from '@/fields/link';
 export const Landing: Block = {
   slug: 'landing',
   interfaceName: 'LandingBlock',
+  labels: {
+    singular: 'Home - Landing Block',
+    plural: 'Home - Landing Blocks',
+  },
   fields: [
     {
       name: 'leftTitle',
