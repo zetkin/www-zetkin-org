@@ -23,7 +23,7 @@ const heros = {
 };
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const { layout, title, accentColor, readTime, images, subtitle } =
+  const { layout, title, accentColor, readTime, images, eyebrowHeading, subtitle } =
     props || {};
 
   if (!layout || layout === 'none') {
@@ -38,8 +38,8 @@ export const RenderHero: React.FC<Page['hero']> = (props) => {
 
   const html = title
     ? convertLexicalToHTML({
-        data: title as SerializedEditorState<SerializedLexicalNode>,
-      })
+      data: title as SerializedEditorState<SerializedLexicalNode>,
+    })
     : '';
 
   const modifiedHtml = html
@@ -55,6 +55,7 @@ export const RenderHero: React.FC<Page['hero']> = (props) => {
     <div className="flex px-5 sm:pt-30 overflow-x-clip overflow-y-visible relative w-full justify-center">
       {
         <HeroToRender
+          eyebrowHeading={eyebrowHeading || undefined}
           html={modifiedHtml}
           images={images || undefined}
           readTime={readTime || undefined}

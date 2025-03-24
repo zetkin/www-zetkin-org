@@ -69,9 +69,12 @@ export const hero: Field = {
       ],
     },
     {
-      name: 'subtitle',
-      label: 'Sub-title',
+      name: 'eyebrowHeading',
+      label: 'Eyebrow heading',
       type: 'text',
+      admin: {
+        condition: (_, { layout } = {}) => !['none'].includes(layout),
+      },
     },
     {
       name: 'title',
@@ -88,6 +91,14 @@ export const hero: Field = {
           FixedToolbarFeature(),
         ],
       }),
+    },
+    {
+      name: 'subtitle',
+      type: 'text',
+      label: 'Sub-title',
+      admin: {
+        condition: (_, { layout } = {}) => ['featureLeft', 'featureCenter'].includes(layout),
+      },
     },
     {
       name: 'readTime',

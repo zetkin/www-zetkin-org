@@ -5,12 +5,12 @@ export default function TwoImgLeft({
   readTime,
   images = [],
   html,
-  subtitle,
+  eyebrowHeading,
 }: LayoutProps) {
   return (
     <div className="flex flex-col w-full gap-12 md:max-w-250">
       <div className="flex flex-col gap-4">
-        {subtitle && <p className="text-lg">{subtitle}</p>}
+        {eyebrowHeading && <p className="text-lg">{eyebrowHeading}</p>}
         {
           /* eslint-disable react/no-danger */
           <div className="" dangerouslySetInnerHTML={{ __html: html }} />
