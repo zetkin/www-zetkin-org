@@ -164,7 +164,7 @@ export interface Page {
         }[]
       | null;
   };
-  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg)[] | null;
+  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg | PreambleBlock)[] | null;
   meta?: {
     title?: string | null;
     /**
@@ -455,6 +455,34 @@ export interface WhiteBg {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PreambleBlock".
+ */
+export interface PreambleBlock {
+  layout: 'longHeaderNText' | 'longPreambleNText' | 'preambleOnly' | 'preambleHeaderTextNImage' | 'preambleNImage';
+  preamble?: string | null;
+  header?: string | null;
+  mainText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  image?: (string | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'preamble';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -682,6 +710,7 @@ export interface PagesSelect<T extends boolean = true> {
         landing?: T | LandingBlockSelect<T>;
         gradient?: T | GradientBlockSelect<T>;
         whiteBg?: T | WhiteBgSelect<T>;
+        preamble?: T | PreambleBlockSelect<T>;
       };
   meta?:
     | T
@@ -828,6 +857,19 @@ export interface WhiteBgSelect<T extends boolean = true> {
         image?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PreambleBlock_select".
+ */
+export interface PreambleBlockSelect<T extends boolean = true> {
+  layout?: T;
+  preamble?: T;
+  header?: T;
+  mainText?: T;
+  image?: T;
   id?: T;
   blockName?: T;
 }
