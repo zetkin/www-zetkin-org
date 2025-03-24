@@ -23,8 +23,15 @@ const heros = {
 };
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const { layout, title, accentColor, readTime, images, eyebrowHeading, subtitle } =
-    props || {};
+  const {
+    layout,
+    title,
+    accentColor,
+    readTime,
+    images,
+    eyebrowHeading,
+    subtitle,
+  } = props || {};
 
   if (!layout || layout === 'none') {
     return null;
@@ -38,8 +45,8 @@ export const RenderHero: React.FC<Page['hero']> = (props) => {
 
   const html = title
     ? convertLexicalToHTML({
-      data: title as SerializedEditorState<SerializedLexicalNode>,
-    })
+        data: title as SerializedEditorState<SerializedLexicalNode>,
+      })
     : '';
 
   const modifiedHtml = html

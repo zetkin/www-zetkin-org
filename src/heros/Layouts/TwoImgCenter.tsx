@@ -10,7 +10,9 @@ export default function TwoImgCenter({
   return (
     <div className="flex flex-col w-full gap-12 md:max-w-250">
       <div className="flex flex-col gap-4 w-full justify-center">
-        {eyebrowHeading && <p className="text-lg text-center">{eyebrowHeading}</p>}
+        {eyebrowHeading && (
+          <p className="text-lg text-center">{eyebrowHeading}</p>
+        )}
         {
           /* eslint-disable react/no-danger */
           <div

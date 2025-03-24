@@ -97,7 +97,8 @@ export const hero: Field = {
       type: 'text',
       label: 'Sub-title',
       admin: {
-        condition: (_, { layout } = {}) => ['featureLeft', 'featureCenter'].includes(layout),
+        condition: (_, { layout } = {}) =>
+          ['featureLeft', 'featureCenter'].includes(layout),
       },
     },
     {
