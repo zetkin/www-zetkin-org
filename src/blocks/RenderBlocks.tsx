@@ -14,7 +14,7 @@ const blockComponents = {
   landing: LandingBlock,
   gradient: GradientBlock,
   whiteBg: WhiteBgBlock,
-  preamble: PreambleBlock
+  preamble: PreambleBlock,
 };
 
 export const RenderBlocks: React.FC<{

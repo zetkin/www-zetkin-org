@@ -8,12 +8,15 @@ export default function FeatureLeft({
   subtitle,
 }: LayoutProps) {
   return (
-    <div className="flex flex-col w-full gap-12 md:max-w-250">
+    <div className="flex flex-col w-full gap-12 md:max-w-[630px] overflow-visible">
       <div className="flex flex-col gap-4">
         {subtitle && <p className="text-lg">{subtitle}</p>}
         {
           /* eslint-disable react/no-danger */
-          <div className="" dangerouslySetInnerHTML={{ __html: html }} />
+          <div
+            className="w-full sm:w-[80vw] sm:max-w-[740px]"
+            dangerouslySetInnerHTML={{ __html: html }}
+          />
         }
         {readTime && <p>{readTime} min read</p>}
       </div>

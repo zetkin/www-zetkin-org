@@ -6,5 +6,5 @@ export type LayoutProps = {
   header?: string;
   image?: string | Media;
   preamble?: string;
-  mainText?: SerializedEditorState
+  mainText?: SerializedEditorState;
 };
