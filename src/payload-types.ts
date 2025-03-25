@@ -165,7 +165,9 @@ export interface Page {
         }[]
       | null;
   };
-  layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg | PreambleBlock)[] | null;
+  layout?:
+    | (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg | PreambleBlock | PeopleHighlightBlock)[]
+    | null;
   meta?: {
     title?: string | null;
     /**
@@ -484,6 +486,33 @@ export interface PreambleBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PeopleHighlightBlock".
+ */
+export interface PeopleHighlightBlock {
+  borderTop?: boolean | null;
+  people?:
+    | {
+        image: string | Media;
+        quote: string;
+        description: string;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'people-higlight';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -713,6 +742,7 @@ export interface PagesSelect<T extends boolean = true> {
         gradient?: T | GradientBlockSelect<T>;
         whiteBg?: T | WhiteBgSelect<T>;
         preamble?: T | PreambleBlockSelect<T>;
+        'people-higlight'?: T | PeopleHighlightBlockSelect<T>;
       };
   meta?:
     | T
@@ -872,6 +902,31 @@ export interface PreambleBlockSelect<T extends boolean = true> {
   header?: T;
   mainText?: T;
   image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PeopleHighlightBlock_select".
+ */
+export interface PeopleHighlightBlockSelect<T extends boolean = true> {
+  borderTop?: T;
+  people?:
+    | T
+    | {
+        image?: T;
+        quote?: T;
+        description?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              reference?: T;
+              url?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

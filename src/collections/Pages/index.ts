@@ -20,6 +20,7 @@ import { Landing } from '@/blocks/home/Landing/config';
 import { Gradient } from '@/blocks/home/Gradient/config';
 import { WhiteBg } from '@/blocks/home/WhiteBg/config';
 import { Preamble } from '@/blocks/general/Preamble/config';
+import { PeopleHighlight } from '@/blocks/general/PeopleHighlight/config';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -82,6 +83,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Gradient,
                 WhiteBg,
                 Preamble,
+                PeopleHighlight
               ],
               required: false,
               admin: {
