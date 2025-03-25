@@ -72,6 +72,9 @@ export const hero: Field = {
       name: 'subtitle',
       label: 'Sub-title',
       type: 'text',
+      admin: {
+        condition: (_, { layout } = {}) => !['none'].includes(layout),
+      },
     },
     {
       name: 'title',
