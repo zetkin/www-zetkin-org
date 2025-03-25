@@ -10,11 +10,11 @@ import {
   RichText as RichTextWithoutBlocks,
 } from '@payloadcms/richtext-lexical/react';
 
-import { MediaBlock } from '@/blocks/MediaBlock/Component';
-import type { MediaBlock as MediaBlockProps } from '@/payload-types';
 import { cn } from '@/utilities/ui';
+import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
+import type { TextWithQuoteBlock as TextWithQuoteBlockProps } from '@/payload-types';
 
-type NodeTypes = DefaultNodeTypes | SerializedBlockNode<MediaBlockProps>;
+type NodeTypes = DefaultNodeTypes;
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
   const { value, relationTo } = linkNode.fields.doc!;
@@ -31,16 +31,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
   ...defaultConverters,
   ...LinkJSXConverter({ internalDocToHref }),
   blocks: {
-    mediaBlock: ({ node }) => (
-      <MediaBlock
-        className="col-start-1 col-span-3"
-        imgClassName="m-0"
-        {...node.fields}
-        captionClassName="mx-auto max-w-[48rem]"
-        disableInnerContainer={true}
-        enableGutter={false}
-      />
-    ),
+    textWithQuote: ({
+      node,
+    }: {
+      node: SerializedBlockNode<TextWithQuoteBlockProps>;
+    }) => <TextWithQuoteBlock {...node.fields} />,
   },
 });
 
