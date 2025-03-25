@@ -58,7 +58,7 @@ export const GradientBlock: React.FC<GradientBlockProps> = ({
     .replace(/<\/p>/g, '<\/h2>')
     .replace(/<em>/g, '<span class="srf-h2 sm:text-[2.313rem]">')
     .replace(/<\/em>/g, '<\/span>');
-  
+
   function selectedDesktopPattern() {
     switch (desktopGradientPattern) {
       case '1':
@@ -112,9 +112,7 @@ export const GradientBlock: React.FC<GradientBlockProps> = ({
         <div className="absolute hidden sm:inline">
           {selectedDesktopPattern()}
         </div>
-        <div className="absolute sm:hidden ">
-          {selectedMobilePattern()}
-        </div>
+        <div className="absolute sm:hidden ">{selectedMobilePattern()}</div>
       </div>
     </div>
   );
