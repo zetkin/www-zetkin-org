@@ -83,7 +83,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Gradient,
                 WhiteBg,
                 Preamble,
-                PeopleHighlight
+                PeopleHighlight,
               ],
               required: false,
               admin: {

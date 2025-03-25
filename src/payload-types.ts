@@ -490,6 +490,7 @@ export interface PreambleBlock {
  */
 export interface PeopleHighlightBlock {
   borderTop?: boolean | null;
+  linkColor?: ('purple' | 'red' | 'green') | null;
   people?:
     | {
         image: string | Media;
@@ -509,7 +510,7 @@ export interface PeopleHighlightBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'people-higlight';
+  blockType: 'peopleHighlight';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -742,7 +743,7 @@ export interface PagesSelect<T extends boolean = true> {
         gradient?: T | GradientBlockSelect<T>;
         whiteBg?: T | WhiteBgSelect<T>;
         preamble?: T | PreambleBlockSelect<T>;
-        'people-higlight'?: T | PeopleHighlightBlockSelect<T>;
+        peopleHighlight?: T | PeopleHighlightBlockSelect<T>;
       };
   meta?:
     | T
@@ -911,6 +912,7 @@ export interface PreambleBlockSelect<T extends boolean = true> {
  */
 export interface PeopleHighlightBlockSelect<T extends boolean = true> {
   borderTop?: T;
+  linkColor?: T;
   people?:
     | T
     | {

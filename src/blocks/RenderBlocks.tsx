@@ -16,7 +16,7 @@ const blockComponents = {
   gradient: GradientBlock,
   whiteBg: WhiteBgBlock,
   preamble: PreambleBlock,
-  peopleHightlight: PeopleHighlightBlock
+  peopleHighlight: PeopleHighlightBlock,
 };
 
 export const RenderBlocks: React.FC<{
