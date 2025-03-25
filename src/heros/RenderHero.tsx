@@ -23,8 +23,15 @@ const heros = {
 };
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const { layout, title, accentColor, readTime, images, subtitle } =
-    props || {};
+  const {
+    layout,
+    title,
+    accentColor,
+    readTime,
+    images,
+    eyebrowHeading,
+    subtitle,
+  } = props || {};
 
   if (!layout || layout === 'none') {
     return null;
@@ -55,6 +62,7 @@ export const RenderHero: React.FC<Page['hero']> = (props) => {
     <div className="flex px-5 sm:pt-30 overflow-x-clip overflow-y-visible relative w-full justify-center">
       {
         <HeroToRender
+          eyebrowHeading={eyebrowHeading || undefined}
           html={modifiedHtml}
           images={images || undefined}
           readTime={readTime || undefined}

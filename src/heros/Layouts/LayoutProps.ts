@@ -9,5 +9,6 @@ export type LayoutProps = {
       }[]
     | undefined;
   html: string;
+  eyebrowHeading?: string;
   subtitle?: string;
 };

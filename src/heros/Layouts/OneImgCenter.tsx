@@ -5,12 +5,14 @@ export default function OneImgCenter({
   readTime,
   images = [],
   html,
-  subtitle,
+  eyebrowHeading,
 }: LayoutProps) {
   return (
     <div className="flex flex-col w-full gap-12 xl:max-w-250">
       <div className="flex flex-col gap-4 justify-center">
-        {subtitle && <p className="text-lg text-center">{subtitle}</p>}
+        {eyebrowHeading && (
+          <p className="text-lg text-center">{eyebrowHeading}</p>
+        )}
         {
           /* eslint-disable react/no-danger */
           <div

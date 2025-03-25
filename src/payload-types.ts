@@ -140,7 +140,7 @@ export interface Page {
       | ('none' | 'twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter')
       | null;
     accentColor?: ('purple' | 'green' | 'red') | null;
-    subtitle?: string | null;
+    eyebrowHeading?: string | null;
     title?: {
       root: {
         type: string;
@@ -156,6 +156,7 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
+    subtitle?: string | null;
     readTime?: number | null;
     images?:
       | {
@@ -692,8 +693,9 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         layout?: T;
         accentColor?: T;
-        subtitle?: T;
+        eyebrowHeading?: T;
         title?: T;
+        subtitle?: T;
         readTime?: T;
         images?:
           | T
