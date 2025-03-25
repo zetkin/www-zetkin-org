@@ -138,19 +138,16 @@ export const MainNav: GlobalConfig = {
           label: 'URL',
           required: true,
           validate: (value: string | string[] | null | undefined) => {
-            if (typeof value !== 'string') {
+            try {
+              if (typeof value === 'string') {
+                const url = new URL(value);
+                return !!url;
+              } else {
+                throw new Error('Invalid URL');
+              }
+            } catch (_err) {
               return 'Invalid URL';
             }
-            const urlPattern = new RegExp(
-              '^(https?:\\/\\/)?' + // protocol
-                '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|' + // domain name
-                '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-                '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-                '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-                '(\\#[-a-z\\d_]*)?$',
-              'i',
-            ); // fragment locator
-            return !!urlPattern.test(value) || 'Invalid URL';
           },
         },
       ],
