@@ -1,11 +1,51 @@
 import type { Block } from 'payload';
 import {
-  FixedToolbarFeature,
-  InlineToolbarFeature,
+  ItalicFeature,
   lexicalEditor,
+  InlineToolbarFeature,
+  FixedToolbarFeature,
 } from '@payloadcms/richtext-lexical';
 
 import { link } from '@/fields/link';
+
+const colorOptions = [
+  {
+    value: '#7801DD',
+    label: 'Purple 100',
+  },
+  {
+    value: '#550096',
+    label: 'Purple 200',
+  },
+  {
+    value: '#3F0071',
+    label: 'Purple 300',
+  },
+  {
+    value: '#25E3B1',
+    label: 'Light green 300',
+  },
+  {
+    value: '#0F7473',
+    label: 'Dark green 100',
+  },
+  {
+    value: '#0C5044',
+    label: 'Dark green 300',
+  },
+  {
+    value: '#123C3D',
+    label: 'Dark green 400',
+  },
+  {
+    value: '#C91E40',
+    label: 'Red 300',
+  },
+  {
+    value: '#82142D',
+    label: 'Red 400',
+  },
+];
 
 export const Gradient: Block = {
   slug: 'gradient',
@@ -49,13 +89,11 @@ export const Gradient: Block = {
       label: 'Title',
       required: true,
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ];
-        },
+        features: [
+          ItalicFeature(),
+          InlineToolbarFeature(),
+          FixedToolbarFeature(),
+        ],
       }),
     },
     {
@@ -78,18 +116,82 @@ export const Gradient: Block = {
       ],
     },
     {
-      name: 'backgroundImageDesktop',
-      label: 'Background Image Desktop',
-      type: 'upload',
-      relationTo: 'media',
+      name: 'frontColor',
+      label: 'Front color',
+      type: 'select',
       required: true,
+      options: colorOptions,
     },
     {
-      name: 'backgroundImageMobile',
-      label: 'Background Image Mobile',
-      type: 'upload',
-      relationTo: 'media',
+      name: 'backgroundColor',
+      label: 'Background color',
       required: true,
+      type: 'select',
+      options: colorOptions,
+    },
+    {
+      name: 'desktopGradientPattern',
+      label: 'Desktop gradient pattern',
+      type: 'select',
+      required: true,
+      options: [
+        {
+          value: '1',
+          label: '1',
+        },
+        {
+          value: '2',
+          label: '2',
+        },
+        {
+          value: '3',
+          label: '3',
+        },
+        {
+          value: '4',
+          label: '4',
+        },
+        {
+          value: '5',
+          label: '5',
+        },
+        {
+          value: '6',
+          label: '6',
+        },
+      ],
+    },
+    {
+      name: 'mobileGradientPattern',
+      label: 'Mobile gradient pattern',
+      type: 'select',
+      required: true,
+      options: [
+        {
+          value: '1',
+          label: '1',
+        },
+        {
+          value: '2',
+          label: '2',
+        },
+        {
+          value: '3',
+          label: '3',
+        },
+        {
+          value: '4',
+          label: '4',
+        },
+        {
+          value: '5',
+          label: '5',
+        },
+        {
+          value: '6',
+          label: '6',
+        },
+      ],
     },
     {
       name: 'images',
