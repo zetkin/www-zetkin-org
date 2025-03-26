@@ -8,6 +8,7 @@ import {
 } from '@payloadcms/richtext-lexical';
 
 import { TextWithQuote } from './TextWithQuote/config';
+import { Image } from './Image/config';
 
 export const Article: Block = {
   slug: 'article',
@@ -25,7 +26,7 @@ export const Article: Block = {
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             BlocksFeature({
-              blocks: [TextWithQuote],
+              blocks: [TextWithQuote, Image],
             }),
           ];
         },
