@@ -13,7 +13,7 @@ type TwoImgProps = {
 export default function TwoImg({ images = [], setLightBoxImage }: TwoImgProps) {
   return (
     <div>
-      <div className="h-[92vw] md:h-[70vw] md:max-h-[651px] md:w-full relative">
+      <div className="h-[92vw] md:h-[70vw] md:max-h-[540px] md:w-full relative">
         <div
           className="object-cover absolute h-[46vw] w-[76vw] -left-1/14 top-0 md:left-auto md:right-[min(35vw,331px)] md:top-0 md:w-[55vw] md:max-w-[375px] md:h-[55vw] md:max-h-[375px]"
           onClick={() =>
