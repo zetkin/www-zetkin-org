@@ -166,7 +166,16 @@ export interface Page {
       | null;
   };
   layout?:
-    | (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg | PreambleBlock | PeopleHighlightBlock)[]
+    | (
+        | ContentBlock
+        | MediaBlock
+        | LandingBlock
+        | GradientBlock
+        | WhiteBg
+        | PreambleBlock
+        | PeopleHighlightBlock
+        | ArticleBlock
+      )[]
     | null;
   meta?: {
     title?: string | null;
@@ -514,6 +523,31 @@ export interface PeopleHighlightBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArticleBlock".
+ */
+export interface ArticleBlock {
+  richText?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  linkColor?: ('purple' | 'green' | 'red') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'article';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -744,6 +778,7 @@ export interface PagesSelect<T extends boolean = true> {
         whiteBg?: T | WhiteBgSelect<T>;
         preamble?: T | PreambleBlockSelect<T>;
         peopleHighlight?: T | PeopleHighlightBlockSelect<T>;
+        article?: T | ArticleBlockSelect<T>;
       };
   meta?:
     | T
@@ -929,6 +964,16 @@ export interface PeopleHighlightBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ArticleBlock_select".
+ */
+export interface ArticleBlockSelect<T extends boolean = true> {
+  richText?: T;
+  linkColor?: T;
   id?: T;
   blockName?: T;
 }
@@ -1267,6 +1312,32 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextWithQuoteBlock".
+ */
+export interface TextWithQuoteBlock {
+  richText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  quote: string;
+  quoteColor?: ('purple' | 'green' | 'red') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'textWithQuote';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

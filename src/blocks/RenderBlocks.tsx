@@ -8,6 +8,8 @@ import { GradientBlock } from './home/Gradient/Component';
 import { WhiteBgBlock } from './home/WhiteBg/Component';
 import { PreambleBlock } from './general/Preamble/Component';
 import { PeopleHighlightBlock } from './general/PeopleHighlight/Component';
+import { ArticleBlock } from './Article/Component';
+import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
 
 const blockComponents = {
   content: ContentBlock,
@@ -17,6 +19,8 @@ const blockComponents = {
   whiteBg: WhiteBgBlock,
   preamble: PreambleBlock,
   peopleHighlight: PeopleHighlightBlock,
+  article: ArticleBlock,
+  textWithQuote: TextWithQuoteBlock,
 };
 
 export const RenderBlocks: React.FC<{
