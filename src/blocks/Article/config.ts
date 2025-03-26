@@ -10,6 +10,8 @@ import {
 import { TextWithQuote } from './TextWithQuote/config';
 import { Image } from './Image/config';
 import { Button } from './Button/config';
+import { Author } from './Author/config';
+import { InfoBox } from './InfoBox/config';
 
 export const Article: Block = {
   slug: 'article',
@@ -27,7 +29,7 @@ export const Article: Block = {
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             BlocksFeature({
-              blocks: [TextWithQuote, Image, Button],
+              blocks: [TextWithQuote, Image, Button, Author, InfoBox],
             }),
           ];
         },

@@ -14,9 +14,13 @@ import { cn } from '@/utilities/ui';
 import type { TextWithQuoteBlock as TextWithQuoteBlockProps } from '@/payload-types';
 import type { ImageBlock as ImageBlockProps } from '@/payload-types';
 import type { ButtonBlock as ButtonBlockProps } from '@/payload-types';
+import type { AuthorBlock as AuthorBlockProps } from '@/payload-types';
+import type { InfoBoxBlock as InfoBoxBlockProps } from '@/payload-types';
 import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
 import { ImageBlock } from '@/blocks/Article/Image/Component';
 import { ButtonBlock } from '@/blocks/Article/Button/Component';
+import { AuthorBlock } from '@/blocks/Article/Author/Component';
+import { InfoBoxBlock } from '@/blocks/Article/InfoBox/Component';
 
 type NodeTypes = DefaultNodeTypes;
 
@@ -45,6 +49,12 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
     ),
     button: ({ node }: { node: SerializedBlockNode<ButtonBlockProps> }) => (
       <ButtonBlock {...node.fields} />
+    ),
+    infoBox: ({ node }: { node: SerializedBlockNode<InfoBoxBlockProps> }) => (
+      <InfoBoxBlock {...node.fields} />
+    ),
+    author: ({ node }: { node: SerializedBlockNode<AuthorBlockProps> }) => (
+      <AuthorBlock {...node.fields} />
     ),
   },
 });
