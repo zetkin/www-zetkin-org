@@ -8,18 +8,6 @@ import { DesktopHeader } from './Desktop';
 import type { MainNav } from '@/payload-types';
 
 export function HeaderClient({ navData }: { navData: MainNav }) {
-  const _twPreDeclare = [
-    'text-z-purple',
-    'text-z-green',
-    'text-z-red',
-    'stroke-z-purple',
-    'stroke-z-green',
-    'stroke-z-red',
-    'shadow-z-purple',
-    'shadow-z-green',
-    'shadow-z-red',
-  ];
-
   const pathname = usePathname();
 
   return (
