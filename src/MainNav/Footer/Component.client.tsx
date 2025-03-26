@@ -29,11 +29,11 @@ export function FooterClient({ navData }: { navData: MainNav }) {
   function getIcon(socialLink: string) {
     switch (socialLink) {
       case 'facebook':
-        return <IconFacebook />;
+        return <IconFacebook color="black" height="24px" width="24px" />;
       case 'instagram':
-        return <IconInstagram />;
+        return <IconInstagram color="black" height="24px" width="24px" />;
       case 'github':
-        return <IconGithub />;
+        return <IconGithub color="black" height="24px" width="24px" />;
     }
   }
 

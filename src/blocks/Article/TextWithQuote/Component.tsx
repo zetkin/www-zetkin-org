@@ -23,7 +23,7 @@ export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
 
   useEffect(() => {
     const handleResize = () => {
-      setIsLargeScreen(window.innerWidth >= 640);
+      setIsLargeScreen(window.innerWidth >= 680);
     };
 
     handleResize();
