@@ -10,6 +10,7 @@ import { PreambleBlock } from './general/Preamble/Component';
 import { PeopleHighlightBlock } from './general/PeopleHighlight/Component';
 import { ArticleBlock } from './Article/Component';
 import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
+import { ImageBlock } from './Article/Image/Component';
 
 const blockComponents = {
   content: ContentBlock,
@@ -21,6 +22,7 @@ const blockComponents = {
   peopleHighlight: PeopleHighlightBlock,
   article: ArticleBlock,
   textWithQuote: TextWithQuoteBlock,
+  image: ImageBlock,
 };
 
 export const RenderBlocks: React.FC<{

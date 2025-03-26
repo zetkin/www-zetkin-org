@@ -11,8 +11,10 @@ import {
 } from '@payloadcms/richtext-lexical/react';
 
 import { cn } from '@/utilities/ui';
-import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
 import type { TextWithQuoteBlock as TextWithQuoteBlockProps } from '@/payload-types';
+import type { ImageBlock as ImageBlockProps } from '@/payload-types';
+import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
+import { ImageBlock } from '@/blocks/Article/Image/Component';
 
 type NodeTypes = DefaultNodeTypes;
 
@@ -36,6 +38,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
     }: {
       node: SerializedBlockNode<TextWithQuoteBlockProps>;
     }) => <TextWithQuoteBlock {...node.fields} />,
+    image: ({ node }: { node: SerializedBlockNode<ImageBlockProps> }) => (
+      <ImageBlock {...node.fields} />
+    ),
   },
 });
 
