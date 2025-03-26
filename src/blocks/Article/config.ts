@@ -9,6 +9,7 @@ import {
 
 import { TextWithQuote } from './TextWithQuote/config';
 import { Image } from './Image/config';
+import { Button } from './Button/config';
 
 export const Article: Block = {
   slug: 'article',
@@ -26,7 +27,7 @@ export const Article: Block = {
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             BlocksFeature({
-              blocks: [TextWithQuote, Image],
+              blocks: [TextWithQuote, Image, Button],
             }),
           ];
         },

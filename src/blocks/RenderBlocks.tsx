@@ -11,6 +11,7 @@ import { PeopleHighlightBlock } from './general/PeopleHighlight/Component';
 import { ArticleBlock } from './Article/Component';
 import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
 import { ImageBlock } from './Article/Image/Component';
+import { ButtonBlock } from './Article/Button/Component';
 
 const blockComponents = {
   content: ContentBlock,
@@ -23,6 +24,7 @@ const blockComponents = {
   article: ArticleBlock,
   textWithQuote: TextWithQuoteBlock,
   image: ImageBlock,
+  button: ButtonBlock,
 };
 
 export const RenderBlocks: React.FC<{

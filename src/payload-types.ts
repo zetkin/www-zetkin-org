@@ -1358,6 +1358,20 @@ export interface ImageBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "buttonBlock".
+ */
+export interface ButtonBlock {
+  buttons: {
+    label?: string | null;
+    variant?: ('primary' | 'outline') | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'button';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {

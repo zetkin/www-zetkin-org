@@ -13,8 +13,10 @@ import {
 import { cn } from '@/utilities/ui';
 import type { TextWithQuoteBlock as TextWithQuoteBlockProps } from '@/payload-types';
 import type { ImageBlock as ImageBlockProps } from '@/payload-types';
+import type { ButtonBlock as ButtonBlockProps } from '@/payload-types';
 import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
 import { ImageBlock } from '@/blocks/Article/Image/Component';
+import { ButtonBlock } from '@/blocks/Article/Button/Component';
 
 type NodeTypes = DefaultNodeTypes;
 
@@ -40,6 +42,9 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
     }) => <TextWithQuoteBlock {...node.fields} />,
     image: ({ node }: { node: SerializedBlockNode<ImageBlockProps> }) => (
       <ImageBlock {...node.fields} />
+    ),
+    button: ({ node }: { node: SerializedBlockNode<ButtonBlockProps> }) => (
+      <ButtonBlock {...node.fields} />
     ),
   },
 });
