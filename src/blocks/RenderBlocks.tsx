@@ -6,6 +6,7 @@ import { MediaBlock } from '@/blocks/MediaBlock/Component';
 import { LandingBlock } from './home/Landing/Component';
 import { GradientBlock } from './home/Gradient/Component';
 import { WhiteBgBlock } from './home/WhiteBg/Component';
+import { PreambleBlock } from './general/Preamble/Component';
 
 const blockComponents = {
   content: ContentBlock,
@@ -13,6 +14,7 @@ const blockComponents = {
   landing: LandingBlock,
   gradient: GradientBlock,
   whiteBg: WhiteBgBlock,
+  preamble: PreambleBlock,
 };
 
 export const RenderBlocks: React.FC<{

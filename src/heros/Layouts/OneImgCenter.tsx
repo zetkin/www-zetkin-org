@@ -22,7 +22,7 @@ export default function OneImgCenter({
         }
         {readTime && <p className="text-center">{readTime} min read</p>}
       </div>
-      <div className="h-[80vw] xl:h-[70vw] xl:max-h-[651px] xl:w-full relative">
+      <div className="h-[80vw] xl:h-[70vw] xl:max-h-[700px] xl:w-full relative">
         <div className="object-cover absolute h-[76vw] w-[94vw] -left-1/14 top-0 xl:left-auto xl:right-[min(-24%,-185px)] xl:top-0 xl:w-[120vw] xl:max-w-[1400px] xl:h-[60vw] xl:max-h-[700px]">
           {images[0]?.image && (
             <ImageMedia
