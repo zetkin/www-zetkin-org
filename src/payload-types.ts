@@ -135,9 +135,13 @@ export interface UserAuthOperations {
 export interface Page {
   id: string;
   title: string;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
-    richText?: {
+  hero?: {
+    layout?:
+      | ('none' | 'twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter')
+      | null;
+    accentColor?: ('purple' | 'green' | 'red') | null;
+    eyebrowHeading?: string | null;
+    title?: {
       root: {
         type: string;
         children: {
@@ -152,7 +156,14 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
-    media?: (string | null) | Media;
+    subtitle?: string | null;
+    readTime?: number | null;
+    images?:
+      | {
+          image: string | Media;
+          id?: string | null;
+        }[]
+      | null;
   };
   layout?: (ContentBlock | MediaBlock | LandingBlock | GradientBlock | WhiteBg)[] | null;
   meta?: {
@@ -663,9 +674,18 @@ export interface PagesSelect<T extends boolean = true> {
   hero?:
     | T
     | {
-        type?: T;
-        richText?: T;
-        media?: T;
+        layout?: T;
+        accentColor?: T;
+        eyebrowHeading?: T;
+        title?: T;
+        subtitle?: T;
+        readTime?: T;
+        images?:
+          | T
+          | {
+              image?: T;
+              id?: T;
+            };
       };
   layout?:
     | T

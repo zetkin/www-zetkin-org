@@ -1,8 +1,3 @@
-// GradientBlock.tsx
-
-// 'use client'; can be kept for client-side rendering
-'use client';
-
 import React from 'react';
 import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html';
 
@@ -27,6 +22,14 @@ import {
   MobilePattern6,
 } from './SvgBackgrounds';
 
+const gradients = {
+  rightAligned1: RightAligned1,
+  leftAligned1: LeftAligned1,
+  leftAligned2: LeftAligned2,
+  singleImageLeftOverlap: SingleImageLeftOverlap,
+  singleImageLeftBottomOverlap: SingleImageLeftBottomOverlap,
+};
+
 export const GradientBlock: React.FC<GradientBlockProps> = ({
   layout,
   title,
@@ -38,6 +41,16 @@ export const GradientBlock: React.FC<GradientBlockProps> = ({
   frontColor,
   backgroundColor,
 }) => {
+  if (!layout) {
+    return null;
+  }
+
+  const GradientToRender = gradients[layout];
+
+  if (!GradientToRender) {
+    return null;
+  }
+
   const html = convertLexicalToHTML({ data: title });
 
   const modifiedHtml = html
@@ -45,56 +58,6 @@ export const GradientBlock: React.FC<GradientBlockProps> = ({
     .replace(/<\/p>/g, '<\/h2>')
     .replace(/<em>/g, '<span class="srf-h2 sm:text-[2.313rem]">')
     .replace(/<\/em>/g, '<\/span>');
-
-  function selectedLayout() {
-    switch (layout) {
-      case 'rightAligned1':
-        return (
-          <RightAligned1
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'leftAligned1':
-        return (
-          <LeftAligned1
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'leftAligned2':
-        return (
-          <LeftAligned2
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'singleImageLeftOverlap':
-        return (
-          <SingleImageLeftOverlap
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-      case 'singleImageLeftBottomOverlap':
-        return (
-          <SingleImageLeftBottomOverlap
-            buttons={buttons}
-            html={modifiedHtml}
-            images={images}
-            subtitle={subtitle}
-          />
-        );
-    }
-  }
 
   function selectedDesktopPattern() {
     switch (desktopGradientPattern) {
@@ -132,7 +95,12 @@ export const GradientBlock: React.FC<GradientBlockProps> = ({
 
   return (
     <div className="flex py-20 px-5 overflow-x-clip overflow-y-visible relative w-full justify-center md:h-[600px]">
-      {selectedLayout()}
+      <GradientToRender
+        buttons={buttons}
+        html={modifiedHtml}
+        images={images}
+        subtitle={subtitle}
+      />
       <div
         className="w-full h-full absolute top-0 overflow-clip"
         style={{

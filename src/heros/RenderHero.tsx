@@ -1,28 +1,74 @@
-import React from 'react';
+import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html';
+import {
+  SerializedEditorState,
+  SerializedLexicalNode,
+} from '@payloadcms/richtext-lexical/lexical';
 
-import type { Page } from '@/payload-types';
-import { HighImpactHero } from '@/heros/HighImpact';
-import { LowImpactHero } from '@/heros/LowImpact';
-import { MediumImpactHero } from '@/heros/MediumImpact';
+import colorToTailwind from '@/utilities/colorToTailwind';
+import { Page } from '@/payload-types';
+import TwoImgLeft from './Layouts/TwoImgLeft';
+import TwoImgCenter from './Layouts/TwoImgCenter';
+import OneImgLeft from './Layouts/OneImgLeft';
+import OneImgCenter from './Layouts/OneImgCenter';
+import FeatureLeft from './Layouts/FeatureLeft';
+import FeatureCenter from './Layouts/FeatureCenter';
 
-const heroes = {
-  highImpact: HighImpactHero,
-  lowImpact: LowImpactHero,
-  mediumImpact: MediumImpactHero,
+const heros = {
+  twoImgLeft: TwoImgLeft,
+  twoImgCenter: TwoImgCenter,
+  oneImgLeft: OneImgLeft,
+  oneImgCenter: OneImgCenter,
+  featureLeft: FeatureLeft,
+  featureCenter: FeatureCenter,
 };
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const { type } = props || {};
+  const {
+    layout,
+    title,
+    accentColor,
+    readTime,
+    images,
+    eyebrowHeading,
+    subtitle,
+  } = props || {};
 
-  if (!type || type === 'none') {
+  if (!layout || layout === 'none') {
     return null;
   }
 
-  const HeroToRender = heroes[type];
+  const HeroToRender = heros[layout];
 
   if (!HeroToRender) {
     return null;
   }
 
-  return <HeroToRender {...props} />;
+  const html = title
+    ? convertLexicalToHTML({
+        data: title as SerializedEditorState<SerializedLexicalNode>,
+      })
+    : '';
+
+  const modifiedHtml = html
+    .replace(/<p>/g, '<h2 class="">')
+    .replace(/<\/p>/g, '<\/h2>')
+    .replace(
+      /<em>/g,
+      `<span class="srf-h2 text-${colorToTailwind(accentColor || 'purple')}">`,
+    )
+    .replace(/<\/em>/g, '<\/span>');
+
+  return (
+    <div className="flex px-5 sm:pt-30 overflow-x-clip overflow-y-visible relative w-full justify-center">
+      {
+        <HeroToRender
+          eyebrowHeading={eyebrowHeading || undefined}
+          html={modifiedHtml}
+          images={images || undefined}
+          readTime={readTime || undefined}
+          subtitle={subtitle || undefined}
+        />
+      }
+    </div>
+  );
 };
