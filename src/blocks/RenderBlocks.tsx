@@ -7,6 +7,7 @@ import { LandingBlock } from './home/Landing/Component';
 import { GradientBlock } from './home/Gradient/Component';
 import { WhiteBgBlock } from './home/WhiteBg/Component';
 import { PreambleBlock } from './general/Preamble/Component';
+import { PeopleHighlightBlock } from './general/PeopleHighlight/Component';
 
 const blockComponents = {
   content: ContentBlock,
@@ -15,6 +16,7 @@ const blockComponents = {
   gradient: GradientBlock,
   whiteBg: WhiteBgBlock,
   preamble: PreambleBlock,
+  peopleHighlight: PeopleHighlightBlock,
 };
 
 export const RenderBlocks: React.FC<{
