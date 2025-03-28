@@ -9,8 +9,6 @@ import {
 
 import { authenticated } from '../../access/authenticated';
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished';
-import { Content } from '../../blocks/Content/config';
-import { MediaBlock } from '../../blocks/MediaBlock/config';
 import { hero } from '@/heros/config';
 import { slugField } from '@/fields/slug';
 import { populatePublishedAt } from '../../hooks/populatePublishedAt';
@@ -22,6 +20,7 @@ import { WhiteBg } from '@/blocks/home/WhiteBg/config';
 import { Preamble } from '@/blocks/general/Preamble/config';
 import { PeopleHighlight } from '@/blocks/general/PeopleHighlight/config';
 import { Article } from '@/blocks/Article/config';
+import { FeatureList } from '@/blocks/lists/Feature/config';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -78,14 +77,13 @@ export const Pages: CollectionConfig<'pages'> = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                Content,
-                MediaBlock,
                 Landing,
                 Gradient,
                 WhiteBg,
                 Preamble,
                 PeopleHighlight,
                 Article,
+                FeatureList
               ],
               required: false,
               admin: {
