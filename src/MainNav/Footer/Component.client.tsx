@@ -7,7 +7,7 @@ import { useHeaderTheme } from '@/providers/HeaderTheme';
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
-import { IconFacebook, IconGithub, IconInstagram } from '@/components/Icons';
+import { IconFacebook, IconGithub, IconInstagram } from '@/icons/SocialIcons';
 
 export function FooterClient({ navData }: { navData: MainNav }) {
   const [theme, setTheme] = useState<string | null>(null);
