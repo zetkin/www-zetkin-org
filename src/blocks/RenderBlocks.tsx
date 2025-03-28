@@ -26,7 +26,7 @@ const blockComponents = {
   button: ButtonBlock,
   infoBox: InfoBoxBlock,
   author: AuthorBlock,
-  featureList: FeatureListBlock
+  featureList: FeatureListBlock,
 };
 
 export const RenderBlocks: React.FC<{

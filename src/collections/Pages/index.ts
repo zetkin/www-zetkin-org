@@ -83,7 +83,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 Preamble,
                 PeopleHighlight,
                 Article,
-                FeatureList
+                FeatureList,
               ],
               required: false,
               admin: {
