@@ -1354,6 +1354,23 @@ export interface TextWithQuoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imageBlock".
+ */
+export interface ImageBlock {
+  layout?: ('oneImg' | 'twoImg') | null;
+  images: {
+    image?: (string | null) | Media;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  mobileOverflow?: ('left' | 'right') | null;
+  desktopOverflow?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'image';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "auth".
  */
 export interface Auth {
