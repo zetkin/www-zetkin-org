@@ -69,6 +69,7 @@ export interface Config {
     pages: Page;
     media: Media;
     users: User;
+    people: Person;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -80,6 +81,7 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    people: PeopleSelect<false> | PeopleSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -577,6 +579,26 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people".
+ */
+export interface Person {
+  id: string;
+  name: string;
+  pronouns?: string | null;
+  photo: string | Media;
+  role: string;
+  category?: ('leadership' | 'contributor' | 'boardMember') | null;
+  email?: string | null;
+  linkedIn?: string | null;
+  github?: string | null;
+  instagram?: string | null;
+  otherLink?: string | null;
+  profilePiece?: (string | null) | Page;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -706,6 +728,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: string | User;
+      } | null)
+    | ({
+        relationTo: 'people';
+        value: string | Person;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1101,6 +1127,25 @@ export interface UsersSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people_select".
+ */
+export interface PeopleSelect<T extends boolean = true> {
+  name?: T;
+  pronouns?: T;
+  photo?: T;
+  role?: T;
+  category?: T;
+  email?: T;
+  linkedIn?: T;
+  github?: T;
+  instagram?: T;
+  otherLink?: T;
+  profilePiece?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects_select".
  */
 export interface RedirectsSelect<T extends boolean = true> {
@@ -1368,6 +1413,57 @@ export interface ImageBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'image';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "buttonBlock".
+ */
+export interface ButtonBlock {
+  buttons: {
+    label?: string | null;
+    variant?: ('primary' | 'outline') | null;
+    id?: string | null;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'button';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authorBlock".
+ */
+export interface AuthorBlock {
+  author: string | Person;
+  socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink') | null;
+  backgroundColor?: ('greenPurple' | 'greenRed') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'author';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "infoBoxBlock".
+ */
+export interface InfoBoxBlock {
+  richText: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  backgroundColor?: ('greenPurple' | 'greenRed') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'infoBox';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

@@ -12,6 +12,7 @@ import { plugins } from './plugins';
 import { defaultLexical } from '@/fields/defaultLexical';
 import { getServerSideURL } from './utilities/getURL';
 import { MainNav } from './MainNav/config';
+import { People } from './collections/People';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -51,7 +52,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Media, Users],
+  collections: [Pages, Media, Users, People],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [MainNav],
   plugins: [
