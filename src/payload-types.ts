@@ -505,24 +505,20 @@ export interface FeatureListBlock {
   header?: string | null;
   subHeader?: string | null;
   features: {
-    featureName?: string | null;
-    icon?: ('banana' | 'bean' | 'apple') | null;
-    header?: string | null;
-    description?: string | null;
-    illustration?: (string | null) | Media;
+    featureName: string;
+    icon: 'banana' | 'bean' | 'apple';
+    header: string;
+    description: string;
+    illustration: string | Media;
     /**
      * Negative value for image to go to left, positive to right. Default for odd items is -20px and for even items 20px.
      */
     offset?: number | null;
-    link?: (string | null) | Page;
+    link: string | Page;
+    linkText: string;
     id?: string | null;
   }[];
-  buttons: {
-    label?: string | null;
-    variant?: ('primary' | 'outline') | null;
-    id?: string | null;
-  }[];
-  accentColor?: ('purple' | 'green' | 'red') | null;
+  accentColor: 'purple' | 'green' | 'red';
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureList';
@@ -965,13 +961,7 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
         illustration?: T;
         offset?: T;
         link?: T;
-        id?: T;
-      };
-  buttons?:
-    | T
-    | {
-        label?: T;
-        variant?: T;
+        linkText?: T;
         id?: T;
       };
   accentColor?: T;

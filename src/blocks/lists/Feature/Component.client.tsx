@@ -14,7 +14,7 @@ import { FeatureListBlock as FeatureListProps } from '@/payload-types';
 import { IconArrowDown } from '@/icons/UIIcons';
 import { FeatureIcon } from '@/icons/FeatureIcons/RenderIcon';
 import { ImageMedia } from '@/components/Media/ImageMedia';
-import { Button } from '@/components/ui/button';
+import { CMSLink as Link } from '@/components/Link';
 
 // Helper function for setting illustration margins
 function illustrationMargin(value: number) {
@@ -36,12 +36,11 @@ function illustrationMargin(value: number) {
 const FeatureListBlockClient: React.FC<FeatureListProps> = ({
   accentColor,
   features,
-  buttons,
 }) => {
   const [currentSection, setCurrentSection] = useState(features[0]?.id || '');
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
+  const endRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef(null);
   const featureSectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -120,8 +119,8 @@ const FeatureListBlockClient: React.FC<FeatureListProps> = ({
   };
 
   const scrollToBottom = () => {
-    if (buttonRef.current) {
-      buttonRef.current.scrollIntoView({
+    if (endRef.current) {
+      endRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
@@ -206,25 +205,38 @@ const FeatureListBlockClient: React.FC<FeatureListProps> = ({
             className="flex flex-col -mx-5 md:mx-0 px-5 md:px-0 py-12 gap-12 border-t last:border-b bg-[#FCFCFC] md:bg-transparent group md:flex-row md:items-center md:justify-center overflow-hidden"
             id={feature.id || ''}
           >
-            <div className="flex flex-col gap-2.5 md:gap-5 md:flex-1 md:py-24">
-              <div className="flex flex-col gap-2.5 md:gap-3">
-                <div className="flex gap-2 items-center">
-                  <FeatureIcon
-                    color="#919191"
-                    height="20px"
-                    icon={feature.icon || 'banana'}
-                    width="20px"
-                  />
-                  <p className="text-[#646464] text-base font-light leading-[1.7]">
-                    {feature.featureName}
-                  </p>
+            <div className='flex flex-col gap-6 text-lg md:text-xl md:gap-9 md:flex-1 md:py-24"'>
+              <div className="flex flex-col gap-2.5 md:gap-5">
+                <div className="flex flex-col gap-2.5 md:gap-3">
+                  <div className="flex gap-2 items-center">
+                    <FeatureIcon
+                      color="#919191"
+                      height="20px"
+                      icon={feature.icon || 'banana'}
+                      width="20px"
+                    />
+                    <p className="text-[#646464] text-base font-light leading-[1.7]">
+                      {feature.featureName}
+                    </p>
+                  </div>
+                  <h4 className="text-2xl leading-[1.7] md:text-3xl font-medium">
+                    {feature.header}
+                  </h4>
                 </div>
-                <h4 className="text-2xl leading-[1.7] md:text-3xl font-medium">
-                  {feature.header}
-                </h4>
+                <p className="text-[#646464] text-lg font-light leading-[1.7]">
+                  {feature.description}
+                </p>
               </div>
-              <p className="text-[#646464] text-lg font-light leading-[1.7]">
-                {feature.description}
+              <p className={`text-lg underline text-z-${accentColor}`}>
+                <Link
+                  url={
+                    typeof feature.link === 'object' && 'url' in feature.link
+                      ? (feature.link.url as string | undefined)
+                      : (feature.link as string | undefined)
+                  }
+                >
+                  {feature.linkText}
+                </Link>
               </p>
             </div>
             <div
@@ -241,18 +253,8 @@ const FeatureListBlockClient: React.FC<FeatureListProps> = ({
           </div>
         ))}
       </div>
-      {/* Render buttons if any */}
-      <div
-        ref={buttonRef}
-        className="flex flex-col items-center md:items-start md:flex-row gap-3 md:gap-4"
-      >
-        {buttons &&
-          buttons.map((button, i) => (
-            <Button key={i} variant={button.variant}>
-              {button.label}
-            </Button>
-          ))}
-      </div>
+      {/* Anchorpoint to scroll to if arrow button is clicked */}
+      <div ref={endRef} />
     </>
   );
 };

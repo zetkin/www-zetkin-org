@@ -7,7 +7,6 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
   subHeader,
   accentColor,
   features,
-  buttons,
 }) => {
   return (
     <div className="flex px-5 w-full justify-center mt-20">
@@ -30,7 +29,6 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
         <FeatureListBlockClient
           accentColor={accentColor}
           blockType="featureList"
-          buttons={buttons}
           features={features}
         />
       </div>
