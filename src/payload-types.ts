@@ -176,6 +176,7 @@ export interface Page {
         | PeopleHighlightBlock
         | ArticleBlock
         | FeatureListBlock
+        | PeopleListBlock
       )[]
     | null;
   meta?: {
@@ -529,6 +530,16 @@ export interface FeatureListBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "peopleListBlock".
+ */
+export interface PeopleListBlock {
+  peopleCategory?: ('leadership' | 'contributor' | 'boardMember') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'peopleList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -783,6 +794,7 @@ export interface PagesSelect<T extends boolean = true> {
         peopleHighlight?: T | PeopleHighlightBlockSelect<T>;
         article?: T | ArticleBlockSelect<T>;
         featureList?: T | FeatureListBlockSelect<T>;
+        peopleList?: T | PeopleListBlockSelect<T>;
       };
   meta?:
     | T
@@ -975,6 +987,15 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
         id?: T;
       };
   accentColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "peopleListBlock_select".
+ */
+export interface PeopleListBlockSelect<T extends boolean = true> {
+  peopleCategory?: T;
   id?: T;
   blockName?: T;
 }
