@@ -3,21 +3,6 @@ import type { CollectionConfig } from 'payload';
 import { anyone } from '../access/anyone';
 import { authenticated } from '../access/authenticated';
 
-export const peopleCategories = [
-  {
-    value: 'leadership',
-    label: 'Leadership',
-  },
-  {
-    value: 'contributor',
-    label: 'Contributor',
-  },
-  {
-    value: 'boardMember',
-    label: 'Board member',
-  },
-]
-
 export const People: CollectionConfig = {
   slug: 'people',
   access: {
@@ -27,7 +12,7 @@ export const People: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['name', 'category'],
+    defaultColumns: ['name', 'tags'],
     useAsTitle: 'name',
   },
   fields: [
@@ -67,13 +52,13 @@ export const People: CollectionConfig = {
           },
         },
         {
-          name: 'category',
-          label: 'Engagement category',
-          type: 'select',
+          name: 'tags',
+          type: 'relationship',
+          relationTo: 'tags',
+          hasMany: true,
           admin: {
             width: '50%',
           },
-          options: peopleCategories
         },
       ],
     },
@@ -131,4 +116,3 @@ export const People: CollectionConfig = {
     },
   ],
 };
-

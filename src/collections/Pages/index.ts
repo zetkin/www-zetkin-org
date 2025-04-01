@@ -85,7 +85,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PeopleHighlight,
                 Article,
                 FeatureList,
-                PeopleList
+                PeopleList,
               ],
               required: false,
               admin: {
