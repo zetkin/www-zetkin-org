@@ -1,29 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
-import { usePathname } from 'next/navigation';
-
-import { useHeaderTheme } from '@/providers/HeaderTheme';
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
 import { IconFacebook, IconGithub, IconInstagram } from '@/icons/SocialIcons';
 
 export function FooterClient({ navData }: { navData: MainNav }) {
-  const [theme, setTheme] = useState<string | null>(null);
-  const { headerTheme, setHeaderTheme } = useHeaderTheme();
-  const pathname = usePathname();
-
-  useEffect(() => {
-    setHeaderTheme(null);
-  }, [pathname]);
-
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) {
-      setTheme(headerTheme);
-    }
-  }, [headerTheme]);
-
   // get correct icon for social links
 
   function getIcon(socialLink: string) {

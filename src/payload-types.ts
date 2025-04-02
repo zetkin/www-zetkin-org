@@ -294,10 +294,6 @@ export interface Media {
     };
   };
 }
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LandingBlock".
- */
 export interface LandingBlock {
   leftTitle: string;
   rightTitle: string;
@@ -359,8 +355,19 @@ export interface GradientBlock {
         id?: string | null;
       }[]
     | null;
-  backgroundImageDesktop: string | Media;
-  backgroundImageMobile: string | Media;
+  frontColor: '#7801DD' | '#550096' | '#3F0071' | '#25E3B1' | '#0F7473' | '#0C5044' | '#123C3D' | '#C91E40' | '#82142D';
+  backgroundColor:
+    | '#7801DD'
+    | '#550096'
+    | '#3F0071'
+    | '#25E3B1'
+    | '#0F7473'
+    | '#0C5044'
+    | '#123C3D'
+    | '#C91E40'
+    | '#82142D';
+  desktopGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
+  mobileGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
   images: {
     image: string | Media;
     id?: string | null;
@@ -851,8 +858,10 @@ export interface GradientBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  backgroundImageDesktop?: T;
-  backgroundImageMobile?: T;
+  frontColor?: T;
+  backgroundColor?: T;
+  desktopGradientPattern?: T;
+  mobileGradientPattern?: T;
   images?:
     | T
     | {
@@ -1187,8 +1196,8 @@ export interface MainNav {
         longLabel?: string | null;
         color?: ('purple' | 'red' | 'green') | null;
         showInFooter?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -1202,8 +1211,8 @@ export interface MainNav {
               label?: string | null;
               description?: string | null;
               showInFooter?: boolean | null;
-              link?: {
-                type?: ('reference' | 'custom') | null;
+              link: {
+                type?: 'reference' | 'custom';
                 reference?: {
                   relationTo: 'pages';
                   value: string | Page;
@@ -1214,8 +1223,8 @@ export interface MainNav {
               bottomItems?:
                 | {
                     label?: string | null;
-                    link?: {
-                      type?: ('reference' | 'custom') | null;
+                    link: {
+                      type?: 'reference' | 'custom';
                       reference?: {
                         relationTo: 'pages';
                         value: string | Page;

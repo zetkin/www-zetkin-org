@@ -12,11 +12,6 @@ export const TextWithQuote: Block = {
   fields: [
     {
       type: 'row',
-      admin: {
-        style: {
-          display: 'flex',
-        },
-      },
       fields: [
         {
           name: 'richText',
