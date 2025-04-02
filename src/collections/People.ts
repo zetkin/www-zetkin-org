@@ -12,7 +12,7 @@ export const People: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['name', 'category'],
+    defaultColumns: ['name', 'tags'],
     useAsTitle: 'name',
   },
   fields: [
@@ -52,26 +52,13 @@ export const People: CollectionConfig = {
           },
         },
         {
-          name: 'category',
-          label: 'Engagement category',
-          type: 'select',
+          name: 'tags',
+          type: 'relationship',
+          relationTo: 'tags',
+          hasMany: true,
           admin: {
             width: '50%',
           },
-          options: [
-            {
-              value: 'leadership',
-              label: 'Leadership',
-            },
-            {
-              value: 'contributor',
-              label: 'Contributor',
-            },
-            {
-              value: 'boardMember',
-              label: 'Board member',
-            },
-          ],
         },
       ],
     },
