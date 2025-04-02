@@ -4,7 +4,7 @@ import {
   IconInstagram,
   IconLink,
   IconLinkedIn,
-} from '@/components/Icons';
+} from '@/icons/SocialIcons';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import type { AuthorBlock as AuthorBlockProps } from '@/payload-types';
 import { CMSLink as Link } from '@/components/Link';

@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react';
 
 import type { Page } from '@/payload-types';
-import { ContentBlock } from '@/blocks/Content/Component';
-import { MediaBlock } from '@/blocks/MediaBlock/Component';
 import { LandingBlock } from './home/Landing/Component';
 import { GradientBlock } from './home/Gradient/Component';
 import { WhiteBgBlock } from './home/WhiteBg/Component';
@@ -14,10 +12,9 @@ import { ImageBlock } from './Article/Image/Component';
 import { ButtonBlock } from './Article/Button/Component';
 import { InfoBoxBlock } from './Article/InfoBox/Component';
 import { AuthorBlock } from './Article/Author/Component';
+import FeatureListBlock from './lists/Feature/Component';
 
 const blockComponents = {
-  content: ContentBlock,
-  mediaBlock: MediaBlock,
   landing: LandingBlock,
   gradient: GradientBlock,
   whiteBg: WhiteBgBlock,
@@ -29,6 +26,7 @@ const blockComponents = {
   button: ButtonBlock,
   infoBox: InfoBoxBlock,
   author: AuthorBlock,
+  featureList: FeatureListBlock,
 };
 
 export const RenderBlocks: React.FC<{

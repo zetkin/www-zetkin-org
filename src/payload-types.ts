@@ -169,14 +169,13 @@ export interface Page {
   };
   layout?:
     | (
-        | ContentBlock
-        | MediaBlock
         | LandingBlock
         | GradientBlock
         | WhiteBg
         | PreambleBlock
         | PeopleHighlightBlock
         | ArticleBlock
+        | FeatureListBlock
       )[]
     | null;
   meta?: {
@@ -295,60 +294,6 @@ export interface Media {
     };
   };
 }
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock".
- */
-export interface ContentBlock {
-  columns?:
-    | {
-        size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
-        richText?: {
-          root: {
-            type: string;
-            children: {
-              type: string;
-              version: number;
-              [k: string]: unknown;
-            }[];
-            direction: ('ltr' | 'rtl') | null;
-            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-            indent: number;
-            version: number;
-          };
-          [k: string]: unknown;
-        } | null;
-        enableLink?: boolean | null;
-        link?: {
-          type?: 'reference' | 'custom';
-          reference?: {
-            relationTo: 'pages';
-            value: string | Page;
-          } | null;
-          url?: string;
-          newTab?: boolean | null;
-        };
-        id?: string | null;
-      }[]
-    | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'content';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
- */
-export interface MediaBlock {
-  media: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "LandingBlock".
- */
 export interface LandingBlock {
   leftTitle: string;
   rightTitle: string;
@@ -558,6 +503,32 @@ export interface ArticleBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'article';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "featureListBlock".
+ */
+export interface FeatureListBlock {
+  header?: string | null;
+  subHeader?: string | null;
+  features: {
+    featureName: string;
+    icon: 'banana' | 'bean' | 'apple';
+    header: string;
+    description: string;
+    illustration: string | Media;
+    /**
+     * Negative value for image to go to left, positive to right. Default for odd items is -20px and for even items 20px.
+     */
+    offset?: number | null;
+    link: string | Page;
+    linkText: string;
+    id?: string | null;
+  }[];
+  accentColor: 'purple' | 'green' | 'red';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -808,14 +779,13 @@ export interface PagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        content?: T | ContentBlockSelect<T>;
-        mediaBlock?: T | MediaBlockSelect<T>;
         landing?: T | LandingBlockSelect<T>;
         gradient?: T | GradientBlockSelect<T>;
         whiteBg?: T | WhiteBgSelect<T>;
         preamble?: T | PreambleBlockSelect<T>;
         peopleHighlight?: T | PeopleHighlightBlockSelect<T>;
         article?: T | ArticleBlockSelect<T>;
+        featureList?: T | FeatureListBlockSelect<T>;
       };
   meta?:
     | T
@@ -839,39 +809,6 @@ export interface PagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ContentBlock_select".
- */
-export interface ContentBlockSelect<T extends boolean = true> {
-  columns?:
-    | T
-    | {
-        size?: T;
-        richText?: T;
-        enableLink?: T;
-        link?:
-          | T
-          | {
-              type?: T;
-              reference?: T;
-              url?: T;
-              newTab?: T;
-            };
-        id?: T;
-      };
-  id?: T;
-  blockName?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock_select".
- */
-export interface MediaBlockSelect<T extends boolean = true> {
-  media?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1013,6 +950,30 @@ export interface PeopleHighlightBlockSelect<T extends boolean = true> {
 export interface ArticleBlockSelect<T extends boolean = true> {
   richText?: T;
   linkColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "featureListBlock_select".
+ */
+export interface FeatureListBlockSelect<T extends boolean = true> {
+  header?: T;
+  subHeader?: T;
+  features?:
+    | T
+    | {
+        featureName?: T;
+        icon?: T;
+        header?: T;
+        description?: T;
+        illustration?: T;
+        offset?: T;
+        link?: T;
+        linkText?: T;
+        id?: T;
+      };
+  accentColor?: T;
   id?: T;
   blockName?: T;
 }
