@@ -14,6 +14,7 @@ import { getServerSideURL } from './utilities/getURL';
 import { MainNav } from './MainNav/config';
 import { People } from './collections/People';
 import { Tags } from './collections/Tags';
+import { Events } from './collections/Events';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -53,7 +54,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Media, Users, People, Tags],
+  collections: [Pages, Media, Users, People, Tags, Events],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [MainNav],
   plugins: [
