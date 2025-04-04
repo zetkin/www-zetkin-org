@@ -69,38 +69,62 @@ const EventListBlock: React.FC<EventListProps> = ({
   const path = usePathname();
 
   return (
-    <div className="w-full flex justify-center px-5">
+    <div
+      aria-labelledby="event-list-header"
+      className="pt-16 sm:pt-20 w-full flex justify-center px-5"
+      role="region"
+    >
       <div className="flex flex-col w-full sm:max-w-250 sm:gap-10">
         <div className="flex flex-col gap-8 sm:flex-row sm:justify-between sm:items-center">
-          <h3 className="text-[22px]">{listHeader}</h3>
-          <div className="flex gap-3">
+          <h3 className="text-[22px]" id="event-list-header">
+            {listHeader}
+          </h3>
+          <div
+            aria-label="Filter events by time"
+            className="flex gap-3"
+            role="tablist"
+          >
             <button
+              aria-selected={filter === 'upcoming'}
               className={`text-[15px] leading-[150%] font-medium py-2 px-4 rounded-[8px] box-border border
                         ${filter === 'upcoming' ? 'text-white bg-z-' + accentColor + ' border-z-' + accentColor : 'text-black border border-black'}`}
               onClick={() => setFilter('upcoming')}
+              role="tab"
             >
               Upcoming
             </button>
             <button
+              aria-selected={filter === 'all'}
               className={`text-[15px] leading-[150%] font-medium py-2 px-4 rounded-[8px] box-border border  
                     ${filter === 'all' ? 'text-white bg-z-' + accentColor + ' border-z-' + accentColor : 'text-black border border-black'}`}
               onClick={() => setFilter('all')}
+              role="tab"
             >
               All
             </button>
             <button
+              aria-selected={filter === 'past'}
               className={`text-[15px] leading-[150%] font-medium py-2 px-4 rounded-[8px] box-border border 
                     ${filter === 'past' ? 'text-white bg-z-' + accentColor + ' border-z-' + accentColor : 'text-black border-black'}`}
               onClick={() => setFilter('past')}
+              role="tab"
             >
               Past
             </button>
           </div>
         </div>
-        <div className="flex flex-col h-[627px] sm:h-[636px]">
+        <div
+          aria-label="Event list"
+          className="flex flex-col h-[627px] sm:h-[636px]"
+          role="list"
+        >
           {loading ? (
-            <div className="flex flex-col gap-2 w-full h-full items-center justify-center">
-              <div role="status">
+            <div
+              aria-live="polite"
+              className="flex flex-col gap-2 w-full h-full items-center justify-center"
+              role="status"
+            >
+              <div>
                 <svg
                   aria-hidden="true"
                   className={`w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-z-${accentColor}`}
@@ -113,7 +137,7 @@ const EventListBlock: React.FC<EventListProps> = ({
                     fill="currentColor"
                   />
                   <path
-                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539..."
                     fill="currentFill"
                   />
                 </svg>
@@ -121,16 +145,25 @@ const EventListBlock: React.FC<EventListProps> = ({
               <p>Loading...</p>
             </div>
           ) : !eventData.docs.length ? (
-            <div className="flex flex-col gap-2 w-full h-full items-center justify-center bg-z-gray-100 rounded-[8px]">
+            <div
+              aria-live="polite"
+              className="flex flex-col gap-2 w-full h-full items-center justify-center bg-z-gray-100 rounded-[8px]"
+            >
               <p>No events found</p>
             </div>
           ) : (
             <div className="flex flex-col sm:grid sm:grid-cols-3 sm:gap-x-8 sm:gap-y-10">
               {eventData.docs.map((event) => (
                 <Link key={event.id} url={path + '/event/' + event.id}>
-                  <div className="flex items-center border-b last:border-0 py-5 sm:py-0 sm:border-0">
+                  <div
+                    className="flex items-center border-b last:border-0 py-5 sm:py-0 sm:border-0"
+                    role="listitem"
+                  >
                     <div className="flex gap-5 flex-1 items-center sm:flex-col sm:w-full">
-                      <div className="relative flex-1 h-[116px] sm:w-full sm:h-[166px] sm:flex-auto sm:rounded-[8px] sm:overflow-clip">
+                      <div
+                        aria-hidden="true"
+                        className="relative flex-1 h-[116px] sm:w-full sm:h-[166px] sm:flex-auto sm:rounded-[8px] sm:overflow-clip"
+                      >
                         <ImageMedia
                           fill
                           imgClassName="object-cover"
@@ -143,6 +176,7 @@ const EventListBlock: React.FC<EventListProps> = ({
                             {event.title}
                           </p>
                           <IconArrowRight
+                            aria-hidden="true"
                             height="28px"
                             iconClasses={`hidden sm:block stroke-z-${accentColor}`}
                             width="28px"
@@ -160,6 +194,7 @@ const EventListBlock: React.FC<EventListProps> = ({
                       </div>
                     </div>
                     <IconArrowRight
+                      aria-hidden="true"
                       height="28px"
                       iconClasses={`sm:hidden stroke-z-${accentColor}`}
                       width="28px"
@@ -170,12 +205,19 @@ const EventListBlock: React.FC<EventListProps> = ({
             </div>
           )}
         </div>
-        <div className="flex justify-between">
+        <nav
+          aria-label="Pagination Navigation"
+          className="flex justify-between"
+          role="navigation"
+        >
           <button
+            aria-label="Previous page"
             className={`p-2 ${selectedPage === 1 && 'opacity-35'}`}
+            disabled={selectedPage === 1}
             onClick={() => setSelectedPage((past) => past - 1)}
           >
             <svg
+              aria-hidden="true"
               fill="none"
               height="22"
               viewBox="0 0 22 22"
@@ -195,6 +237,8 @@ const EventListBlock: React.FC<EventListProps> = ({
             {Array.from({ length: eventData.totalPages }, (_, i) => (
               <button
                 key={i}
+                aria-current={selectedPage === i + 1 ? 'page' : undefined}
+                aria-label={`Go to page ${i + 1}`}
                 className={`text-[15px] leading-[150%] font-medium py-2 px-4 rounded-[8px] box-border  
                                 ${selectedPage === i + 1 ? 'text-white border bg-z-' + accentColor + ' border-z-' + accentColor : 'text-black'}`}
                 onClick={() => setSelectedPage(i + 1)}
@@ -204,10 +248,13 @@ const EventListBlock: React.FC<EventListProps> = ({
             ))}
           </div>
           <button
+            aria-label="Next page"
             className={`p-2 ${selectedPage === eventData.totalPages && 'opacity-35'}`}
+            disabled={selectedPage === eventData.totalPages}
             onClick={() => setSelectedPage((past) => past + 1)}
           >
             <svg
+              aria-hidden="true"
               fill="none"
               height="22"
               viewBox="0 0 22 22"
@@ -223,7 +270,7 @@ const EventListBlock: React.FC<EventListProps> = ({
               />
             </svg>
           </button>
-        </div>
+        </nav>
       </div>
     </div>
   );

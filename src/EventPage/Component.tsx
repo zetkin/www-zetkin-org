@@ -30,7 +30,7 @@ export default async function EventPage({ id }: { id: string }) {
   return (
     <div className="pt-10 sm:pt-46 pb-24 px-5 flex justify-center">
       <div className="w-full sm:max-w-250">
-        {eventDoc && (
+        {eventDoc ? (
           <div className="flex flex-col gap-8 sm:gap-13 w-full sm:items-center">
             <div className="relative w-full h-[calc(100vw-40px)] sm:h-100 rounded-[10px] overflow-clip">
               <ImageMedia
@@ -164,6 +164,14 @@ export default async function EventPage({ id }: { id: string }) {
                 enableGutter={false}
               />
             </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center w-full gap-5 h-150 justify-center">
+            <h3>No event found.</h3>
+            <p className="text-center">
+              No event was found with the provided ID. Please check the url and
+              try again.
+            </p>
           </div>
         )}
       </div>
