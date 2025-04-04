@@ -73,6 +73,7 @@ export interface Config {
     people: Person;
     tags: Tag;
     events: Event;
+    jobs: Job;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -87,6 +88,7 @@ export interface Config {
     people: PeopleSelect<false> | PeopleSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    jobs: JobsSelect<false> | JobsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -562,6 +564,7 @@ export interface PeopleListBlock {
 export interface Tag {
   id: string;
   name: string;
+  type: 'people' | 'events' | 'jobs';
   updatedAt: string;
   createdAt: string;
 }
@@ -629,6 +632,34 @@ export interface Event {
   online?: boolean | null;
   city?: string | null;
   address?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+  id: string;
+  title: string;
+  tags?: (string | Tag)[] | null;
+  remote?: boolean | null;
+  city?: string | null;
   description?: {
     root: {
       type: string;
@@ -790,6 +821,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'events';
         value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'jobs';
+        value: string | Job;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1232,6 +1267,7 @@ export interface PeopleSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
+  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1248,6 +1284,19 @@ export interface EventsSelect<T extends boolean = true> {
   online?: T;
   city?: T;
   address?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+  title?: T;
+  tags?: T;
+  remote?: T;
+  city?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
