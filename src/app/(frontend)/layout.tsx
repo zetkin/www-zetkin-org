@@ -35,6 +35,15 @@ export default async function RootLayout({
     'shadow-z-purple',
     'shadow-z-green',
     'shadow-z-red',
+    'bg-z-purple',
+    'bg-z-green',
+    'bg-z-red',
+    'border-z-purple',
+    'border-z-green',
+    'border-z-red',
+    'fill-z-purple',
+    'fill-z-green',
+    'fill-z-red',
   ];
 
   return (

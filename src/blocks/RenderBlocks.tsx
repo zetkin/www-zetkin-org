@@ -14,6 +14,7 @@ import { InfoBoxBlock } from './Article/InfoBox/Component';
 import { AuthorBlock } from './Article/Author/Component';
 import FeatureListBlock from './lists/Feature/Component';
 import PeopleListBlock from './lists/People/Component';
+import EventListBlock from './lists/Events/Component';
 
 const blockComponents = {
   landing: LandingBlock,
@@ -29,6 +30,7 @@ const blockComponents = {
   author: AuthorBlock,
   featureList: FeatureListBlock,
   peopleList: PeopleListBlock,
+  eventList: EventListBlock,
 };
 
 export const RenderBlocks: React.FC<{
