@@ -51,6 +51,9 @@ export const PeopleList: Block = {
           type: 'relationship',
           relationTo: 'tags',
           required: true,
+          filterOptions: () => ({
+            type: { equals: 'people' },
+          }),
         },
       ],
     },

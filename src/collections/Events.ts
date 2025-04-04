@@ -11,6 +11,10 @@ export const Events: CollectionConfig = {
     singular: 'Event',
     plural: 'Events',
   },
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'image', 'tags', 'startDate'],
+  },
   fields: [
     {
       name: 'title',

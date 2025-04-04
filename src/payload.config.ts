@@ -17,7 +17,6 @@ import { Tags } from './collections/Tags';
 import { Events } from './collections/Events';
 import { Jobs } from './collections/Jobs';
 
-
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
 

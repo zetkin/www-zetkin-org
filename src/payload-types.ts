@@ -185,6 +185,7 @@ export interface Page {
         | FeatureListBlock
         | PeopleListBlock
         | EventListBlock
+        | JobsListBlock
       )[]
     | null;
   meta?: {
@@ -575,10 +576,22 @@ export interface Tag {
 export interface EventListBlock {
   accentColor: 'purple' | 'green' | 'red';
   listHeader?: string | null;
-  tag?: (string | null) | Tag;
+  tag: string | Tag;
   id?: string | null;
   blockName?: string | null;
   blockType: 'eventList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobsListBlock".
+ */
+export interface JobsListBlock {
+  accentColor: 'purple' | 'green' | 'red';
+  title: string;
+  jobsTag: string | Tag;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'jobsList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -657,10 +670,15 @@ export interface Event {
 export interface Job {
   id: string;
   title: string;
-  tags?: (string | Tag)[] | null;
-  remote?: boolean | null;
+  tags: (string | Tag)[];
+  remote: boolean;
   city?: string | null;
-  description?: {
+  /**
+   * URL to apply for the job
+   */
+  applyLink: string;
+  employmentType?: string | null;
+  description: {
     root: {
       type: string;
       children: {
@@ -674,7 +692,7 @@ export interface Job {
       version: number;
     };
     [k: string]: unknown;
-  } | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -910,6 +928,7 @@ export interface PagesSelect<T extends boolean = true> {
         featureList?: T | FeatureListBlockSelect<T>;
         peopleList?: T | PeopleListBlockSelect<T>;
         eventList?: T | EventListBlockSelect<T>;
+        jobsList?: T | JobsListBlockSelect<T>;
       };
   meta?:
     | T
@@ -1135,6 +1154,17 @@ export interface EventListBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobsListBlock_select".
+ */
+export interface JobsListBlockSelect<T extends boolean = true> {
+  accentColor?: T;
+  title?: T;
+  jobsTag?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1297,6 +1327,8 @@ export interface JobsSelect<T extends boolean = true> {
   tags?: T;
   remote?: T;
   city?: T;
+  applyLink?: T;
+  employmentType?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

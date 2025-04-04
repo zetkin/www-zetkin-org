@@ -8,8 +8,7 @@ export const Tags: CollectionConfig = {
   },
   admin: {
     useAsTitle: 'name',
-        defaultColumns: ['name', 'type', 'linkToList'], 
-
+    defaultColumns: ['name', 'type', 'linkToList'],
   },
   fields: [
     {
@@ -42,7 +41,7 @@ export const Tags: CollectionConfig = {
         if (path.includes('/admin/collections/people')) {
           return 'people';
         }
-      
+
         if (path.includes('/admin/collections/events')) {
           return 'events';
         }
@@ -50,16 +49,16 @@ export const Tags: CollectionConfig = {
         if (path.includes('/admin/collections/jobs')) {
           return 'jobs';
         }
-      
+
         return undefined;
       },
     },
     {
       name: 'linkToList',
-      type: 'ui', 
+      type: 'ui',
       admin: {
         components: {
-          Cell: 'src/components/LinkToList', 
+          Cell: 'src/components/LinkToList',
         },
       },
     },

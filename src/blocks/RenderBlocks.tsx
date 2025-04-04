@@ -15,6 +15,7 @@ import { AuthorBlock } from './Article/Author/Component';
 import FeatureListBlock from './lists/Feature/Component';
 import PeopleListBlock from './lists/People/Component';
 import EventListBlock from './lists/Events/Component';
+import JobsListBlock from './lists/Jobs/Component';
 
 const blockComponents = {
   landing: LandingBlock,
@@ -31,6 +32,7 @@ const blockComponents = {
   featureList: FeatureListBlock,
   peopleList: PeopleListBlock,
   eventList: EventListBlock,
+  jobsList: JobsListBlock,
 };
 
 export const RenderBlocks: React.FC<{
