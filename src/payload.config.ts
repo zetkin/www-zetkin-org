@@ -15,6 +15,7 @@ import { MainNav } from './MainNav/config';
 import { People } from './collections/People';
 import { Tags } from './collections/Tags';
 import { Events } from './collections/Events';
+import { Jobs } from './collections/Jobs';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -54,7 +55,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Media, Users, People, Tags, Events],
+  collections: [Pages, Media, Users, People, Tags, Events, Jobs],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [MainNav],
   plugins: [

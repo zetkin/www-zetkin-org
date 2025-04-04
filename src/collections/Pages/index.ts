@@ -23,6 +23,7 @@ import { Article } from '@/blocks/Article/config';
 import { FeatureList } from '@/blocks/lists/Feature/config';
 import { PeopleList } from '@/blocks/lists/People/config';
 import { EventList } from '@/blocks/lists/Events/config';
+import { JobsList } from '@/blocks/lists/Jobs/config';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -88,6 +89,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 FeatureList,
                 PeopleList,
                 EventList,
+                JobsList,
               ],
               required: false,
               admin: {
