@@ -95,6 +95,7 @@
   --color-z-gray-200: #eaebea;
   --color-z-gray-300: #a5a5a5;
   --color-z-gray-400: #787878;
+  --breakpoint-xs: 430px;
 }
 
 @layer base {

@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { PaginatedDocs } from 'payload';
+import { usePathname } from 'next/navigation';
 
 import { EventListBlock as EventListProps } from '@/payload-types';
 import { fetchEventsByDateAndTag } from './fetchEventsByDateNTag';
@@ -9,6 +10,7 @@ import { Event } from '@/payload-types';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import { formatEventDates } from './formatEventDates';
 import { IconArrowRight } from '@/icons/UIIcons';
+import { CMSLink as Link } from '@/components/Link';
 
 const EventListBlock: React.FC<EventListProps> = ({
   accentColor,
@@ -63,6 +65,8 @@ const EventListBlock: React.FC<EventListProps> = ({
 
     return () => clearTimeout(timeout);
   }, [filter, selectedPage, items]);
+
+  const path = usePathname();
 
   return (
     <div className="w-full flex justify-center px-5">
@@ -123,46 +127,45 @@ const EventListBlock: React.FC<EventListProps> = ({
           ) : (
             <div className="flex flex-col sm:grid sm:grid-cols-3 sm:gap-x-8 sm:gap-y-10">
               {eventData.docs.map((event) => (
-                <div
-                  key={event.id}
-                  className="flex items-center border-b last:border-0 py-5 sm:py-0 sm:border-0"
-                >
-                  <div className="flex gap-5 flex-1 items-center sm:flex-col sm:w-full">
-                    <div className="relative flex-1 h-[116px] sm:w-full sm:h-[166px] sm:flex-auto sm:rounded-[8px] sm:overflow-clip">
-                      <ImageMedia
-                        fill
-                        imgClassName="object-cover"
-                        resource={event.image}
-                      />
-                    </div>
-                    <div className="flex-4">
-                      <div className="flex items-center">
-                        <p className="leading-[170%] sm:flex-1">
-                          {event.title}
-                        </p>
-                        <IconArrowRight
-                          height="28px"
-                          iconClasses={`hidden sm:block stroke-z-${accentColor}`}
-                          width="28px"
+                <Link key={event.id} url={path + '/event/' + event.id}>
+                  <div className="flex items-center border-b last:border-0 py-5 sm:py-0 sm:border-0">
+                    <div className="flex gap-5 flex-1 items-center sm:flex-col sm:w-full">
+                      <div className="relative flex-1 h-[116px] sm:w-full sm:h-[166px] sm:flex-auto sm:rounded-[8px] sm:overflow-clip">
+                        <ImageMedia
+                          fill
+                          imgClassName="object-cover"
+                          resource={event.image}
                         />
                       </div>
-                      <p className="text-[#646464] leading-[170%] text-[15px]">
-                        {formatEventDates(
-                          event.startDate,
-                          event.endDate || undefined,
-                        )}
-                      </p>
-                      <div className="text-[#646464] leading-[170%] text-[15px]">
-                        {event.city ? <p>{event.city}</p> : <p>Online</p>}
+                      <div className="flex-4">
+                        <div className="flex items-center">
+                          <p className="leading-[170%] sm:flex-1">
+                            {event.title}
+                          </p>
+                          <IconArrowRight
+                            height="28px"
+                            iconClasses={`hidden sm:block stroke-z-${accentColor}`}
+                            width="28px"
+                          />
+                        </div>
+                        <p className="text-[#646464] fill-[#646464] leading-[170%] text-[15px]">
+                          {formatEventDates(
+                            event.startDate,
+                            event.endDate || undefined,
+                          )}
+                        </p>
+                        <div className="text-[#646464] leading-[170%] text-[15px]">
+                          {event.online ? <p>Online</p> : <p>{event.city}</p>}
+                        </div>
                       </div>
                     </div>
+                    <IconArrowRight
+                      height="28px"
+                      iconClasses={`sm:hidden stroke-z-${accentColor}`}
+                      width="28px"
+                    />
                   </div>
-                  <IconArrowRight
-                    height="28px"
-                    iconClasses={`sm:hidden stroke-z-${accentColor}`}
-                    width="28px"
-                  />
-                </div>
+                </Link>
               ))}
             </div>
           )}

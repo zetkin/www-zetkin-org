@@ -1,3 +1,8 @@
+import {
+  lexicalEditor,
+  FixedToolbarFeature,
+  InlineToolbarFeature,
+} from '@payloadcms/richtext-lexical';
 import type { CollectionConfig } from 'payload';
 
 export const Events: CollectionConfig = {
@@ -71,9 +76,17 @@ export const Events: CollectionConfig = {
     },
     {
       name: 'description',
-      label: 'Description',
-      type: 'textarea',
-      required: true,
+      type: 'richText',
+      label: false,
+      editor: lexicalEditor({
+        features: ({ rootFeatures }) => {
+          return [
+            ...rootFeatures,
+            FixedToolbarFeature(),
+            InlineToolbarFeature(),
+          ];
+        },
+      }),
     },
   ],
 };
