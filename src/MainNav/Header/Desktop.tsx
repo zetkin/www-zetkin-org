@@ -131,7 +131,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                     const needsShowMore =
                       (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
                     return (
-                      <li key={midItem.id} className="flex flex-col gap-4 flex-1">
+                      <li
+                        key={midItem.id}
+                        className="flex flex-col gap-4 flex-1"
+                      >
                         <div className="flex flex-col gap-3">
                           <div className="flex gap-2.5 items-center">
                             {midItem.icon && (
@@ -174,9 +177,9 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                                     'text-[13px] truncate leading-[1.7] ' +
                                     (linkIsSelected &&
                                       'font-semibold text-' +
-                                      colorToTailwind(
-                                        hoveredItem.color || '',
-                                      ))
+                                        colorToTailwind(
+                                          hoveredItem.color || '',
+                                        ))
                                   }
                                 >
                                   <Link aria-label={bottomItem.label} url={url}>
