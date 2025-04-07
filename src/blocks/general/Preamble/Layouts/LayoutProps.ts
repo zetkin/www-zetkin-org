@@ -7,4 +7,5 @@ export type LayoutProps = {
   image?: string | Media;
   preamble?: string;
   mainText?: SerializedEditorState;
+  width?: 'full' | 'article';
 };

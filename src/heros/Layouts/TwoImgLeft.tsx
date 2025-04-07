@@ -6,9 +6,14 @@ export default function TwoImgLeft({
   images = [],
   html,
   eyebrowHeading,
+  width,
 }: LayoutProps) {
   return (
-    <div className="flex flex-col w-full gap-12 md:max-w-[630px] overflow-visible">
+    <div
+      className={`flex flex-col w-full gap-12 overflow-visible
+            ${width === 'full' ? 'md:max-w-250' : 'md:max-w-[630px]'}
+    `}
+    >
       <div className="flex flex-col gap-4">
         {eyebrowHeading && <p className="text-lg">{eyebrowHeading}</p>}
         {
