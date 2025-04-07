@@ -12,8 +12,8 @@ export default function UILeft({
   return (
     <div className="flex flex-col gap-10 z-10 w-full md:max-w-[1000px] items-start ">
       <div className="flex flex-col w-full sm:items-center">
-        <div className="flex flex-col gap-7 w-full">
-          <div className="flex flex-col gap-4 md:max-w-[450px] z-10">
+        <div className="flex flex-col gap-7 w-full z-10">
+          <div className="flex flex-col gap-4 md:max-w-[450px]">
             {
               /* eslint-disable react/no-danger */
               <div
