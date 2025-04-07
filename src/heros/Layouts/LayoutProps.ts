@@ -11,4 +11,5 @@ export type LayoutProps = {
   html: string;
   eyebrowHeading?: string;
   subtitle?: string;
+  width?: 'full' | 'article';
 };

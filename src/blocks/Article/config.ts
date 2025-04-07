@@ -12,6 +12,7 @@ import { Image } from './Image/config';
 import { Button } from './Button/config';
 import { Author } from './Author/config';
 import { InfoBox } from './InfoBox/config';
+import { Preamble } from '../general/Preamble/config';
 
 export const Article: Block = {
   slug: 'article',
@@ -29,7 +30,7 @@ export const Article: Block = {
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             BlocksFeature({
-              blocks: [TextWithQuote, Image, Button, Author, InfoBox],
+              blocks: [TextWithQuote, Image, Button, Author, InfoBox, Preamble],
             }),
           ];
         },
