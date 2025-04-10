@@ -12,26 +12,6 @@ export const PeopleList: Block = {
       required: true,
     },
     {
-      name: 'accentColor',
-      label: 'Accent Color',
-      type: 'select',
-      required: true,
-      options: [
-        {
-          label: 'Purple',
-          value: 'purple',
-        },
-        {
-          label: 'Green',
-          value: 'green',
-        },
-        {
-          label: 'Red',
-          value: 'red',
-        },
-      ],
-    },
-    {
       name: 'lists',
       label: 'List/Lists',
       admin: {

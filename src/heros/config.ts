@@ -68,28 +68,6 @@ export const hero: Field = {
       },
     },
     {
-      name: 'accentColor',
-      label: 'Accent Color',
-      admin: {
-        condition: (_, { layout } = {}) => !['none'].includes(layout),
-      },
-      type: 'select',
-      options: [
-        {
-          label: 'Purple',
-          value: 'purple',
-        },
-        {
-          label: 'Green',
-          value: 'green',
-        },
-        {
-          label: 'Red',
-          value: 'red',
-        },
-      ],
-    },
-    {
       name: 'eyebrowHeading',
       label: 'Eyebrow heading',
       type: 'text',

@@ -8,6 +8,7 @@ import {
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import type { AuthorBlock as AuthorBlockProps } from '@/payload-types';
 import { CMSLink as Link } from '@/components/Link';
+import Background from './Background';
 
 const icons: Record<
   string,
@@ -23,17 +24,7 @@ const icons: Record<
 export const AuthorBlock: React.FC<AuthorBlockProps> = ({
   author,
   socialLink,
-  backgroundColor,
 }) => {
-  let bgTailwind;
-
-  if (backgroundColor === 'greenPurple') {
-    bgTailwind =
-      'bg-gradient-to-r from-[rgba(120,1,221,0)] from-5.08% via-[rgba(120,1,221,0.03)] via-27.63% via-[rgba(120,1,221,0.06)] via-57.2% to-[rgba(120,1,221,0.05)] to-84.63%';
-  } else if (backgroundColor === 'greenRed') {
-    bgTailwind =
-      'bg-gradient-to-r from-[rgba(201,30,64,0)] from-5.08% via-[rgba(201,30,64,0.03)] via-27.63% via-[rgba(201,30,64,0.06)] via-57.2% to-[rgba(201,30,64,0.05)] to-84.63%';
-  }
 
   const IconToRender = socialLink ? icons[socialLink] : undefined;
 
@@ -64,9 +55,7 @@ export const AuthorBlock: React.FC<AuthorBlockProps> = ({
             )}
           </Link>
         )}
-        <div
-          className={`absolute w-full h-full rounded-[12px] top-0 left-0 z-10 ${bgTailwind}`}
-        />
+        <Background />
       </div>
     </div>
   );

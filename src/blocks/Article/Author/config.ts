@@ -37,20 +37,5 @@ export const Author: Block = {
         },
       ],
     },
-    {
-      name: 'backgroundColor',
-      label: 'Background color',
-      type: 'select',
-      options: [
-        {
-          value: 'greenPurple',
-          label: 'Green/Purple',
-        },
-        {
-          value: 'greenRed',
-          label: 'Green/Red',
-        },
-      ],
-    },
   ],
 };

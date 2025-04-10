@@ -14,13 +14,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from '@/components/ui/tooltip';
+import LinkText from './LinkText';
 
 const PeopleCard = ({
   person,
-  accentColor,
 }: {
   person: Person;
-  accentColor: string;
 }) => {
   return (
     <div className="flex px-5 py-4 gap-5 border-b first:border-t lg:border lg:break-inside-avoid lg:mb-5 lg:rounded-[6px]">
@@ -105,9 +104,9 @@ const PeopleCard = ({
                 : (person.profilePiece as string | undefined)
             }
           >
-            <p className={`underline font-light text-z-${accentColor}`}>
+            <LinkText>
               Read profile piece
-            </p>
+            </LinkText>
           </Link>
         )}
       </div>

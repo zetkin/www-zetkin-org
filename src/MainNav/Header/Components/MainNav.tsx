@@ -1,4 +1,3 @@
-import colorToTailwind from '@/utilities/colorToTailwind';
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav } from '@/payload-types';
 
@@ -31,10 +30,8 @@ export default function MainNav({
               className={
                 'sm:text-sm group ' +
                 (linkIsSelected
-                  ? 'font-semibold text-' +
-                    colorToTailwind(topItem.color || '') +
-                    ' stroke-' +
-                    colorToTailwind(topItem.color || '')
+                  ? 'font-semibold text-z-' + topItem.color +
+                  ' stroke-z-' + topItem.color
                   : 'stroke-black')
               }
               onClick={() => setNavigatedItem(topItem)}

@@ -11,9 +11,9 @@ import { ImageMedia } from '@/components/Media/ImageMedia';
 import { formatEventDates } from './formatEventDates';
 import { IconArrowRight } from '@/icons/UIIcons';
 import { CMSLink as Link } from '@/components/Link';
+import { useAccentColorContext } from '@/providers/AccentColorProvider';
 
 const EventListBlock: React.FC<EventListProps> = ({
-  accentColor,
   tag,
   listHeader,
 }) => {
@@ -67,6 +67,9 @@ const EventListBlock: React.FC<EventListProps> = ({
   }, [filter, selectedPage, items]);
 
   const path = usePathname();
+
+  const { accentColor } = useAccentColorContext();
+
 
   return (
     <div

@@ -100,24 +100,5 @@ export const FeatureList: Block = {
         },
       ],
     },
-    {
-      name: 'accentColor',
-      label: 'Accent Color',
-      type: 'select',
-      options: [
-        {
-          label: 'Purple',
-          value: 'purple',
-        },
-        {
-          label: 'Green',
-          value: 'green',
-        },
-        {
-          label: 'Red',
-          value: 'red',
-        },
-      ],
-    },
   ],
 };

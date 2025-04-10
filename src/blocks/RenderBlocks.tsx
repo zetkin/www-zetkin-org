@@ -12,10 +12,10 @@ import { ImageBlock } from './Article/Image/Component';
 import { ButtonBlock } from './Article/Button/Component';
 import { InfoBoxBlock } from './Article/InfoBox/Component';
 import { AuthorBlock } from './Article/Author/Component';
-import FeatureListBlock from './lists/Feature/Component';
 import PeopleListBlock from './lists/People/Component';
 import EventListBlock from './lists/Events/Component';
 import JobsListBlock from './lists/Jobs/Component';
+import FeatureListBlock from './lists/Feature/Component';
 
 const blockComponents = {
   landing: LandingBlock,

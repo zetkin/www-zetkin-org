@@ -1,17 +1,15 @@
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import { PeopleHighlightBlock as PeopleHighlightBlockProps } from '@/payload-types';
 import { CMSLink as Link } from '@/components/Link';
-import colorToTailwind from '@/utilities/colorToTailwind';
+import LinkText from './LinkText';
 
 export const PeopleHighlightBlock: React.FC<PeopleHighlightBlockProps> = ({
   people,
-  borderTop,
-  linkColor,
 }) => {
   return (
     <div className="flex px-5 w-full justify-center">
       <div
-        className={`flex flex-col md:flex-row md:max-w-250 ${borderTop && 'border-t'}`}
+        className={`flex flex-col md:flex-row md:max-w-250`}
       >
         {people?.map((person, i) => (
           <div
@@ -28,11 +26,10 @@ export const PeopleHighlightBlock: React.FC<PeopleHighlightBlockProps> = ({
             </div>
             <p className="leading-[1.7] text-lg">{person.description}</p>
             <Link url={person.link?.url}>
-              <p
-                className={`underline text-lg text-${colorToTailwind(linkColor || 'purple')}`}
+              <LinkText
               >
                 Read the case study
-              </p>
+              </LinkText>
             </Link>
           </div>
         ))}

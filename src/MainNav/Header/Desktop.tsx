@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 
 import { CMSLink as Link } from '@/components/Link';
@@ -8,8 +8,8 @@ import type { MainNav as MainNavTypes } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import MainNav from './Components/MainNav';
-import colorToTailwind from '../../utilities/colorToTailwind';
 import SubNav from './Components/SubNav';
+import { useAccentColorContext } from '@/providers/AccentColorProvider';
 
 interface DesktopHeaderProps {
   data: MainNavTypes;
@@ -22,10 +22,16 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   pathname,
   theme,
 }) => {
+  console.log('[DEBUG] DesktopHeader render, pathname:', pathname);
+
+
   const [openId, setOpenId] = useState<string | null>(null);
   const [navigatedItem, setNavigatedItem] = useState(
     data.topItems?.[0] ?? null,
   );
+
+  console.log('[DEBUG] Accent initially color set to:', navigatedItem?.color || 'purple');
+
 
   const [expandedBottomItems, setExpandedBottomItems] = useState<
     Record<string, boolean>
@@ -33,14 +39,56 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   const hoveredItem = data.topItems?.find((item) => item.id == openId);
 
+
+  const urlToItemMap = useMemo(() => {
+    const map: Record<string, NonNullable<MainNavTypes['topItems']>[number]> = {};
+
+    // Loop through topItems to build the map
+    data.topItems?.forEach((topItem) => {
+      topItem.midItems?.forEach((midItem) => {
+        if (midItem.link?.url) {
+          map[midItem.link.url] = topItem;
+        }
+        midItem.bottomItems?.forEach((bottomItem) => {
+          if (bottomItem.link?.url) {
+            map[bottomItem.link.url] = topItem;
+          }
+        });
+      });
+    });
+
+    return map;
+  }, [data.topItems]);
+
+  const { setAccentColor } = useAccentColorContext();
+
+
   useEffect(() => {
+
+    let matchedItem = urlToItemMap[pathname];
+
+    if (!matchedItem && pathname !== '/') {
+      const fallbackKey = Object.keys(urlToItemMap).find(key => key.startsWith(pathname + '/'));
+      if (fallbackKey) {
+        matchedItem = urlToItemMap[fallbackKey];
+      }
+    }
     if (pathname === '/') {
       setNavigatedItem(null);
+    } else {
+      setNavigatedItem(matchedItem ?? null);
+      console.log('[DEBUG] navigatedItem changed:', navigatedItem);
     }
-  }, [pathname]);
+  }, [pathname, urlToItemMap, setAccentColor]);
+
+  useEffect(() => {
+    // Since the accentColor property only exists on top-level items,
+    // we can safely use navigatedItem?.color from our mapping.
+    setAccentColor(navigatedItem?.color || 'purple');
+    console.log('[DEBUG] Accent color set to:', navigatedItem?.color || 'purple');
+  }, [navigatedItem, pathname]);
 
   // Show more options in hover menu
-
   const showMore = (midItemId: string) => {
     setExpandedBottomItems((prev) => ({
       ...prev,
@@ -49,11 +97,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   };
 
   // Fade in shadow
-
   const { scrollY } = useScroll();
-
   const opacity = useTransform(scrollY, [120, 180], [0, 0.06]);
-
   let headerShadow = '0, 0, 0,';
 
   switch (navigatedItem?.color) {
@@ -151,7 +196,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                               className={
                                 'text-[16px] font-semibold' +
                                 (linkIsSelected &&
-                                  `text-${colorToTailwind(hoveredItem.color || '')}`)
+                                  `text-z-${hoveredItem.color}`)
                               }
                             >
                               <Link aria-label={midItem.label} url={url}>
@@ -169,17 +214,13 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                             .map((bottomItem) => {
                               const url = bottomItem.link?.url ?? '/';
                               const linkIsSelected = pathname == url;
-
                               return (
                                 <li
                                   key={bottomItem.id}
                                   className={
                                     'text-[13px] truncate leading-[1.7] ' +
                                     (linkIsSelected &&
-                                      'font-semibold text-' +
-                                        colorToTailwind(
-                                          hoveredItem.color || '',
-                                        ))
+                                      'font-semibold text-z-' + hoveredItem.color)
                                   }
                                 >
                                   <Link aria-label={bottomItem.label} url={url}>
