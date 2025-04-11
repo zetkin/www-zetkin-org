@@ -15,7 +15,7 @@ import {
 } from '@/components/ui/accordion';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
-import { useAccentColorContext } from '@/providers/AccentColorProvider';
+import { useNavigate } from './useNavigate';
 
 interface MobileHeaderProps {
   data: MainNavTypes;
@@ -29,9 +29,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   theme,
 }) => {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [navigatedItem, setNavigatedItem] = useState(
-    data.topItems?.[0] ?? null,
-  );
+
+  const { navigatedItem, setNavigatedItem } = useNavigate(data, pathname);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedBottomItems, setExpandedBottomItems] = useState<
@@ -99,11 +98,6 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     bottomBorder = 'none';
   }
 
-  const { setAccentColor } = useAccentColorContext();
-
-  useEffect(() => {
-    setAccentColor(navigatedItem?.color || 'purple');
-  }, [navigatedItem, pathname]);
 
   return (
     <header

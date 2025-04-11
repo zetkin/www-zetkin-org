@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 
 import { CMSLink as Link } from '@/components/Link';
@@ -9,7 +9,8 @@ import { Logo } from '@/components/Logo/Logo';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
-import { useAccentColorContext } from '@/providers/AccentColorProvider';
+import { useNavigate } from './useNavigate';
+
 
 interface DesktopHeaderProps {
   data: MainNavTypes;
@@ -22,16 +23,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   pathname,
   theme,
 }) => {
-  console.log('[DEBUG] DesktopHeader render, pathname:', pathname);
-
 
   const [openId, setOpenId] = useState<string | null>(null);
-  const [navigatedItem, setNavigatedItem] = useState(
-    data.topItems?.[0] ?? null,
-  );
 
-  console.log('[DEBUG] Accent initially color set to:', navigatedItem?.color || 'purple');
-
+  const { navigatedItem, setNavigatedItem } = useNavigate(data, pathname);
 
   const [expandedBottomItems, setExpandedBottomItems] = useState<
     Record<string, boolean>
@@ -39,54 +34,6 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   const hoveredItem = data.topItems?.find((item) => item.id == openId);
 
-
-  const urlToItemMap = useMemo(() => {
-    const map: Record<string, NonNullable<MainNavTypes['topItems']>[number]> = {};
-
-    // Loop through topItems to build the map
-    data.topItems?.forEach((topItem) => {
-      topItem.midItems?.forEach((midItem) => {
-        if (midItem.link?.url) {
-          map[midItem.link.url] = topItem;
-        }
-        midItem.bottomItems?.forEach((bottomItem) => {
-          if (bottomItem.link?.url) {
-            map[bottomItem.link.url] = topItem;
-          }
-        });
-      });
-    });
-
-    return map;
-  }, [data.topItems]);
-
-  const { setAccentColor } = useAccentColorContext();
-
-
-  useEffect(() => {
-
-    let matchedItem = urlToItemMap[pathname];
-
-    if (!matchedItem && pathname !== '/') {
-      const fallbackKey = Object.keys(urlToItemMap).find(key => key.startsWith(pathname + '/'));
-      if (fallbackKey) {
-        matchedItem = urlToItemMap[fallbackKey];
-      }
-    }
-    if (pathname === '/') {
-      setNavigatedItem(null);
-    } else {
-      setNavigatedItem(matchedItem ?? null);
-      console.log('[DEBUG] navigatedItem changed:', navigatedItem);
-    }
-  }, [pathname, urlToItemMap, setAccentColor]);
-
-  useEffect(() => {
-    // Since the accentColor property only exists on top-level items,
-    // we can safely use navigatedItem?.color from our mapping.
-    setAccentColor(navigatedItem?.color || 'purple');
-    console.log('[DEBUG] Accent color set to:', navigatedItem?.color || 'purple');
-  }, [navigatedItem, pathname]);
 
   // Show more options in hover menu
   const showMore = (midItemId: string) => {

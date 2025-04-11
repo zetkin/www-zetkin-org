@@ -14,6 +14,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme';
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
 import { getServerSideURL } from '@/utilities/getURL';
 import { Footer } from '@/MainNav/Footer/Component';
+import { AccentColorInitializer } from '@/state/AccentColorInitializer';
 
 export default async function RootLayout({
   children,
@@ -59,6 +60,7 @@ export default async function RootLayout({
       </head>
       <body>
         <Providers>
+          <AccentColorInitializer color="purple" />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,

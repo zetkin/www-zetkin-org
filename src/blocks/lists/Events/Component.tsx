@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { PaginatedDocs } from 'payload';
 import { usePathname } from 'next/navigation';
+import { useAtomValue } from "jotai";
 
 import { EventListBlock as EventListProps } from '@/payload-types';
 import { fetchEventsByDateAndTag } from './fetchEventsByDateNTag';
@@ -11,7 +12,7 @@ import { ImageMedia } from '@/components/Media/ImageMedia';
 import { formatEventDates } from './formatEventDates';
 import { IconArrowRight } from '@/icons/UIIcons';
 import { CMSLink as Link } from '@/components/Link';
-import { useAccentColorContext } from '@/providers/AccentColorProvider';
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 const EventListBlock: React.FC<EventListProps> = ({
   tag,
@@ -68,7 +69,7 @@ const EventListBlock: React.FC<EventListProps> = ({
 
   const path = usePathname();
 
-  const { accentColor } = useAccentColorContext();
+  const accentColor = useAtomValue(accentColorAtom);
 
 
   return (

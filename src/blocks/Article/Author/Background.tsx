@@ -1,10 +1,12 @@
 'use client'
 
-import { useAccentColorContext } from "@/providers/AccentColorProvider";
+import { useAtomValue } from "jotai";
+
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 export default function Background() {
 
-    const { accentColor } = useAccentColorContext();
+    const accentColor = useAtomValue(accentColorAtom);
 
     let bgTailwind;
 

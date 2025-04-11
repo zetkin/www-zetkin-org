@@ -2,7 +2,6 @@ import React from 'react';
 
 import { HeaderThemeProvider } from './HeaderTheme';
 import { ThemeProvider } from './Theme';
-import { AccentColorProvider } from './AccentColorProvider';
 
 export const Providers: React.FC<{
   children: React.ReactNode;
@@ -10,7 +9,7 @@ export const Providers: React.FC<{
   return (
     <ThemeProvider>
       <HeaderThemeProvider>
-        <AccentColorProvider>{children}</AccentColorProvider>
+        {children}
       </HeaderThemeProvider>
     </ThemeProvider>
   );

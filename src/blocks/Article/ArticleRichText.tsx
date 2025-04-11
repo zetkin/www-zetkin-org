@@ -1,14 +1,15 @@
 'use client'
 
 import { SerializedEditorState } from "@payloadcms/richtext-lexical/lexical";
+import { useAtomValue } from "jotai";
 
 import RichText from "@/components/RichText";
-import { useAccentColorContext } from "@/providers/AccentColorProvider";
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 
 export default function ArticleRichText({ richText }: { richText: SerializedEditorState }) {
 
-    const { accentColor } = useAccentColorContext();
+    const accentColor = useAtomValue(accentColorAtom);
 
     return (
         <RichText

@@ -3,10 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { useScroll, motion, useTransform } from 'motion/react';
 import useMeasure from 'react-use-measure';
+import { useAtomValue } from "jotai";
 
 import RichText from '@/components/RichText';
 import type { TextWithQuoteBlock as TextWithQuoteBlockProps } from '@/payload-types';
-import { useAccentColorContext } from '@/providers/AccentColorProvider';
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
   props,
@@ -39,7 +40,7 @@ export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
     isLargeScreen ? value * -0.1 + height * 0.5 : 0,
   );
 
-  const { accentColor } = useAccentColorContext();
+  const accentColor = useAtomValue(accentColorAtom);
 
   return (
     <div className="flex flex-col mb-5 sm:flex-row sm:items-center w-full sm:gap-10 overflow-visible">

@@ -1,9 +1,11 @@
+import { useAtomValue } from "jotai";
+
 import { IconArrowRight } from "@/icons/UIIcons";
-import { useAccentColorContext } from "@/providers/AccentColorProvider";
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 export default function ArrowRight() {
 
-  const { accentColor } = useAccentColorContext();
+    const accentColor = useAtomValue(accentColorAtom);
 
     return (
         <IconArrowRight

@@ -2,32 +2,34 @@
 
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext';
+import { useAtomValue } from "jotai";
 
 import { formatEventDates } from '@/blocks/lists/Events/formatEventDates';
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 interface DocProps {
   title: string;
   description?:
-    | {
-        root: {
-          [k: string]: unknown;
-          type: string;
-          children: { [k: string]: unknown; type: string; version: number }[];
-          direction: 'ltr' | 'rtl' | null;
-          format:
-            | ''
-            | 'center'
-            | 'end'
-            | 'start'
-            | 'left'
-            | 'right'
-            | 'justify';
-          indent: number;
-          version: number;
-        };
-      }
-    | null
-    | undefined;
+  | {
+    root: {
+      [k: string]: unknown;
+      type: string;
+      children: { [k: string]: unknown; type: string; version: number }[];
+      direction: 'ltr' | 'rtl' | null;
+      format:
+      | ''
+      | 'center'
+      | 'end'
+      | 'start'
+      | 'left'
+      | 'right'
+      | 'justify';
+      indent: number;
+      version: number;
+    };
+  }
+  | null
+  | undefined;
   online?: boolean | null | undefined;
   address?: string | null | undefined;
   city?: string | null | undefined;
@@ -37,10 +39,8 @@ interface DocProps {
 
 export default function DateButton({
   doc,
-  color,
 }: {
   doc: DocProps;
-  color: string;
 }) {
   const data: SerializedEditorState = doc.description ?? {
     root: {
@@ -94,9 +94,11 @@ export default function DateButton({
     document.body.removeChild(link);
   };
 
+  const accentColor = useAtomValue(accentColorAtom);
+
   return (
     <button
-      className={`fill-z-${color} text-z-${color} leading-[170%] cursor-pointer font-semibold`}
+      className={`fill-z-${accentColor} text-z-${accentColor} leading-[170%] cursor-pointer font-semibold`}
       onClick={generateICS}
     >
       {formatEventDates(doc.startDate, doc.endDate || undefined, true)}

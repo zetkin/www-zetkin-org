@@ -9,13 +9,14 @@ import {
   useInView,
   AnimatePresence,
 } from 'motion/react';
+import { useAtomValue } from "jotai";
 
 import { FeatureListBlock as FeatureListProps } from '@/payload-types';
 import { IconArrowDown, IconArrowRight } from '@/icons/UIIcons';
 import { FeatureIcon } from '@/icons/FeatureIcons/RenderIcon';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import { Button } from '@/components/ui/button';
-import { useAccentColorContext } from '@/providers/AccentColorProvider';
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 // Helper function for setting illustration margins
 function illustrationMargin(value: number) {
@@ -130,7 +131,7 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
     }
   };
 
-  const { accentColor } = useAccentColorContext();
+  const accentColor = useAtomValue(accentColorAtom);
 
   return (
     <div className="flex px-5 w-full justify-center mt-20">

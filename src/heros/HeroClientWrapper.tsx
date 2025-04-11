@@ -1,6 +1,7 @@
 'use client';
 
-import { useAccentColorContext } from '@/providers/AccentColorProvider';
+import { useAtomValue } from "jotai";
+
 import { Media } from '@/payload-types';
 import TwoImgLeft from './Layouts/TwoImgLeft';
 import TwoImgCenter from './Layouts/TwoImgCenter';
@@ -8,6 +9,7 @@ import OneImgLeft from './Layouts/OneImgLeft';
 import OneImgCenter from './Layouts/OneImgCenter';
 import FeatureLeft from './Layouts/FeatureLeft';
 import FeatureCenter from './Layouts/FeatureCenter';
+import { accentColorAtom } from "@/state/accentColorAtom";
 
 const heros = {
   twoImgLeft: TwoImgLeft,
@@ -38,7 +40,7 @@ export const HeroClientWrapper: React.FC<HeroClientWrapperProps> = ({
   readTime,
   images,
 }) => {
-  const { accentColor } = useAccentColorContext();
+  const accentColor = useAtomValue(accentColorAtom);
 
   const modifiedHtml = html
     .replace(/<p>/g, '<h2 class="">')
