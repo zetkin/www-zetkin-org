@@ -21,6 +21,7 @@ import { Preamble } from '@/blocks/general/Preamble/config';
 import { PeopleHighlight } from '@/blocks/general/PeopleHighlight/config';
 import { Article } from '@/blocks/Article/config';
 import { FeatureList } from '@/blocks/lists/Feature/config';
+import { PeopleList } from '@/blocks/lists/People/config';
 
 export const Pages: CollectionConfig<'pages'> = {
   slug: 'pages',
@@ -84,6 +85,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 PeopleHighlight,
                 Article,
                 FeatureList,
+                PeopleList,
               ],
               required: false,
               admin: {

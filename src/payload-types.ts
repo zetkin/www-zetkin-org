@@ -70,6 +70,7 @@ export interface Config {
     media: Media;
     users: User;
     people: Person;
+    tags: Tag;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -82,6 +83,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     people: PeopleSelect<false> | PeopleSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -176,6 +178,7 @@ export interface Page {
         | PeopleHighlightBlock
         | ArticleBlock
         | FeatureListBlock
+        | PeopleListBlock
       )[]
     | null;
   meta?: {
@@ -532,6 +535,37 @@ export interface FeatureListBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "peopleListBlock".
+ */
+export interface PeopleListBlock {
+  accordion: boolean;
+  accentColor: 'purple' | 'green' | 'red';
+  /**
+   * If "Wrap in accordion" is not selected, please only add one list here.
+   */
+  lists?:
+    | {
+        title: string;
+        peopleTag: string | Tag;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'peopleList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -558,7 +592,7 @@ export interface Person {
   pronouns?: string | null;
   photo: string | Media;
   role: string;
-  category?: ('leadership' | 'contributor' | 'boardMember') | null;
+  tags?: (string | Tag)[] | null;
   email?: string | null;
   linkedIn?: string | null;
   github?: string | null;
@@ -705,6 +739,10 @@ export interface PayloadLockedDocument {
         value: string | Person;
       } | null)
     | ({
+        relationTo: 'tags';
+        value: string | Tag;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -786,6 +824,7 @@ export interface PagesSelect<T extends boolean = true> {
         peopleHighlight?: T | PeopleHighlightBlockSelect<T>;
         article?: T | ArticleBlockSelect<T>;
         featureList?: T | FeatureListBlockSelect<T>;
+        peopleList?: T | PeopleListBlockSelect<T>;
       };
   meta?:
     | T
@@ -979,6 +1018,23 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "peopleListBlock_select".
+ */
+export interface PeopleListBlockSelect<T extends boolean = true> {
+  accordion?: T;
+  accentColor?: T;
+  lists?:
+    | T
+    | {
+        title?: T;
+        peopleTag?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1095,13 +1151,22 @@ export interface PeopleSelect<T extends boolean = true> {
   pronouns?: T;
   photo?: T;
   role?: T;
-  category?: T;
+  tags?: T;
   email?: T;
   linkedIn?: T;
   github?: T;
   instagram?: T;
   otherLink?: T;
   profilePiece?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
   updatedAt?: T;
   createdAt?: T;
 }
