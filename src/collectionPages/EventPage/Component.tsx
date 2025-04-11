@@ -51,7 +51,7 @@ export default async function EventPage({ id }: { id: string }) {
               <h3 className="text-[30px] sm:text-[36px] leading-[140%]">
                 {eventDoc?.title || 'No title available'}
               </h3>
-              <Actions eventDoc={eventDoc} isMobile={isMobile}/>
+              <Actions eventDoc={eventDoc} isMobile={isMobile} />
               <RichText
                 className={`mt-1 w-full overflow-visible text-lg leading-[170%] prose-p:text-black prose-ol:text-black marker:text-black prose-a:text-z-${accentColor}`}
                 data={

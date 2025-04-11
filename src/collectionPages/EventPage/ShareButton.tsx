@@ -1,9 +1,9 @@
 'use client';
 
 import { useCallback, useState } from 'react';
-import { useAtomValue } from "jotai";
+import { useAtomValue } from 'jotai';
 
-import { accentColorAtom } from "@/state/accentColorAtom";
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 export default function ShareButton() {
   const [copied, setCopied] = useState(false);

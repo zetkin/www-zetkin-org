@@ -1,6 +1,6 @@
 'use client';
 
-import { useAtomValue } from "jotai";
+import { useAtomValue } from 'jotai';
 
 import { Media } from '@/payload-types';
 import TwoImgLeft from './Layouts/TwoImgLeft';
@@ -9,7 +9,7 @@ import OneImgLeft from './Layouts/OneImgLeft';
 import OneImgCenter from './Layouts/OneImgCenter';
 import FeatureLeft from './Layouts/FeatureLeft';
 import FeatureCenter from './Layouts/FeatureCenter';
-import { accentColorAtom } from "@/state/accentColorAtom";
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 const heros = {
   twoImgLeft: TwoImgLeft,
@@ -26,10 +26,12 @@ interface HeroClientWrapperProps {
   subtitle?: string | null;
   eyebrowHeading?: string | null;
   readTime?: number | null;
-  images?: {
-    image: string | Media;
-    id?: string | null;
-  }[] | null;
+  images?:
+    | {
+        image: string | Media;
+        id?: string | null;
+      }[]
+    | null;
 }
 
 export const HeroClientWrapper: React.FC<HeroClientWrapperProps> = ({
@@ -50,7 +52,9 @@ export const HeroClientWrapper: React.FC<HeroClientWrapperProps> = ({
 
   const Layout = heros[layout];
 
-  if (!Layout) { return null; }
+  if (!Layout) {
+    return null;
+  }
 
   return (
     <Layout

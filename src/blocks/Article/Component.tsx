@@ -15,9 +15,7 @@ export const ArticleBlock: React.FC<ArticleBlockProps> = (props) => {
   return (
     <div className="flex mx-5 w-full justify-center">
       <div className="flex md:max-w-[630px] md:pr-20 overflow-visible">
-        {richText && (
-          <ArticleRichText richText={richText}/>
-        )}
+        {richText && <ArticleRichText richText={richText} />}
       </div>
     </div>
   );

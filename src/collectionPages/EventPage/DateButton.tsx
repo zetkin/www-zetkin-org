@@ -2,34 +2,34 @@
 
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext';
-import { useAtomValue } from "jotai";
+import { useAtomValue } from 'jotai';
 
 import { formatEventDates } from '@/blocks/lists/Events/formatEventDates';
-import { accentColorAtom } from "@/state/accentColorAtom";
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 interface DocProps {
   title: string;
   description?:
-  | {
-    root: {
-      [k: string]: unknown;
-      type: string;
-      children: { [k: string]: unknown; type: string; version: number }[];
-      direction: 'ltr' | 'rtl' | null;
-      format:
-      | ''
-      | 'center'
-      | 'end'
-      | 'start'
-      | 'left'
-      | 'right'
-      | 'justify';
-      indent: number;
-      version: number;
-    };
-  }
-  | null
-  | undefined;
+    | {
+        root: {
+          [k: string]: unknown;
+          type: string;
+          children: { [k: string]: unknown; type: string; version: number }[];
+          direction: 'ltr' | 'rtl' | null;
+          format:
+            | ''
+            | 'center'
+            | 'end'
+            | 'start'
+            | 'left'
+            | 'right'
+            | 'justify';
+          indent: number;
+          version: number;
+        };
+      }
+    | null
+    | undefined;
   online?: boolean | null | undefined;
   address?: string | null | undefined;
   city?: string | null | undefined;
@@ -37,11 +37,7 @@ interface DocProps {
   endDate?: string | null | undefined;
 }
 
-export default function DateButton({
-  doc,
-}: {
-  doc: DocProps;
-}) {
+export default function DateButton({ doc }: { doc: DocProps }) {
   const data: SerializedEditorState = doc.description ?? {
     root: {
       type: '',

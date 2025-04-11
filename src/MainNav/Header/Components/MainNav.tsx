@@ -30,8 +30,10 @@ export default function MainNav({
               className={
                 'sm:text-sm group ' +
                 (linkIsSelected
-                  ? 'font-semibold text-z-' + topItem.color +
-                  ' stroke-z-' + topItem.color
+                  ? 'font-semibold text-z-' +
+                    topItem.color +
+                    ' stroke-z-' +
+                    topItem.color
                   : 'stroke-black')
               }
               onClick={() => setNavigatedItem(topItem)}

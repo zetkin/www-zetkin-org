@@ -3,11 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import { useScroll, motion, useTransform } from 'motion/react';
 import useMeasure from 'react-use-measure';
-import { useAtomValue } from "jotai";
+import { useAtomValue } from 'jotai';
 
 import RichText from '@/components/RichText';
 import type { TextWithQuoteBlock as TextWithQuoteBlockProps } from '@/payload-types';
-import { accentColorAtom } from "@/state/accentColorAtom";
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
   props,

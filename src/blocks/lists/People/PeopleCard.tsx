@@ -16,11 +16,7 @@ import {
 } from '@/components/ui/tooltip';
 import LinkText from './LinkText';
 
-const PeopleCard = ({
-  person,
-}: {
-  person: Person;
-}) => {
+const PeopleCard = ({ person }: { person: Person }) => {
   return (
     <div className="flex px-5 py-4 gap-5 border-b first:border-t lg:border lg:break-inside-avoid lg:mb-5 lg:rounded-[6px]">
       <div className="relative w-[70px] h-[70px] rounded-full overflow-clip">
@@ -104,9 +100,7 @@ const PeopleCard = ({
                 : (person.profilePiece as string | undefined)
             }
           >
-            <LinkText>
-              Read profile piece
-            </LinkText>
+            <LinkText>Read profile piece</LinkText>
           </Link>
         )}
       </div>

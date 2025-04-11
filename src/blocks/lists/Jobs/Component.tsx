@@ -5,10 +5,7 @@ import { fetchJobsByTag } from './fetchJobsByTag';
 import { CMSLink as Link } from '@/components/Link';
 import ArrowRight from './ArrowRight';
 
-const JobsListBlock: React.FC<JobsListProps> = async ({
-  title,
-  jobsTag,
-}) => {
+const JobsListBlock: React.FC<JobsListProps> = async ({ title, jobsTag }) => {
   const headersList = await headers();
   const currentPath =
     headersList.get('x-invoke-path') ||

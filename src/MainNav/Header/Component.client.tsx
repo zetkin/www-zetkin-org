@@ -8,7 +8,6 @@ import { DesktopHeader } from './Desktop';
 import type { MainNav } from '@/payload-types';
 
 export function HeaderClient({ navData }: { navData: MainNav }) {
-
   const pathname = usePathname();
 
   return (

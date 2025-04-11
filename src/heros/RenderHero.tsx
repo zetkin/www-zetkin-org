@@ -8,14 +8,8 @@ import { Page } from '@/payload-types';
 import { HeroClientWrapper } from './HeroClientWrapper';
 
 export const RenderHero: React.FC<Page['hero']> = (props) => {
-  const {
-    layout,
-    title,
-    readTime,
-    images,
-    eyebrowHeading,
-    subtitle,
-  } = props || {};
+  const { layout, title, readTime, images, eyebrowHeading, subtitle } =
+    props || {};
 
   if (!layout || layout === 'none' || !title) {
     return null;

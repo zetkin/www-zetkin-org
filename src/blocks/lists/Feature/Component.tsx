@@ -9,14 +9,14 @@ import {
   useInView,
   AnimatePresence,
 } from 'motion/react';
-import { useAtomValue } from "jotai";
+import { useAtomValue } from 'jotai';
 
 import { FeatureListBlock as FeatureListProps } from '@/payload-types';
 import { IconArrowDown, IconArrowRight } from '@/icons/UIIcons';
 import { FeatureIcon } from '@/icons/FeatureIcons/RenderIcon';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import { Button } from '@/components/ui/button';
-import { accentColorAtom } from "@/state/accentColorAtom";
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 // Helper function for setting illustration margins
 function illustrationMargin(value: number) {
@@ -39,7 +39,7 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
   features,
   buttons,
   header,
-  subHeader
+  subHeader,
 }) => {
   const [currentSection, setCurrentSection] = useState(features[0]?.id || '');
   const [isHovered, setIsHovered] = useState(false);
@@ -72,10 +72,10 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
         return !mostVisible ||
           visibilityPercentage > (mostVisible?.visibilityPercentage || 0)
           ? {
-            element: currentFeature,
-            visibilityPercentage,
-            id: currentFeature.id || null,
-          }
+              element: currentFeature,
+              visibilityPercentage,
+              id: currentFeature.id || null,
+            }
           : mostVisible;
       }, null);
 
@@ -195,10 +195,11 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
                     <FeatureIcon
                       height="24px"
                       icon={feature.icon || 'banana'}
-                      iconClasses={`${currentSection === feature.id
-                        ? 'stroke-z-' + accentColor
-                        : 'stroke-[#5A5A5A]'
-                        }`}
+                      iconClasses={`${
+                        currentSection === feature.id
+                          ? 'stroke-z-' + accentColor
+                          : 'stroke-[#5A5A5A]'
+                      }`}
                       width="24px"
                     />
                     <p className="flex-1 whitespace-nowrap 2xl:transition-opacity 2xl:opacity-0 2xl:group-hover:opacity-100">
@@ -249,7 +250,9 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
               <div
                 className="w-full group-odd:-ml-5 group-even:-mr-5 group-even:self-end md:ml-0! md:mr-0! md:flex-1 md:self-center!"
                 style={
-                  feature.offset ? illustrationMargin(feature.offset) : undefined
+                  feature.offset
+                    ? illustrationMargin(feature.offset)
+                    : undefined
                 }
               >
                 <ImageMedia

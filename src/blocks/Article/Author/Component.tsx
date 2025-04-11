@@ -25,7 +25,6 @@ export const AuthorBlock: React.FC<AuthorBlockProps> = ({
   author,
   socialLink,
 }) => {
-
   const IconToRender = socialLink ? icons[socialLink] : undefined;
 
   return (

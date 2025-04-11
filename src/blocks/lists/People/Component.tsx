@@ -39,12 +39,7 @@ const PeopleListBlock: React.FC<PeopleListProps> = async ({
               lists[0]?.peopleTag &&
               typeof lists[0].peopleTag === 'string' ? (
                 (await fetchPeopleByTag(lists[0].peopleTag)).docs.map(
-                  (person) => (
-                    <PeopleCard
-                      key={person.id}
-                      person={person}
-                    />
-                  ),
+                  (person) => <PeopleCard key={person.id} person={person} />,
                 )
               ) : (
                 <div>No people found</div>

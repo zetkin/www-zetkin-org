@@ -11,7 +11,6 @@ import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
 import { useNavigate } from './useNavigate';
 
-
 interface DesktopHeaderProps {
   data: MainNavTypes;
   pathname: string;
@@ -23,7 +22,6 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   pathname,
   theme,
 }) => {
-
   const [openId, setOpenId] = useState<string | null>(null);
 
   const { navigatedItem, setNavigatedItem } = useNavigate(data, pathname);
@@ -33,7 +31,6 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   >({});
 
   const hoveredItem = data.topItems?.find((item) => item.id == openId);
-
 
   // Show more options in hover menu
   const showMore = (midItemId: string) => {
@@ -167,7 +164,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                                   className={
                                     'text-[13px] truncate leading-[1.7] ' +
                                     (linkIsSelected &&
-                                      'font-semibold text-z-' + hoveredItem.color)
+                                      'font-semibold text-z-' +
+                                        hoveredItem.color)
                                   }
                                 >
                                   <Link aria-label={bottomItem.label} url={url}>

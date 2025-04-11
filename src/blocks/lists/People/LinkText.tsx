@@ -1,19 +1,14 @@
-'use client'
+'use client';
 
 import { ReactNode } from 'react';
-import { useAtomValue } from "jotai";
+import { useAtomValue } from 'jotai';
 
-import { accentColorAtom } from "@/state/accentColorAtom";
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 export default function LinkText({ children }: { children: ReactNode }) {
+  const accentColor = useAtomValue(accentColorAtom);
 
-    const accentColor = useAtomValue(accentColorAtom);
-
-    return (
-        <p
-            className={`underline font-light text-z-${accentColor}`}
-        >
-            {children}
-        </p>
-    )
+  return (
+    <p className={`underline font-light text-z-${accentColor}`}>{children}</p>
+  );
 }

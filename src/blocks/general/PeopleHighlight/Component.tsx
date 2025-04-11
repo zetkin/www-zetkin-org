@@ -8,9 +8,7 @@ export const PeopleHighlightBlock: React.FC<PeopleHighlightBlockProps> = ({
 }) => {
   return (
     <div className="flex px-5 w-full justify-center">
-      <div
-        className={`flex flex-col md:flex-row md:max-w-250`}
-      >
+      <div className={`flex flex-col md:flex-row md:max-w-250`}>
         {people?.map((person, i) => (
           <div
             key={i}
@@ -26,10 +24,7 @@ export const PeopleHighlightBlock: React.FC<PeopleHighlightBlockProps> = ({
             </div>
             <p className="leading-[1.7] text-lg">{person.description}</p>
             <Link url={person.link?.url}>
-              <LinkText
-              >
-                Read the case study
-              </LinkText>
+              <LinkText>Read the case study</LinkText>
             </Link>
           </div>
         ))}

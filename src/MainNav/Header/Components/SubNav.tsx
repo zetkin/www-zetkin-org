@@ -15,38 +15,38 @@ interface navigatedItemType {
     newTab?: boolean | null;
   };
   midItems?:
-  | {
-    icon?: (string | null) | Media;
-    label?: string | null;
-    description?: string | null;
-    showInFooter?: boolean | null;
-    link?: {
-      type?: ('reference' | 'custom') | null;
-      reference?: {
-        relationTo: 'pages';
-        value: string | Page;
-      } | null;
-      url?: string;
-      newTab?: boolean | null;
-    };
-    bottomItems?:
     | {
-      label?: string | null;
-      link?: {
-        type?: ('reference' | 'custom') | null;
-        reference?: {
-          relationTo: 'pages';
-          value: string | Page;
-        } | null;
-        url?: string;
-        newTab?: boolean | null;
-      };
-      id?: string | null;
-    }[]
+        icon?: (string | null) | Media;
+        label?: string | null;
+        description?: string | null;
+        showInFooter?: boolean | null;
+        link?: {
+          type?: ('reference' | 'custom') | null;
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string;
+          newTab?: boolean | null;
+        };
+        bottomItems?:
+          | {
+              label?: string | null;
+              link?: {
+                type?: ('reference' | 'custom') | null;
+                reference?: {
+                  relationTo: 'pages';
+                  value: string | Page;
+                } | null;
+                url?: string;
+                newTab?: boolean | null;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
     | null;
-    id?: string | null;
-  }[]
-  | null;
   id?: string | null;
 }
 
