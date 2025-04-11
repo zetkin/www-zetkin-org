@@ -54,6 +54,7 @@ export type SupportedTimezones =
   | 'Asia/Singapore'
   | 'Asia/Tokyo'
   | 'Asia/Seoul'
+  | 'Australia/Brisbane'
   | 'Australia/Sydney'
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
@@ -71,6 +72,7 @@ export interface Config {
     users: User;
     people: Person;
     tags: Tag;
+    events: Event;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -84,6 +86,7 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     people: PeopleSelect<false> | PeopleSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -179,6 +182,7 @@ export interface Page {
         | ArticleBlock
         | FeatureListBlock
         | PeopleListBlock
+        | EventListBlock
       )[]
     | null;
   meta?: {
@@ -566,6 +570,18 @@ export interface Tag {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventListBlock".
+ */
+export interface EventListBlock {
+  accentColor: 'purple' | 'green' | 'red';
+  listHeader?: string | null;
+  tag?: (string | null) | Tag;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -599,6 +615,38 @@ export interface Person {
   instagram?: string | null;
   otherLink?: string | null;
   profilePiece?: (string | null) | Page;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events".
+ */
+export interface Event {
+  id: string;
+  title: string;
+  tags?: (string | Tag)[] | null;
+  image: string | Media;
+  startDate: string;
+  endDate?: string | null;
+  online?: boolean | null;
+  city?: string | null;
+  address?: string | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -743,6 +791,10 @@ export interface PayloadLockedDocument {
         value: string | Tag;
       } | null)
     | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -825,6 +877,7 @@ export interface PagesSelect<T extends boolean = true> {
         article?: T | ArticleBlockSelect<T>;
         featureList?: T | FeatureListBlockSelect<T>;
         peopleList?: T | PeopleListBlockSelect<T>;
+        eventList?: T | EventListBlockSelect<T>;
       };
   meta?:
     | T
@@ -1035,6 +1088,17 @@ export interface PeopleListBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventListBlock_select".
+ */
+export interface EventListBlockSelect<T extends boolean = true> {
+  accentColor?: T;
+  listHeader?: T;
+  tag?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1167,6 +1231,23 @@ export interface PeopleSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  tags?: T;
+  image?: T;
+  startDate?: T;
+  endDate?: T;
+  online?: T;
+  city?: T;
+  address?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }

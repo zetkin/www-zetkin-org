@@ -13,6 +13,9 @@ const config = {
   plugins: [tailwindcssAnimate, typography],
   theme: {
     extend: {
+      borderColor: {
+        DEFAULT: 'z-gray-200',
+      },
       keyframes: {
         'accordion-down': {
           from: { height: '0' },
