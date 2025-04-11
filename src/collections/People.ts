@@ -59,6 +59,9 @@ export const People: CollectionConfig = {
           admin: {
             width: '50%',
           },
+          filterOptions: () => ({
+            type: { equals: 'people' },
+          }),
         },
       ],
     },

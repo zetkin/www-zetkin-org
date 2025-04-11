@@ -11,6 +11,10 @@ export const Events: CollectionConfig = {
     singular: 'Event',
     plural: 'Events',
   },
+  admin: {
+    useAsTitle: 'title',
+    defaultColumns: ['title', 'image', 'tags', 'startDate'],
+  },
   fields: [
     {
       name: 'title',
@@ -23,6 +27,9 @@ export const Events: CollectionConfig = {
       type: 'relationship',
       relationTo: 'tags',
       hasMany: true,
+      filterOptions: () => ({
+        type: { equals: 'events' },
+      }),
     },
     {
       name: 'image',

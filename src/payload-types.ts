@@ -73,6 +73,7 @@ export interface Config {
     people: Person;
     tags: Tag;
     events: Event;
+    jobs: Job;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -87,6 +88,7 @@ export interface Config {
     people: PeopleSelect<false> | PeopleSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     events: EventsSelect<false> | EventsSelect<true>;
+    jobs: JobsSelect<false> | JobsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -183,6 +185,7 @@ export interface Page {
         | FeatureListBlock
         | PeopleListBlock
         | EventListBlock
+        | JobsListBlock
       )[]
     | null;
   meta?: {
@@ -565,6 +568,7 @@ export interface PeopleListBlock {
 export interface Tag {
   id: string;
   name: string;
+  type: 'people' | 'events' | 'jobs';
   updatedAt: string;
   createdAt: string;
 }
@@ -575,10 +579,22 @@ export interface Tag {
 export interface EventListBlock {
   accentColor: 'purple' | 'green' | 'red';
   listHeader?: string | null;
-  tag?: (string | null) | Tag;
+  tag: string | Tag;
   id?: string | null;
   blockName?: string | null;
   blockType: 'eventList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobsListBlock".
+ */
+export interface JobsListBlock {
+  accentColor: 'purple' | 'green' | 'red';
+  title: string;
+  jobsTag: string | Tag;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'jobsList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -647,6 +663,39 @@ export interface Event {
     };
     [k: string]: unknown;
   } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+  id: string;
+  title: string;
+  tags: (string | Tag)[];
+  remote: boolean;
+  city?: string | null;
+  /**
+   * URL to apply for the job
+   */
+  applyLink: string;
+  employmentType?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -795,6 +844,10 @@ export interface PayloadLockedDocument {
         value: string | Event;
       } | null)
     | ({
+        relationTo: 'jobs';
+        value: string | Job;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -878,6 +931,7 @@ export interface PagesSelect<T extends boolean = true> {
         featureList?: T | FeatureListBlockSelect<T>;
         peopleList?: T | PeopleListBlockSelect<T>;
         eventList?: T | EventListBlockSelect<T>;
+        jobsList?: T | JobsListBlockSelect<T>;
       };
   meta?:
     | T
@@ -1099,6 +1153,17 @@ export interface EventListBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobsListBlock_select".
+ */
+export interface JobsListBlockSelect<T extends boolean = true> {
+  accentColor?: T;
+  title?: T;
+  jobsTag?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1231,6 +1296,7 @@ export interface PeopleSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
+  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1247,6 +1313,21 @@ export interface EventsSelect<T extends boolean = true> {
   online?: T;
   city?: T;
   address?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+  title?: T;
+  tags?: T;
+  remote?: T;
+  city?: T;
+  applyLink?: T;
+  employmentType?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

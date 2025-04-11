@@ -10,7 +10,8 @@ import { RenderHero } from '@/heros/RenderHero';
 import { generateMeta } from '@/utilities/generateMeta';
 import PageClient from './page.client';
 import { LivePreviewListener } from '@/components/LivePreviewListener';
-import EventPage from '@/EventPage/Component';
+import EventPage from '@/collectionPages/EventPage/Component';
+import JobPage from '@/collectionPages/JobPage/Component';
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise });
@@ -58,14 +59,24 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { slug = ['home'] } = await paramsPromise;
   const url = '/' + slug.join('/');
 
-  // **Check if "event" is in the URL**
+  // Check if "event" is in the URL
 
   const eventIndex = slug.findIndex((segment) => segment === 'event');
   const eventId = eventIndex !== -1 ? slug[eventIndex + 1] : null;
 
-  // **If "event" is in the URL and has an ID, render EventPage instead**
+  // If "event" is in the URL and has an ID, render EventPage instead**
   if (eventId) {
     return <EventPage id={eventId} />;
+  }
+
+  // Check if "job" is in the URL
+
+  const jobIndex = slug.findIndex((segment) => segment === 'job');
+  const jobId = jobIndex !== -1 ? slug[jobIndex + 1] : null;
+
+  // If "job" is in the URL and has an ID, render EventPage instead
+  if (jobId) {
+    return <JobPage id={jobId} />;
   }
 
   const page = await queryPageByUrl({
