@@ -625,6 +625,9 @@ export interface Person {
   github?: string | null;
   instagram?: string | null;
   otherLink?: string | null;
+  /**
+   * If the person has a dedicated profile piece written about them, add the link here.
+   */
   profilePiece?: (string | null) | Page;
   updatedAt: string;
   createdAt: string;
