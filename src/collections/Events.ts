@@ -84,7 +84,10 @@ export const Events: CollectionConfig = {
     {
       name: 'geotag',
       label: 'Coordinates',
-      type: 'point'
+      type: 'point',
+      admin: {
+        disabled: true
+      }
     },
     {
       name: 'description',

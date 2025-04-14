@@ -3,7 +3,6 @@
 import { useAtomValue } from 'jotai';
 import { useEffect, useState } from 'react'; // Add useEffect and useState
 
-
 import { CMSLink as Link } from '@/components/Link';
 import DateButton from './DateButton';
 import { accentColorAtom } from '@/state/accentColorAtom';
@@ -13,11 +12,11 @@ import RichText from '@/components/RichText';
 export default function Actions({
   eventDoc,
   isMobile,
-  geotag
+  geotag,
 }: {
   eventDoc: Event;
   isMobile: boolean;
-  geotag: [number, number] | null | undefined
+  geotag: [number, number] | null | undefined;
 }) {
   const accentColor = useAtomValue(accentColorAtom);
 
@@ -25,14 +24,22 @@ export default function Actions({
 
   useEffect(() => {
     async function getAddress(lat: number, lon: number): Promise<void> {
-      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`,
+      );
       const data = await response.json();
 
       const address = data.address;
       const name = address.name || data.name || '';
       const street = address.road || '';
       const number = address.house_number || '';
-      const city = address.city || address.town || address.village || address.municipality || address.city_district || '';
+      const city =
+        address.city ||
+        address.town ||
+        address.village ||
+        address.municipality ||
+        address.city_district ||
+        '';
 
       const streetAddress = [street, number].filter(Boolean).join(' ');
       const label = [streetAddress || name, city].filter(Boolean).join(', ');
@@ -86,7 +93,9 @@ export default function Actions({
                     : `https://maps.google.com/?q=${eventDoc.address},${eventDoc.city}`
               }
             >
-              <p className={`leading-[170%] font-semibold text-z-${accentColor}`}>
+              <p
+                className={`leading-[170%] font-semibold text-z-${accentColor}`}
+              >
                 {geotag && locationLabel
                   ? locationLabel
                   : `${eventDoc.address}, ${eventDoc.city}`}
