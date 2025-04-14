@@ -1,9 +1,9 @@
 import { getPayload } from 'payload';
 
 import configPromise from '@payload-config';
-import RichText from '@/components/RichText';
 import { Button } from '@/components/ui/button';
 import { CMSLink as Link } from '@/components/Link';
+import Content from './Content';
 
 export default async function JobPage({ id }: { id: string }) {
   const payload = await getPayload({ config: configPromise });
@@ -19,8 +19,6 @@ export default async function JobPage({ id }: { id: string }) {
 
   const jobDoc = jobData.docs[0];
 
-  const color = 'purple';
-
   return (
     <div className="pt-10 sm:pt-46 pb-24 px-5 flex justify-center">
       <div className="w-full sm:max-w-[630px] pr-20">
@@ -29,9 +27,7 @@ export default async function JobPage({ id }: { id: string }) {
             <div className="flex flex-col gap-4 border-b pb-5">
               <h3 className="sm:text-[28px]">{jobDoc.title}</h3>
               <div className="flex gap-3 items-center">
-                <p className="text-lg">
-                  {jobDoc.remote ? 'Remote' : jobDoc.city}
-                </p>
+                <p className="text-lg">{jobDoc.location}</p>
                 <svg
                   height="4"
                   viewBox="0 0 3 4"
@@ -45,23 +41,8 @@ export default async function JobPage({ id }: { id: string }) {
                 )}
               </div>
             </div>
-            <RichText
-              className={`mt-1 w-full overflow-visible text-lg leading-[170%] prose-p:text-black prose-ol:text-black marker:text-black prose-a:text-z-${color}`}
-              data={
-                jobDoc.description || {
-                  root: {
-                    type: 'root',
-                    children: [],
-                    direction: null,
-                    format: '',
-                    indent: 0,
-                    version: 1,
-                  },
-                }
-              }
-              enableGutter={false}
-            />
-            <Link newTab={true} url={jobDoc.applyLink}>
+            <Content jobDoc={jobDoc} />
+            <Link newTab={true} url={'mailto:' + jobDoc.mailAddress}>
               <Button className="mt-10" variant={'primary'}>
                 Apply
               </Button>

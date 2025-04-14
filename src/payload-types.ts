@@ -670,11 +670,8 @@ export interface Job {
   id: string;
   title: string;
   tags: (string | Tag)[];
-  location?: string | null;
-  /**
-   * URL to apply for the job
-   */
-  applyLink: string;
+  location: string;
+  mailAddress: string;
   employmentType?: string | null;
   description: {
     root: {
@@ -1320,7 +1317,7 @@ export interface JobsSelect<T extends boolean = true> {
   title?: T;
   tags?: T;
   location?: T;
-  applyLink?: T;
+  mailAddress?: T;
   employmentType?: T;
   description?: T;
   updatedAt?: T;

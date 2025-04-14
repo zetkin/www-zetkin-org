@@ -38,27 +38,13 @@ export const Jobs: CollectionConfig = {
       name: 'location',
       label: 'Location',
       type: 'text',
+      required: true,
     },
     {
-      name: 'applyLink',
-      label: 'Apply link',
+      name: 'mailAddress',
+      label: 'Mail address for applications',
       required: true,
-      type: 'text',
-      admin: {
-        description: 'URL to apply for the job',
-      },
-      validate: (value: string | null | undefined) => {
-        if (!value) {
-          return true;
-        }
-
-        try {
-          new URL(value);
-          return true;
-        } catch (_err) {
-          return 'Invalid URL format';
-        }
-      },
+      type: 'email',
     },
     {
       name: 'employmentType',
