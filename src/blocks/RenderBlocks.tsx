@@ -11,7 +11,6 @@ import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
 import { ImageBlock } from './Article/Image/Component';
 import { ButtonBlock } from './Article/Button/Component';
 import { InfoBoxBlock } from './Article/InfoBox/Component';
-import { AuthorBlock } from './Article/Author/Component';
 import PeopleListBlock from './lists/People/Component';
 import EventListBlock from './lists/Events/Component';
 import JobsListBlock from './lists/Jobs/Component';
@@ -28,7 +27,6 @@ const blockComponents = {
   image: ImageBlock,
   button: ButtonBlock,
   infoBox: InfoBoxBlock,
-  author: AuthorBlock,
   featureList: FeatureListBlock,
   peopleList: PeopleListBlock,
   eventList: EventListBlock,

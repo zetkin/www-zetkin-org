@@ -8,7 +8,7 @@ export const PeopleList: Block = {
       name: 'lists',
       labels: {
         singular: 'List',
-        plural: 'Lists'
+        plural: 'Lists',
       },
       admin: {
         description: `If "Wrap in accordion" is not selected, please only add one list here.`,

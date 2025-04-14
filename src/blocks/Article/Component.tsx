@@ -2,9 +2,10 @@ import React from 'react';
 
 import type { ArticleBlock as ArticleBlockProps } from '@/payload-types';
 import ArticleRichText from './ArticleRichText';
+import { Author } from '../../components/Author/Component';
 
 export const ArticleBlock: React.FC<ArticleBlockProps> = (props) => {
-  const { richText } = props;
+  const { richText, author, socialLink } = props;
 
   const _twPredeclare = [
     'prose-a:text-z-red',
@@ -14,7 +15,8 @@ export const ArticleBlock: React.FC<ArticleBlockProps> = (props) => {
 
   return (
     <div className="flex mx-5 w-full justify-center">
-      <div className="flex md:max-w-[630px] md:pr-20 overflow-visible">
+      <div className="flex md:max-w-[630px] w-full md:pr-20 overflow-visible">
+        {author && <Author author={author} socialLink={socialLink} />}
         {richText && <ArticleRichText richText={richText} />}
       </div>
     </div>

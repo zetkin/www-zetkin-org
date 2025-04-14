@@ -86,8 +86,8 @@ export const Events: CollectionConfig = {
       label: 'Coordinates',
       type: 'point',
       admin: {
-        disabled: true
-      }
+        disabled: true,
+      },
     },
     {
       name: 'description',

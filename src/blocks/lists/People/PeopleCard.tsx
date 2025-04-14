@@ -17,15 +17,17 @@ import {
 import LinkText from './LinkText';
 
 const PeopleCard = ({ person }: { person: Person }) => {
-
-  const anyIcons = person.email ||
+  const anyIcons =
+    person.email ||
     person.linkedIn ||
     person.github ||
     person.instagram ||
-    person.otherLink
+    person.otherLink;
 
   return (
-    <div className={`flex px-5 py-4 gap-5 border-b first:border-t lg:border lg:break-inside-avoid lg:mb-5 lg:rounded-[6px] ${anyIcons ? '' : 'items-center'}`}>
+    <div
+      className={`flex px-5 py-4 gap-5 border-b first:border-t lg:border lg:break-inside-avoid lg:mb-5 lg:rounded-[6px] ${anyIcons ? '' : 'items-center'}`}
+    >
       <div className="relative w-[70px] h-[70px] rounded-full overflow-clip">
         <ImageMedia fill resource={person.photo} />
       </div>
@@ -64,7 +66,7 @@ const PeopleCard = ({ person }: { person: Person }) => {
             </TooltipProvider>
           </div>
         </div>
-        {(anyIcons) && (
+        {anyIcons && (
           <div className="flex gap-5 py-2.5 ">
             {person.email && (
               <Link url={person.email}>
@@ -98,7 +100,7 @@ const PeopleCard = ({ person }: { person: Person }) => {
           <Link
             url={
               typeof person.profilePiece === 'object' &&
-                'url' in person.profilePiece
+              'url' in person.profilePiece
                 ? (person.profilePiece as unknown as string | undefined)
                 : (person.profilePiece as string | undefined)
             }

@@ -491,6 +491,8 @@ export interface PeopleHighlightBlock {
  * via the `definition` "ArticleBlock".
  */
 export interface ArticleBlock {
+  author?: (string | null) | Person;
+  socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink')[] | null;
   richText?: {
     root: {
       type: string;
@@ -509,6 +511,40 @@ export interface ArticleBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'article';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people".
+ */
+export interface Person {
+  id: string;
+  name: string;
+  pronouns?: string | null;
+  photo: string | Media;
+  role: string;
+  tags?: (string | Tag)[] | null;
+  email?: string | null;
+  linkedIn?: string | null;
+  github?: string | null;
+  instagram?: string | null;
+  otherLink?: string | null;
+  /**
+   * If the person has a dedicated profile piece written about them, add the link here.
+   */
+  profilePiece?: (string | null) | Page;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  type: ('people' | 'events' | 'jobs')[];
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -560,17 +596,6 @@ export interface PeopleListBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: string;
-  name: string;
-  type: ('people' | 'events' | 'jobs')[];
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "eventListBlock".
  */
 export interface EventListBlock {
@@ -608,29 +633,6 @@ export interface User {
   loginAttempts?: number | null;
   lockUntil?: string | null;
   password?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "people".
- */
-export interface Person {
-  id: string;
-  name: string;
-  pronouns?: string | null;
-  photo: string | Media;
-  role: string;
-  tags?: (string | Tag)[] | null;
-  email?: string | null;
-  linkedIn?: string | null;
-  github?: string | null;
-  instagram?: string | null;
-  otherLink?: string | null;
-  /**
-   * If the person has a dedicated profile piece written about them, add the link here.
-   */
-  profilePiece?: (string | null) | Page;
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1092,6 +1094,8 @@ export interface PeopleHighlightBlockSelect<T extends boolean = true> {
  * via the `definition` "ArticleBlock_select".
  */
 export interface ArticleBlockSelect<T extends boolean = true> {
+  author?: T;
+  socialLink?: T;
   richText?: T;
   id?: T;
   blockName?: T;
@@ -1612,17 +1616,6 @@ export interface ButtonBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'button';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authorBlock".
- */
-export interface AuthorBlock {
-  author: string | Person;
-  socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'author';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

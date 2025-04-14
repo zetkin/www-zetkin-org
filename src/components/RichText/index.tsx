@@ -19,7 +19,7 @@ import type { InfoBoxBlock as InfoBoxBlockProps } from '@/payload-types';
 import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
 import { ImageBlock } from '@/blocks/Article/Image/Component';
 import { ButtonBlock } from '@/blocks/Article/Button/Component';
-import { AuthorBlock } from '@/blocks/Article/Author/Component';
+import { AuthorBlock } from '@/components/Author/Component';
 import { InfoBoxBlock } from '@/blocks/Article/InfoBox/Component';
 
 type NodeTypes = DefaultNodeTypes;
