@@ -1611,6 +1611,15 @@ export interface ButtonBlock {
   buttons: {
     label?: string | null;
     variant?: ('primary' | 'outline') | null;
+    link?: {
+      type?: ('reference' | 'custom') | null;
+      reference?: {
+        relationTo: 'pages';
+        value: string | Page;
+      } | null;
+      url?: string;
+      newTab?: boolean | null;
+    };
     id?: string | null;
   }[];
   id?: string | null;
