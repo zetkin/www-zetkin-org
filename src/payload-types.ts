@@ -544,7 +544,6 @@ export interface FeatureListBlock {
  * via the `definition` "peopleListBlock".
  */
 export interface PeopleListBlock {
-  accordion: boolean;
   /**
    * If "Wrap in accordion" is not selected, please only add one list here.
    */
@@ -1128,7 +1127,6 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
  * via the `definition` "peopleListBlock_select".
  */
 export interface PeopleListBlockSelect<T extends boolean = true> {
-  accordion?: T;
   lists?:
     | T
     | {
