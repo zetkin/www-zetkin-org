@@ -1588,9 +1588,9 @@ export interface TextWithQuoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "imageBlock".
+ * via the `definition` "twoImageBlock".
  */
-export interface ImageBlock {
+export interface TwoImageBlock {
   layout?: ('oneImg' | 'twoImg') | null;
   images: {
     image?: (string | null) | Media;
@@ -1601,7 +1601,23 @@ export interface ImageBlock {
   desktopOverflow?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'image';
+  blockType: 'twoImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "oneImageBlock".
+ */
+export interface OneImageBlock {
+  images: {
+    image?: (string | null) | Media;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  mobileOverflow?: ('left' | 'right') | null;
+  desktopOverflow?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'oneImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

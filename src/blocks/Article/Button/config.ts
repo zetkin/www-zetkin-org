@@ -35,7 +35,7 @@ export const Button: Block = {
             },
           ],
         },
-        link()
+        link(),
       ],
     },
   ],

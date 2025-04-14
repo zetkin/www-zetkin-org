@@ -8,7 +8,8 @@ import {
 } from '@payloadcms/richtext-lexical';
 
 import { TextWithQuote } from './TextWithQuote/config';
-import { Image } from './Image/config';
+import { TwoImage } from './TwoImages/config';
+import { OneImage } from './OneImage/config';
 import { Button } from './Button/config';
 import { InfoBox } from './InfoBox/config';
 import { Preamble } from '../general/Preamble/config';
@@ -65,7 +66,14 @@ export const Article: Block = {
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             BlocksFeature({
-              blocks: [TextWithQuote, Image, Button, InfoBox, Preamble],
+              blocks: [
+                TextWithQuote,
+                TwoImage,
+                OneImage,
+                Button,
+                InfoBox,
+                Preamble,
+              ],
             }),
           ];
         },

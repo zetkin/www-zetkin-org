@@ -8,13 +8,14 @@ import { PreambleBlock } from './general/Preamble/Component';
 import { PeopleHighlightBlock } from './general/PeopleHighlight/Component';
 import { ArticleBlock } from './Article/Component';
 import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
-import { ImageBlock } from './Article/Image/Component';
 import { ButtonBlock } from './Article/Button/Component';
 import { InfoBoxBlock } from './Article/InfoBox/Component';
 import PeopleListBlock from './lists/People/Component';
 import EventListBlock from './lists/Events/Component';
 import JobsListBlock from './lists/Jobs/Component';
 import FeatureListBlock from './lists/Feature/Component';
+import { OneImageBlock } from './Article/OneImage/Component';
+import { TwoImageBlock } from './Article/TwoImages/Component';
 
 const blockComponents = {
   landing: LandingBlock,
@@ -24,7 +25,8 @@ const blockComponents = {
   peopleHighlight: PeopleHighlightBlock,
   article: ArticleBlock,
   textWithQuote: TextWithQuoteBlock,
-  image: ImageBlock,
+  oneImage: OneImageBlock,
+  twoImage: TwoImageBlock,
   button: ButtonBlock,
   infoBox: InfoBoxBlock,
   featureList: FeatureListBlock,
