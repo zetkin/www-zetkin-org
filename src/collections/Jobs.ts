@@ -35,19 +35,9 @@ export const Jobs: CollectionConfig = {
       }),
     },
     {
-      name: 'remote',
-      label: 'Remote',
-      type: 'checkbox',
-      required: true,
-      defaultValue: false,
-    },
-    {
-      name: 'city',
-      label: 'City',
+      name: 'location',
+      label: 'Location',
       type: 'text',
-      admin: {
-        condition: (_, { remote } = {}) => remote === false,
-      },
     },
     {
       name: 'applyLink',

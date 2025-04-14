@@ -670,8 +670,7 @@ export interface Job {
   id: string;
   title: string;
   tags: (string | Tag)[];
-  remote: boolean;
-  city?: string | null;
+  location?: string | null;
   /**
    * URL to apply for the job
    */
@@ -1320,8 +1319,7 @@ export interface EventsSelect<T extends boolean = true> {
 export interface JobsSelect<T extends boolean = true> {
   title?: T;
   tags?: T;
-  remote?: T;
-  city?: T;
+  location?: T;
   applyLink?: T;
   employmentType?: T;
   description?: T;
