@@ -37,7 +37,7 @@ export const AuthorBlock: React.FC<AuthorBlockProps> = ({
           )}
       </div>
       <div className="flex gap-2.5 justify-between items-center px-5 py-4 md:py-2 rounded-[12px] bg-[rgba(15,116,115,0.04)] relative w-full md:w-fit flex-1">
-        <div className="flex flex-col z-20">
+        <div className="flex flex-col z-10">
           <p className="md:text-sm text-[#444444] leading-[1.7] my-0!">
             Author
           </p>
