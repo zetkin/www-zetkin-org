@@ -39,7 +39,7 @@ export default async function EventPage({ id }: { id: string }) {
               <div className="flex justify-between items-center pb-5 border-b">
                 <p className="text-lg">
                   {typeof eventDoc?.tags?.[0] === 'object' &&
-                  'name' in eventDoc.tags[0]
+                    'name' in eventDoc.tags[0]
                     ? eventDoc.tags[0].name
                     : 'Event'}
                 </p>
@@ -48,7 +48,7 @@ export default async function EventPage({ id }: { id: string }) {
               <h3 className="text-[30px] sm:text-[36px] leading-[140%]">
                 {eventDoc?.title || 'No title available'}
               </h3>
-              <Actions eventDoc={eventDoc} isMobile={isMobile} />
+              <Actions eventDoc={eventDoc} geotag={eventDoc.geotag} isMobile={isMobile} />
             </div>
           </div>
         ) : (

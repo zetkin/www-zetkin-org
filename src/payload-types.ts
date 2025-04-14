@@ -644,6 +644,11 @@ export interface Event {
   online?: boolean | null;
   city?: string | null;
   address?: string | null;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  geotag?: [number, number] | null;
   description?: {
     root: {
       type: string;
@@ -1305,6 +1310,7 @@ export interface EventsSelect<T extends boolean = true> {
   online?: T;
   city?: T;
   address?: T;
+  geotag?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;

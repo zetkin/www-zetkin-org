@@ -1,6 +1,8 @@
 'use client';
 
 import { useAtomValue } from 'jotai';
+import { useEffect, useState } from 'react'; // Add useEffect and useState
+
 
 import { CMSLink as Link } from '@/components/Link';
 import DateButton from './DateButton';
@@ -11,11 +13,36 @@ import RichText from '@/components/RichText';
 export default function Actions({
   eventDoc,
   isMobile,
+  geotag
 }: {
   eventDoc: Event;
   isMobile: boolean;
+  geotag: [number, number] | null | undefined
 }) {
   const accentColor = useAtomValue(accentColorAtom);
+
+  const [locationLabel, setLocationLabel] = useState<string | null>(null); // Added state for geotag location
+
+  useEffect(() => {
+    async function getAddress(lat: number, lon: number): Promise<void> {
+      const response = await fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json`);
+      const data = await response.json();
+
+      const address = data.address;
+      const name = address.name || data.name || '';
+      const street = address.road || '';
+      const number = address.house_number || '';
+      const city = address.city || address.town || address.village || address.municipality || address.city_district || '';
+
+      const streetAddress = [street, number].filter(Boolean).join(' ');
+      const label = [streetAddress || name, city].filter(Boolean).join(', ');
+      setLocationLabel(label);
+    }
+
+    if (geotag) {
+      getAddress(geotag[0], geotag[1]);
+    }
+  }, [geotag]);
 
   return (
     <div>
@@ -51,14 +78,18 @@ export default function Actions({
               newTab={true}
               url={
                 isMobile
-                  ? `geo:0,0?q=${eventDoc.address},${eventDoc.city}`
-                  : `https://maps.google.com/?q=${eventDoc.address},${eventDoc.city}`
+                  ? geotag
+                    ? `geo:${geotag[0]},${geotag[1]}`
+                    : `geo:0,0?q=${eventDoc.address},${eventDoc.city}`
+                  : geotag
+                    ? `https://maps.google.com/?q=${geotag[0]},${geotag[1]}`
+                    : `https://maps.google.com/?q=${eventDoc.address},${eventDoc.city}`
               }
             >
-              <p
-                className={`leading-[170%] font-semibold text-z-${accentColor}`}
-              >
-                {eventDoc.address}, {eventDoc.city}
+              <p className={`leading-[170%] font-semibold text-z-${accentColor}`}>
+                {geotag && locationLabel
+                  ? locationLabel
+                  : `${eventDoc.address}, ${eventDoc.city}`}
               </p>
             </Link>
           )}

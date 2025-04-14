@@ -82,6 +82,11 @@ export const Events: CollectionConfig = {
       },
     },
     {
+      name: 'geotag',
+      label: 'Coordinates',
+      type: 'point'
+    },
+    {
       name: 'description',
       type: 'richText',
       label: false,
