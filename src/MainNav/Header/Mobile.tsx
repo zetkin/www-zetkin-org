@@ -115,7 +115,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
         }}
       >
         <div className="flex flex-col justify-between items-center">
-          <motion.div layout onClick={() => setMenuOpen(false)}>
+          <motion.div onClick={() => setMenuOpen(false)}>
             <Link url="/">
               <Logo forceFull={menuOpen} />
             </Link>
@@ -129,19 +129,17 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
             <div className="absolute top-0 left-0 w-full h-full flex flex-col justify-center items-center">
               <span
                 className={`absolute bg-black h-[2.9px] w-7 transition-all duration-300 ease-in-out 
-                      ${
-                        menuOpen
-                          ? 'top-1/2 -mt-px transform rotate-45'
-                          : 'top-2/7 -mt-px transform rotate-0'
-                      }`}
+                      ${menuOpen
+                    ? 'top-1/2 -mt-px transform rotate-45'
+                    : 'top-2/7 -mt-px transform rotate-0'
+                  }`}
               />
               <span
                 className={`absolute bg-black h-[2.9px] w-7 transition-all duration-300 ease-in-out 
-                      ${
-                        menuOpen
-                          ? 'top-1/2 -mt-px transform -rotate-45'
-                          : 'top-5/7 -mt-px transform rotate-0'
-                      }`}
+                      ${menuOpen
+                    ? 'top-1/2 -mt-px transform -rotate-45'
+                    : 'top-5/7 -mt-px transform rotate-0'
+                  }`}
               />
             </div>
           </button>
