@@ -30,9 +30,6 @@ export const Jobs: CollectionConfig = {
       relationTo: 'tags',
       required: true,
       hasMany: true,
-      filterOptions: () => ({
-        type: { equals: 'jobs' },
-      }),
     },
     {
       name: 'location',

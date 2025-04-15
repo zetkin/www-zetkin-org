@@ -27,9 +27,6 @@ export const Events: CollectionConfig = {
       type: 'relationship',
       relationTo: 'tags',
       hasMany: true,
-      filterOptions: () => ({
-        type: { equals: 'events' },
-      }),
     },
     {
       name: 'image',

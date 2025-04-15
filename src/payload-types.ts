@@ -542,7 +542,6 @@ export interface Person {
 export interface Tag {
   id: string;
   name: string;
-  type: ('people' | 'events' | 'jobs')[];
   updatedAt: string;
   createdAt: string;
 }
@@ -1298,7 +1297,6 @@ export interface PeopleSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
-  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }
