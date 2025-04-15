@@ -5,21 +5,6 @@ export const TwoImage: Block = {
   interfaceName: 'twoImageBlock',
   fields: [
     {
-      name: 'layout',
-      label: 'Layout',
-      type: 'select',
-      options: [
-        {
-          value: 'oneImg',
-          label: 'One image',
-        },
-        {
-          value: 'twoImg',
-          label: 'Two images',
-        },
-      ],
-    },
-    {
       name: 'images',
       labels: {
         singular: 'Image',

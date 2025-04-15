@@ -14,7 +14,7 @@ export const TextWithQuote: Block = {
       type: 'row',
       admin: {
         style: {
-          display: 'flex',
+          width: '100%'
         },
       },
       fields: [

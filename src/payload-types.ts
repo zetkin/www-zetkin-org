@@ -1591,7 +1591,6 @@ export interface TextWithQuoteBlock {
  * via the `definition` "twoImageBlock".
  */
 export interface TwoImageBlock {
-  layout?: ('oneImg' | 'twoImg') | null;
   images: {
     image?: (string | null) | Media;
     description?: string | null;
