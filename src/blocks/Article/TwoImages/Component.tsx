@@ -20,7 +20,7 @@ export const TwoImageBlock: React.FC<ImageBlockProps> = ({ images }) => {
   return (
     <div>
       <div>
-        <div className="h-[92vw] md:h-[70vw] md:max-h-[651px] md:w-full relative">
+        <div className="h-[92vw] md:h-[70vw] md:max-h-[560px] md:w-full relative">
           <div
             className="object-cover absolute h-[46vw] w-[76vw] -left-1/14 top-0 md:left-auto md:right-[min(30vw,251px)] md:top-0 md:w-[55vw] md:max-w-[375px] md:h-[55vw] md:max-h-[375px]"
             onClick={() =>

@@ -40,7 +40,7 @@ export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
   const yTransform = useTransform(
     scrollYProgress,
     [0, 1],
-    isLargeScreen ? [40, -height * 0.25] : [0, 0],
+    isLargeScreen ? [20, -height * 0.25] : [0, 0],
   );
 
   const accentColor = useAtomValue(accentColorAtom);
