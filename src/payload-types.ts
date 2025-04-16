@@ -573,7 +573,7 @@ export interface PeopleListBlock {
 export interface Tag {
   id: string;
   name: string;
-  type: 'people' | 'events' | 'jobs';
+  type: ('people' | 'events' | 'jobs')[];
   updatedAt: string;
   createdAt: string;
 }

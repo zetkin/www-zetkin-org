@@ -20,6 +20,7 @@ export const Tags: CollectionConfig = {
     {
       name: 'type',
       type: 'select',
+      hasMany: true,
       options: [
         {
           label: 'People',
