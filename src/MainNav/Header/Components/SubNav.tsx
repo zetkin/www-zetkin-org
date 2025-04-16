@@ -1,4 +1,3 @@
-import colorToTailwind from '@/utilities/colorToTailwind';
 import { CMSLink as Link } from '@/components/Link';
 import { Media, Page } from '@/payload-types';
 
@@ -72,8 +71,7 @@ export default function SubNav({
                   className={
                     'sm:text-[13px] ' +
                     (linkIsSelected &&
-                      'font-semibold text-' +
-                        colorToTailwind(navigatedItem.color || ''))
+                      'font-semibold text-z-' + navigatedItem.color)
                   }
                 >
                   <Link url={url}>{midItem.label}</Link>

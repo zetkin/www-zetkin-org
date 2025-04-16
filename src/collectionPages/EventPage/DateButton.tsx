@@ -2,8 +2,10 @@
 
 import type { SerializedEditorState } from '@payloadcms/richtext-lexical/lexical';
 import { convertLexicalToPlaintext } from '@payloadcms/richtext-lexical/plaintext';
+import { useAtomValue } from 'jotai';
 
 import { formatEventDates } from '@/blocks/lists/Events/formatEventDates';
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 interface DocProps {
   title: string;
@@ -35,13 +37,7 @@ interface DocProps {
   endDate?: string | null | undefined;
 }
 
-export default function DateButton({
-  doc,
-  color,
-}: {
-  doc: DocProps;
-  color: string;
-}) {
+export default function DateButton({ doc }: { doc: DocProps }) {
   const data: SerializedEditorState = doc.description ?? {
     root: {
       type: '',
@@ -94,9 +90,11 @@ export default function DateButton({
     document.body.removeChild(link);
   };
 
+  const accentColor = useAtomValue(accentColorAtom);
+
   return (
     <button
-      className={`fill-z-${color} text-z-${color} leading-[170%] cursor-pointer font-semibold`}
+      className={`fill-z-${accentColor} text-z-${accentColor} leading-[170%] cursor-pointer font-semibold`}
       onClick={generateICS}
     >
       {formatEventDates(doc.startDate, doc.endDate || undefined, true)}

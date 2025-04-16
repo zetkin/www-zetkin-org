@@ -149,7 +149,6 @@ export interface Page {
       | ('none' | 'twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter')
       | null;
     width?: ('full' | 'article') | null;
-    accentColor?: ('purple' | 'green' | 'red') | null;
     eyebrowHeading?: string | null;
     title?: {
       root: {
@@ -305,6 +304,10 @@ export interface Media {
     };
   };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingBlock".
+ */
 export interface LandingBlock {
   leftTitle: string;
   rightTitle: string;
@@ -313,8 +316,8 @@ export interface LandingBlock {
     | {
         label: string;
         variant?: ('primary' | 'outline') | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -354,8 +357,8 @@ export interface GradientBlock {
   buttons?:
     | {
         label: string;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -414,8 +417,8 @@ export interface WhiteBg {
     | {
         label: string;
         variant: 'primary' | 'outline';
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -478,8 +481,8 @@ export interface PeopleHighlightBlock {
         image: string | Media;
         quote: string;
         description: string;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -514,7 +517,6 @@ export interface ArticleBlock {
     };
     [k: string]: unknown;
   } | null;
-  linkColor?: ('purple' | 'green' | 'red') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'article';
@@ -540,7 +542,6 @@ export interface FeatureListBlock {
     linkText: string;
     id?: string | null;
   }[];
-  accentColor: 'purple' | 'green' | 'red';
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureList';
@@ -551,7 +552,6 @@ export interface FeatureListBlock {
  */
 export interface PeopleListBlock {
   accordion: boolean;
-  accentColor: 'purple' | 'green' | 'red';
   /**
    * If "Wrap in accordion" is not selected, please only add one list here.
    */
@@ -582,7 +582,6 @@ export interface Tag {
  * via the `definition` "eventListBlock".
  */
 export interface EventListBlock {
-  accentColor: 'purple' | 'green' | 'red';
   listHeader?: string | null;
   tag: string | Tag;
   id?: string | null;
@@ -594,7 +593,6 @@ export interface EventListBlock {
  * via the `definition` "jobsListBlock".
  */
 export interface JobsListBlock {
-  accentColor: 'purple' | 'green' | 'red';
   title: string;
   jobsTag: string | Tag;
   id?: string | null;
@@ -913,7 +911,6 @@ export interface PagesSelect<T extends boolean = true> {
     | {
         layout?: T;
         width?: T;
-        accentColor?: T;
         eyebrowHeading?: T;
         title?: T;
         subtitle?: T;
@@ -1102,7 +1099,6 @@ export interface PeopleHighlightBlockSelect<T extends boolean = true> {
  */
 export interface ArticleBlockSelect<T extends boolean = true> {
   richText?: T;
-  linkColor?: T;
   id?: T;
   blockName?: T;
 }
@@ -1126,7 +1122,6 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
         linkText?: T;
         id?: T;
       };
-  accentColor?: T;
   id?: T;
   blockName?: T;
 }
@@ -1136,7 +1131,6 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
  */
 export interface PeopleListBlockSelect<T extends boolean = true> {
   accordion?: T;
-  accentColor?: T;
   lists?:
     | T
     | {
@@ -1152,7 +1146,6 @@ export interface PeopleListBlockSelect<T extends boolean = true> {
  * via the `definition` "eventListBlock_select".
  */
 export interface EventListBlockSelect<T extends boolean = true> {
-  accentColor?: T;
   listHeader?: T;
   tag?: T;
   id?: T;
@@ -1163,7 +1156,6 @@ export interface EventListBlockSelect<T extends boolean = true> {
  * via the `definition` "jobsListBlock_select".
  */
 export interface JobsListBlockSelect<T extends boolean = true> {
-  accentColor?: T;
   title?: T;
   jobsTag?: T;
   id?: T;
@@ -1587,7 +1579,6 @@ export interface TextWithQuoteBlock {
     [k: string]: unknown;
   };
   quote: string;
-  quoteColor?: ('purple' | 'green' | 'red') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'textWithQuote';
@@ -1630,7 +1621,6 @@ export interface ButtonBlock {
 export interface AuthorBlock {
   author: string | Person;
   socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink') | null;
-  backgroundColor?: ('greenPurple' | 'greenRed') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'author';
@@ -1655,7 +1645,6 @@ export interface InfoBoxBlock {
     };
     [k: string]: unknown;
   };
-  backgroundColor?: ('greenPurple' | 'greenRed') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoBox';

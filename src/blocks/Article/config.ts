@@ -36,24 +36,5 @@ export const Article: Block = {
         },
       }),
     },
-    {
-      name: 'linkColor',
-      label: 'Link color',
-      type: 'select',
-      options: [
-        {
-          label: 'Purple',
-          value: 'purple',
-        },
-        {
-          label: 'Green',
-          value: 'green',
-        },
-        {
-          label: 'Red',
-          value: 'red',
-        },
-      ],
-    },
   ],
 };

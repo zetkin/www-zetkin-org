@@ -1,4 +1,3 @@
-import colorToTailwind from '@/utilities/colorToTailwind';
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav } from '@/payload-types';
 
@@ -19,7 +18,7 @@ export default function MainNav({
   return (
     <nav
       className={`
-            ${pathname === '/' ? 'flex' : 'hidden'} sm:flex px-10 border-y border-z-gray-200 pt-3.5 pb-5 sm:border-0 sm:m-0 sm:p-0 sm:w-full sm:justify-end`}
+            ${pathname === '/' ? 'flex' : 'hidden'} justify-center sm:flex px-10 border-y border-z-gray-200 pt-3.5 pb-5 sm:border-0 sm:m-0 sm:p-0 sm:w-full sm:justify-end`}
     >
       <ul className="flex flex-wrap justify-center gap-x-7 gap-y-5">
         {data.topItems?.map((topItem) => {
@@ -32,10 +31,10 @@ export default function MainNav({
               className={
                 'sm:text-sm group ' +
                 (linkIsSelected
-                  ? 'font-semibold text-' +
-                    colorToTailwind(topItem.color || '') +
-                    ' stroke-' +
-                    colorToTailwind(topItem.color || '')
+                  ? 'font-semibold text-z-' +
+                    topItem.color +
+                    ' stroke-z-' +
+                    topItem.color
                   : 'stroke-black')
               }
               onClick={() => setNavigatedItem(topItem)}

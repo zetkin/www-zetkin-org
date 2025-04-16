@@ -1,9 +1,14 @@
 'use client';
 
 import { useCallback, useState } from 'react';
+import { useAtomValue } from 'jotai';
 
-export default function ShareButton({ color }: { color: string }) {
+import { accentColorAtom } from '@/state/accentColorAtom';
+
+export default function ShareButton() {
   const [copied, setCopied] = useState(false);
+
+  const accentColor = useAtomValue(accentColorAtom);
 
   const handleShare = useCallback(async () => {
     if (!navigator.share) {
@@ -33,7 +38,7 @@ export default function ShareButton({ color }: { color: string }) {
     >
       {copied ? (
         <svg
-          className={`stroke-z-${color}`}
+          className={`stroke-z-${accentColor}`}
           fill="none"
           height="21"
           viewBox="0 0 20 21"
@@ -61,7 +66,7 @@ export default function ShareButton({ color }: { color: string }) {
         </svg>
       ) : (
         <svg
-          className={`stroke-z-${color}`}
+          className={`stroke-z-${accentColor}`}
           fill="none"
           height="21"
           viewBox="0 0 20 21"
@@ -100,7 +105,7 @@ export default function ShareButton({ color }: { color: string }) {
           />
         </svg>
       )}
-      <p className={`font-semibold text-z-${color}`}>
+      <p className={`font-semibold text-z-${accentColor}`}>
         {copied ? 'Link copied!' : 'Share'}
       </p>
     </button>

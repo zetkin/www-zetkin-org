@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 
 import { CMSLink as Link } from '@/components/Link';
@@ -8,8 +8,8 @@ import type { MainNav as MainNavTypes } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import MainNav from './Components/MainNav';
-import colorToTailwind from '../../utilities/colorToTailwind';
 import SubNav from './Components/SubNav';
+import { useNavigate } from './useNavigate';
 
 interface DesktopHeaderProps {
   data: MainNavTypes;
@@ -21,9 +21,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   pathname,
 }) => {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [navigatedItem, setNavigatedItem] = useState(
-    data.topItems?.[0] ?? null,
-  );
+
+  const { navigatedItem, setNavigatedItem } = useNavigate(data, pathname);
 
   const [expandedBottomItems, setExpandedBottomItems] = useState<
     Record<string, boolean>
@@ -31,14 +30,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   const hoveredItem = data.topItems?.find((item) => item.id == openId);
 
-  useEffect(() => {
-    if (pathname === '/') {
-      setNavigatedItem(null);
-    }
-  }, [pathname]);
-
   // Show more options in hover menu
-
   const showMore = (midItemId: string) => {
     setExpandedBottomItems((prev) => ({
       ...prev,
@@ -47,11 +39,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   };
 
   // Fade in shadow
-
   const { scrollY } = useScroll();
-
   const opacity = useTransform(scrollY, [120, 180], [0, 0.06]);
-
   let headerShadow = '0, 0, 0,';
 
   switch (navigatedItem?.color) {
@@ -148,7 +137,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                               className={
                                 'text-[16px] font-semibold' +
                                 (linkIsSelected &&
-                                  `text-${colorToTailwind(hoveredItem.color || '')}`)
+                                  `text-z-${hoveredItem.color}`)
                               }
                             >
                               <Link aria-label={midItem.label} url={url}>
@@ -166,17 +155,14 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                             .map((bottomItem) => {
                               const url = bottomItem.link?.url ?? '/';
                               const linkIsSelected = pathname == url;
-
                               return (
                                 <li
                                   key={bottomItem.id}
                                   className={
                                     'text-[13px] truncate leading-[1.7] ' +
                                     (linkIsSelected &&
-                                      'font-semibold text-' +
-                                        colorToTailwind(
-                                          hoveredItem.color || '',
-                                        ))
+                                      'font-semibold text-z-' +
+                                        hoveredItem.color)
                                   }
                                 >
                                   <Link aria-label={bottomItem.label} url={url}>

@@ -7,7 +7,6 @@ import PeopleCard from './PeopleCard';
 const PeopleListBlock: React.FC<PeopleListProps> = async ({
   lists,
   accordion,
-  accentColor,
 }) => {
   return (
     <div className="flex lg:px-5 w-full justify-center mt-20">
@@ -21,7 +20,6 @@ const PeopleListBlock: React.FC<PeopleListProps> = async ({
             {lists?.map((list, i) => (
               <PeopleAccordionItem
                 key={i}
-                accentColor={accentColor}
                 peopleTag={
                   typeof list.peopleTag === 'string'
                     ? list.peopleTag
@@ -41,13 +39,7 @@ const PeopleListBlock: React.FC<PeopleListProps> = async ({
               lists[0]?.peopleTag &&
               typeof lists[0].peopleTag === 'string' ? (
                 (await fetchPeopleByTag(lists[0].peopleTag)).docs.map(
-                  (person) => (
-                    <PeopleCard
-                      key={person.id}
-                      accentColor={accentColor}
-                      person={person}
-                    />
-                  ),
+                  (person) => <PeopleCard key={person.id} person={person} />,
                 )
               ) : (
                 <div>No people found</div>

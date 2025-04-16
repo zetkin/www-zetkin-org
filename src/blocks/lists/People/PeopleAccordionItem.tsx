@@ -10,11 +10,9 @@ import { fetchPeopleByTag } from './fetchPeopleByTag';
 const PeopleAccordionItem = async ({
   title,
   peopleTag,
-  accentColor,
 }: {
   title: string;
   peopleTag: string;
-  accentColor: string;
 }) => {
   const peopleData = await fetchPeopleByTag(peopleTag);
 
@@ -25,7 +23,7 @@ const PeopleAccordionItem = async ({
       </AccordionTrigger>
       <AccordionContent className="w-full flex flex-col lg:block lg:columns-3 lg:gap-x-6 lg:border-b-0! lg:pb-0">
         {peopleData.docs.map((person: Person, i) => (
-          <PeopleCard key={i} accentColor={accentColor} person={person} />
+          <PeopleCard key={i} person={person} />
         ))}
       </AccordionContent>
     </AccordionItem>

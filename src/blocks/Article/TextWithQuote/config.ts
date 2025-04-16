@@ -48,24 +48,5 @@ export const TextWithQuote: Block = {
         },
       ],
     },
-    {
-      name: 'quoteColor',
-      label: 'Quote color',
-      type: 'select',
-      options: [
-        {
-          label: 'Purple',
-          value: 'purple',
-        },
-        {
-          label: 'Green',
-          value: 'green',
-        },
-        {
-          label: 'Red',
-          value: 'red',
-        },
-      ],
-    },
   ],
 };

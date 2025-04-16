@@ -2,14 +2,10 @@ import { headers } from 'next/headers';
 
 import { Job, JobsListBlock as JobsListProps } from '@/payload-types';
 import { fetchJobsByTag } from './fetchJobsByTag';
-import { IconArrowRight } from '@/icons/UIIcons';
 import { CMSLink as Link } from '@/components/Link';
+import ArrowRight from './ArrowRight';
 
-const JobsListBlock: React.FC<JobsListProps> = async ({
-  title,
-  jobsTag,
-  accentColor,
-}) => {
+const JobsListBlock: React.FC<JobsListProps> = async ({ title, jobsTag }) => {
   const headersList = await headers();
   const currentPath =
     headersList.get('x-invoke-path') ||
@@ -38,11 +34,7 @@ const JobsListBlock: React.FC<JobsListProps> = async ({
                     )}
                   </div>
                 </div>
-                <IconArrowRight
-                  height="24px"
-                  iconClasses={`stroke-z-${accentColor}`}
-                  width="24px"
-                />
+                <ArrowRight />
               </Link>
             ))
           ) : (
