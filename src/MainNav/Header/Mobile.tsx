@@ -20,13 +20,11 @@ import { useNavigate } from './useNavigate';
 interface MobileHeaderProps {
   data: MainNavTypes;
   pathname: string;
-  theme?: string | null;
 }
 
 export const MobileHeader: React.FC<MobileHeaderProps> = ({
   data,
   pathname,
-  theme,
 }) => {
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -99,11 +97,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   }
 
   return (
-    <header
-      className="z-20"
-      onMouseLeave={() => setOpenId(null)}
-      {...(theme ? { 'data-theme': theme } : {})}
-    >
+    <header className="z-20" onMouseLeave={() => setOpenId(null)}>
       {/* Logo and hamburger menu on mobile */}
       <motion.div
         className="fixed py-8 w-full z-20 bg-white/95 top-0"

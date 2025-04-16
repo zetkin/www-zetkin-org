@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useScroll, motion, useTransform } from 'motion/react';
 import useMeasure from 'react-use-measure';
 import { useAtomValue } from 'jotai';
@@ -18,8 +18,8 @@ export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
     return text.replace(/^(["'“”‘’])|(["'“”‘’])$/g, '');
   }
 
-  const { scrollY } = useScroll();
-  const [ref, { height }] = useMeasure();
+  const [measureRef, { height }] = useMeasure();
+  const motionRef = useRef<HTMLElement | null>(null);
 
   const [isLargeScreen, setIsLargeScreen] = useState(true);
 
@@ -36,8 +36,12 @@ export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
     };
   }, []);
 
-  const yTransform = useTransform(scrollY, (value) =>
-    isLargeScreen ? value * -0.1 + height * 0.5 : 0,
+  const { scrollYProgress } = useScroll({ target: motionRef });
+
+  const yTransform = useTransform(
+    scrollYProgress,
+    [0, 1],
+    isLargeScreen ? [height * -0.4, 0] : [0, 0],
   );
 
   const accentColor = useAtomValue(accentColorAtom);
@@ -50,7 +54,10 @@ export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
         )}
       </div>
       <motion.div
-        ref={ref}
+        ref={(el) => {
+          measureRef(el);
+          motionRef.current = el;
+        }}
         className={`flex srf-h3 sm:text-[1.5rem] leading-[1.7] w-full sm:w-[70vw] md:min-w-[300px]`}
         style={{ y: yTransform }}
       >
