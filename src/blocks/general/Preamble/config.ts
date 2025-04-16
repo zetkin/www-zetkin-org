@@ -13,6 +13,7 @@ export const Preamble: Block = {
       label: 'Layout',
       required: true,
       type: 'select',
+      defaultValue: 'preambleOnly',
       options: [
         {
           value: 'longHeaderNText',
@@ -35,6 +36,30 @@ export const Preamble: Block = {
           label: 'Preamble and image',
         },
       ],
+      admin: {
+        description:
+          'If the page is an article only use the "Preamble only" layout.',
+      },
+    },
+    {
+      name: 'width',
+      label: 'Width',
+      type: 'select',
+      required: true,
+      options: [
+        {
+          label: 'Full width',
+          value: 'full',
+        },
+        {
+          label: 'Article width',
+          value: 'article',
+        },
+      ],
+      defaultValue: 'full',
+      admin: {
+        condition: (_, { layout } = {}) => ['preambleOnly'].includes(layout),
+      },
     },
     {
       name: 'preamble',

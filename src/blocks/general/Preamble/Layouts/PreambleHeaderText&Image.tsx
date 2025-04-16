@@ -10,10 +10,10 @@ export default function PreambleHeaderTextNImage({
 }: LayoutProps) {
   return (
     <div
-      className={`w-full flex flex-col gap-5 md:flex-row md:gap-15 md:items-center ${!image ? 'md:max-w-[630px]' : 'md:max-w-250'}`}
+      className={`w-full flex flex-col gap-5 md:flex-row md:gap-15 md:items-center md:max-w-250 ${!image ? 'md:justify-center' : ''}`}
     >
       <div
-        className={`flex flex-col w-full md:w-[80vw] gap-12 md:gap-16 ${!image ? ' md:mr-15' : 'md:max-w-[550px]'}`}
+        className={`flex flex-col w-full md:w-[80vw] gap-12 md:gap-16 ${!image ? 'md:justify-center' : 'md:max-w-[550px]'}`}
       >
         {preamble && <h6 className="w-full">{preamble}</h6>}
         {image && (

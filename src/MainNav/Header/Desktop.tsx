@@ -128,7 +128,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                     const needsShowMore =
                       (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
                     return (
-                      <li key={midItem.id} className="flex flex-col gap-4">
+                      <li
+                        key={midItem.id}
+                        className="flex flex-col gap-4 flex-1"
+                      >
                         <div className="flex flex-col gap-3">
                           <div className="flex gap-2.5 items-center">
                             {midItem.icon && (

@@ -47,6 +47,27 @@ export const hero: Field = {
       ],
     },
     {
+      name: 'width',
+      label: 'Width',
+      type: 'select',
+      required: true,
+      options: [
+        {
+          label: 'Full width',
+          value: 'full',
+        },
+        {
+          label: 'Article width',
+          value: 'article',
+        },
+      ],
+      defaultValue: 'full',
+      admin: {
+        condition: (_, { layout } = {}) =>
+          ['twoImgLeft', 'oneImgLeft', 'featureLeft'].includes(layout),
+      },
+    },
+    {
       name: 'accentColor',
       label: 'Accent Color',
       admin: {
