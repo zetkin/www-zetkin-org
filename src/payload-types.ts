@@ -316,8 +316,8 @@ export interface LandingBlock {
     | {
         label: string;
         variant?: ('primary' | 'outline') | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -357,8 +357,8 @@ export interface GradientBlock {
   buttons?:
     | {
         label: string;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -369,8 +369,19 @@ export interface GradientBlock {
         id?: string | null;
       }[]
     | null;
-  backgroundImageDesktop: string | Media;
-  backgroundImageMobile: string | Media;
+  frontColor: '#7801DD' | '#550096' | '#3F0071' | '#25E3B1' | '#0F7473' | '#0C5044' | '#123C3D' | '#C91E40' | '#82142D';
+  backgroundColor:
+    | '#7801DD'
+    | '#550096'
+    | '#3F0071'
+    | '#25E3B1'
+    | '#0F7473'
+    | '#0C5044'
+    | '#123C3D'
+    | '#C91E40'
+    | '#82142D';
+  desktopGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
+  mobileGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
   images: {
     image: string | Media;
     id?: string | null;
@@ -406,8 +417,8 @@ export interface WhiteBg {
     | {
         label: string;
         variant: 'primary' | 'outline';
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -470,8 +481,8 @@ export interface PeopleHighlightBlock {
         image: string | Media;
         quote: string;
         description: string;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -553,21 +564,17 @@ export interface FeatureListBlock {
   header?: string | null;
   subHeader?: string | null;
   features: {
-    featureName?: string | null;
-    icon?: ('banana' | 'bean' | 'apple') | null;
-    header?: string | null;
-    description?: string | null;
-    illustration?: (string | null) | Media;
+    featureName: string;
+    icon: 'banana' | 'bean' | 'apple';
+    header: string;
+    description: string;
+    illustration: string | Media;
     /**
      * Negative value for image to go to left, positive to right. Default for odd items is -20px and for even items 20px.
      */
     offset?: number | null;
-    link?: (string | null) | Page;
-    id?: string | null;
-  }[];
-  buttons: {
-    label?: string | null;
-    variant?: ('primary' | 'outline') | null;
+    link: string | Page;
+    linkText: string;
     id?: string | null;
   }[];
   id?: string | null;
@@ -1004,8 +1011,10 @@ export interface GradientBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  backgroundImageDesktop?: T;
-  backgroundImageMobile?: T;
+  frontColor?: T;
+  backgroundColor?: T;
+  desktopGradientPattern?: T;
+  mobileGradientPattern?: T;
   images?:
     | T
     | {
@@ -1116,13 +1125,7 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
         illustration?: T;
         offset?: T;
         link?: T;
-        id?: T;
-      };
-  buttons?:
-    | T
-    | {
-        label?: T;
-        variant?: T;
+        linkText?: T;
         id?: T;
       };
   id?: T;
@@ -1423,8 +1426,8 @@ export interface MainNav {
         longLabel?: string | null;
         color?: ('purple' | 'red' | 'green') | null;
         showInFooter?: boolean | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -1438,8 +1441,8 @@ export interface MainNav {
               label?: string | null;
               description?: string | null;
               showInFooter?: boolean | null;
-              link?: {
-                type?: ('reference' | 'custom') | null;
+              link: {
+                type?: 'reference' | 'custom';
                 reference?: {
                   relationTo: 'pages';
                   value: string | Page;
@@ -1450,8 +1453,8 @@ export interface MainNav {
               bottomItems?:
                 | {
                     label?: string | null;
-                    link?: {
-                      type?: ('reference' | 'custom') | null;
+                    link: {
+                      type?: 'reference' | 'custom';
                       reference?: {
                         relationTo: 'pages';
                         value: string | Page;

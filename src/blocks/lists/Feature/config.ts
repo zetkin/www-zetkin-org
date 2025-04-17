@@ -29,28 +29,33 @@ export const FeatureList: Block = {
           name: 'featureName',
           label: 'Feature name',
           type: 'text',
+          required: true,
         },
         {
           name: 'icon',
           label: 'Icon',
           type: 'select',
           options: iconOptions,
+          required: true,
         },
         {
           name: 'header',
           label: 'Header',
           type: 'text',
+          required: true,
         },
         {
           name: 'description',
           label: 'Description',
           type: 'text',
+          required: true,
         },
         {
           name: 'illustration',
           label: 'Illustration',
           type: 'upload',
           relationTo: 'media',
+          required: true,
         },
         {
           name: 'offset',
@@ -66,37 +71,13 @@ export const FeatureList: Block = {
           label: 'Page link',
           type: 'relationship',
           relationTo: 'pages',
+          required: true,
         },
-      ],
-    },
-    {
-      name: 'buttons',
-      labels: {
-        singular: 'Button',
-        plural: 'Buttons',
-      },
-      required: true,
-      type: 'array',
-      fields: [
         {
-          name: 'label',
-          label: 'Label',
+          name: 'linkText',
+          label: 'Link text',
           type: 'text',
-        },
-        {
-          name: 'variant',
-          label: 'Variant',
-          type: 'select',
-          options: [
-            {
-              value: 'primary',
-              label: 'Primary',
-            },
-            {
-              value: 'outline',
-              label: 'Outline',
-            },
-          ],
+          required: true,
         },
       ],
     },
