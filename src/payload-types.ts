@@ -1612,8 +1612,8 @@ export interface ButtonBlock {
   buttons: {
     label?: string | null;
     variant?: ('primary' | 'outline') | null;
-    link?: {
-      type?: ('reference' | 'custom') | null;
+    link: {
+      type?: 'reference' | 'custom';
       reference?: {
         relationTo: 'pages';
         value: string | Page;
