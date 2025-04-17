@@ -37,7 +37,6 @@ export const TextWithQuoteBlock: React.FC<TextWithQuoteBlockProps> = (
     offset: ['start end', 'end start'],
   });
 
-
   const yTransform = useTransform(
     scrollYProgress,
     [0, 1],
