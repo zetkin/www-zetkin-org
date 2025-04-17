@@ -1,24 +1,9 @@
 import type { Block } from 'payload';
 
-export const Image: Block = {
-  slug: 'image',
-  interfaceName: 'imageBlock',
+export const OneImage: Block = {
+  slug: 'oneImage',
+  interfaceName: 'oneImageBlock',
   fields: [
-    {
-      name: 'layout',
-      label: 'Layout',
-      type: 'select',
-      options: [
-        {
-          value: 'oneImg',
-          label: 'One image',
-        },
-        {
-          value: 'twoImg',
-          label: 'Two images',
-        },
-      ],
-    },
     {
       name: 'images',
       labels: {
@@ -27,7 +12,7 @@ export const Image: Block = {
       },
       required: true,
       type: 'array',
-      maxRows: 2,
+      maxRows: 1,
       minRows: 1,
       fields: [
         {
@@ -53,7 +38,6 @@ export const Image: Block = {
           admin: {
             layout: 'horizontal',
             width: '50%',
-            condition: (_, siblingData) => siblingData?.layout === 'oneImg',
           },
           defaultValue: 'left',
           options: [

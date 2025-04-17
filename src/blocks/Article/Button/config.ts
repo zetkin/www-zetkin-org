@@ -1,5 +1,7 @@
 import type { Block } from 'payload';
 
+import { link } from '@/fields/link';
+
 export const Button: Block = {
   slug: 'button',
   interfaceName: 'buttonBlock',
@@ -33,6 +35,7 @@ export const Button: Block = {
             },
           ],
         },
+        link(),
       ],
     },
   ],

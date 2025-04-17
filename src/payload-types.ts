@@ -502,6 +502,8 @@ export interface PeopleHighlightBlock {
  * via the `definition` "ArticleBlock".
  */
 export interface ArticleBlock {
+  author?: (string | null) | Person;
+  socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink')[] | null;
   richText?: {
     root: {
       type: string;
@@ -520,6 +522,39 @@ export interface ArticleBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'article';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people".
+ */
+export interface Person {
+  id: string;
+  name: string;
+  pronouns?: string | null;
+  photo: string | Media;
+  role: string;
+  tags?: (string | Tag)[] | null;
+  email?: string | null;
+  linkedIn?: string | null;
+  github?: string | null;
+  instagram?: string | null;
+  otherLink?: string | null;
+  /**
+   * If the person has a dedicated profile piece written about them, add the link here.
+   */
+  profilePiece?: (string | null) | Page;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -551,7 +586,6 @@ export interface FeatureListBlock {
  * via the `definition` "peopleListBlock".
  */
 export interface PeopleListBlock {
-  accordion: boolean;
   /**
    * If "Wrap in accordion" is not selected, please only add one list here.
    */
@@ -565,17 +599,6 @@ export interface PeopleListBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'peopleList';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
- */
-export interface Tag {
-  id: string;
-  name: string;
-  type: ('people' | 'events' | 'jobs')[];
-  updatedAt: string;
-  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -619,26 +642,6 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "people".
- */
-export interface Person {
-  id: string;
-  name: string;
-  pronouns?: string | null;
-  photo: string | Media;
-  role: string;
-  tags?: (string | Tag)[] | null;
-  email?: string | null;
-  linkedIn?: string | null;
-  github?: string | null;
-  instagram?: string | null;
-  otherLink?: string | null;
-  profilePiece?: (string | null) | Page;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "events".
  */
 export interface Event {
@@ -651,6 +654,11 @@ export interface Event {
   online?: boolean | null;
   city?: string | null;
   address?: string | null;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  geotag?: [number, number] | null;
   description?: {
     root: {
       type: string;
@@ -677,12 +685,8 @@ export interface Job {
   id: string;
   title: string;
   tags: (string | Tag)[];
-  remote: boolean;
-  city?: string | null;
-  /**
-   * URL to apply for the job
-   */
-  applyLink: string;
+  location: string;
+  mailAddress: string;
   employmentType?: string | null;
   description: {
     root: {
@@ -1098,6 +1102,8 @@ export interface PeopleHighlightBlockSelect<T extends boolean = true> {
  * via the `definition` "ArticleBlock_select".
  */
 export interface ArticleBlockSelect<T extends boolean = true> {
+  author?: T;
+  socialLink?: T;
   richText?: T;
   id?: T;
   blockName?: T;
@@ -1130,7 +1136,6 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
  * via the `definition` "peopleListBlock_select".
  */
 export interface PeopleListBlockSelect<T extends boolean = true> {
-  accordion?: T;
   lists?:
     | T
     | {
@@ -1295,7 +1300,6 @@ export interface PeopleSelect<T extends boolean = true> {
  */
 export interface TagsSelect<T extends boolean = true> {
   name?: T;
-  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1312,6 +1316,7 @@ export interface EventsSelect<T extends boolean = true> {
   online?: T;
   city?: T;
   address?: T;
+  geotag?: T;
   description?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -1323,9 +1328,8 @@ export interface EventsSelect<T extends boolean = true> {
 export interface JobsSelect<T extends boolean = true> {
   title?: T;
   tags?: T;
-  remote?: T;
-  city?: T;
-  applyLink?: T;
+  location?: T;
+  mailAddress?: T;
   employmentType?: T;
   description?: T;
   updatedAt?: T;
@@ -1563,21 +1567,6 @@ export interface TaskSchedulePublish {
  * via the `definition` "TextWithQuoteBlock".
  */
 export interface TextWithQuoteBlock {
-  richText: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
   quote: string;
   id?: string | null;
   blockName?: string | null;
@@ -1585,10 +1574,9 @@ export interface TextWithQuoteBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "imageBlock".
+ * via the `definition` "twoImageBlock".
  */
-export interface ImageBlock {
-  layout?: ('oneImg' | 'twoImg') | null;
+export interface TwoImageBlock {
   images: {
     image?: (string | null) | Media;
     description?: string | null;
@@ -1598,7 +1586,23 @@ export interface ImageBlock {
   desktopOverflow?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'image';
+  blockType: 'twoImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "oneImageBlock".
+ */
+export interface OneImageBlock {
+  images: {
+    image?: (string | null) | Media;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  mobileOverflow?: ('left' | 'right') | null;
+  desktopOverflow?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'oneImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1608,22 +1612,20 @@ export interface ButtonBlock {
   buttons: {
     label?: string | null;
     variant?: ('primary' | 'outline') | null;
+    link: {
+      type?: 'reference' | 'custom';
+      reference?: {
+        relationTo: 'pages';
+        value: string | Page;
+      } | null;
+      url?: string;
+      newTab?: boolean | null;
+    };
     id?: string | null;
   }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'button';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authorBlock".
- */
-export interface AuthorBlock {
-  author: string | Person;
-  socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'author';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

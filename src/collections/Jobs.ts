@@ -30,45 +30,18 @@ export const Jobs: CollectionConfig = {
       relationTo: 'tags',
       required: true,
       hasMany: true,
-      filterOptions: () => ({
-        type: { equals: 'jobs' },
-      }),
     },
     {
-      name: 'remote',
-      label: 'Remote',
-      type: 'checkbox',
-      required: true,
-      defaultValue: false,
-    },
-    {
-      name: 'city',
-      label: 'City',
+      name: 'location',
+      label: 'Location',
       type: 'text',
-      admin: {
-        condition: (_, { remote } = {}) => remote === false,
-      },
+      required: true,
     },
     {
-      name: 'applyLink',
-      label: 'Apply link',
+      name: 'mailAddress',
+      label: 'Mail address for applications',
       required: true,
-      type: 'text',
-      admin: {
-        description: 'URL to apply for the job',
-      },
-      validate: (value: string | null | undefined) => {
-        if (!value) {
-          return true;
-        }
-
-        try {
-          new URL(value);
-          return true;
-        } catch (_err) {
-          return 'Invalid URL format';
-        }
-      },
+      type: 'email',
     },
     {
       name: 'employmentType',

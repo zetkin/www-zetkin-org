@@ -59,9 +59,6 @@ export const People: CollectionConfig = {
           admin: {
             width: '50%',
           },
-          filterOptions: () => ({
-            type: { equals: 'people' },
-          }),
         },
       ],
     },
@@ -116,6 +113,10 @@ export const People: CollectionConfig = {
       label: 'Profile piece',
       type: 'relationship',
       relationTo: 'pages',
+      admin: {
+        description:
+          'If the person has a dedicated profile piece written about them, add the link here.',
+      },
     },
   ],
 };

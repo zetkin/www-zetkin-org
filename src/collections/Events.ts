@@ -27,9 +27,6 @@ export const Events: CollectionConfig = {
       type: 'relationship',
       relationTo: 'tags',
       hasMany: true,
-      filterOptions: () => ({
-        type: { equals: 'events' },
-      }),
     },
     {
       name: 'image',
@@ -79,6 +76,14 @@ export const Events: CollectionConfig = {
       type: 'text',
       admin: {
         condition: (_, { online } = {}) => online === false,
+      },
+    },
+    {
+      name: 'geotag',
+      label: 'Coordinates',
+      type: 'point',
+      admin: {
+        disabled: true,
       },
     },
     {

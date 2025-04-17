@@ -2,7 +2,6 @@ import { getPayload } from 'payload';
 
 import configPromise from '@payload-config';
 import { ImageMedia } from '@/components/Media/ImageMedia';
-import RichText from '@/components/RichText';
 import ShareButton from './ShareButton';
 import Actions from './Actions';
 
@@ -19,8 +18,6 @@ export default async function EventPage({ id }: { id: string }) {
   });
 
   const eventDoc = eventData.docs[0];
-
-  const accentColor = 'purple';
 
   const isMobile =
     typeof navigator !== 'undefined' &&
@@ -51,22 +48,10 @@ export default async function EventPage({ id }: { id: string }) {
               <h3 className="text-[30px] sm:text-[36px] leading-[140%]">
                 {eventDoc?.title || 'No title available'}
               </h3>
-              <Actions eventDoc={eventDoc} isMobile={isMobile} />
-              <RichText
-                className={`mt-1 w-full overflow-visible text-lg leading-[170%] prose-p:text-black prose-ol:text-black marker:text-black prose-a:text-z-${accentColor}`}
-                data={
-                  eventDoc.description || {
-                    root: {
-                      type: 'root',
-                      children: [],
-                      direction: null,
-                      format: '',
-                      indent: 0,
-                      version: 1,
-                    },
-                  }
-                }
-                enableGutter={false}
+              <Actions
+                eventDoc={eventDoc}
+                geotag={eventDoc.geotag}
+                isMobile={isMobile}
               />
             </div>
           </div>

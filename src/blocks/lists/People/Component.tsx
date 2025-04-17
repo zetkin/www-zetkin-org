@@ -4,14 +4,11 @@ import PeopleAccordionItem from './PeopleAccordionItem';
 import { fetchPeopleByTag } from './fetchPeopleByTag';
 import PeopleCard from './PeopleCard';
 
-const PeopleListBlock: React.FC<PeopleListProps> = async ({
-  lists,
-  accordion,
-}) => {
+const PeopleListBlock: React.FC<PeopleListProps> = async ({ lists }) => {
   return (
     <div className="flex lg:px-5 w-full justify-center mt-20">
       <div className="w-full lg:max-w-250">
-        {accordion ? (
+        {(lists ?? []).length > 1 ? (
           <Accordion
             collapsible
             defaultValue={lists?.[0]?.title ?? ''}

@@ -5,15 +5,11 @@ export const PeopleList: Block = {
   interfaceName: 'peopleListBlock',
   fields: [
     {
-      name: 'accordion',
-      label: 'Wrap in accordion',
-      type: 'checkbox',
-      defaultValue: true,
-      required: true,
-    },
-    {
       name: 'lists',
-      label: 'List/Lists',
+      labels: {
+        singular: 'List',
+        plural: 'Lists',
+      },
       admin: {
         description: `If "Wrap in accordion" is not selected, please only add one list here.`,
       },

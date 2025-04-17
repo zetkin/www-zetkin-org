@@ -15,7 +15,6 @@ import { FeatureListBlock as FeatureListProps } from '@/payload-types';
 import { IconArrowDown, IconArrowRight } from '@/icons/UIIcons';
 import { FeatureIcon } from '@/icons/FeatureIcons/RenderIcon';
 import { ImageMedia } from '@/components/Media/ImageMedia';
-import { Button } from '@/components/ui/button';
 import { accentColorAtom } from '@/state/accentColorAtom';
 
 // Helper function for setting illustration margins
@@ -37,14 +36,13 @@ function illustrationMargin(value: number) {
 
 const FeatureListBlock: React.FC<FeatureListProps> = ({
   features,
-  buttons,
   header,
   subHeader,
 }) => {
   const [currentSection, setCurrentSection] = useState(features[0]?.id || '');
   const [isHovered, setIsHovered] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef(null);
   const featureSectionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -123,8 +121,8 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
   };
 
   const scrollToBottom = () => {
-    if (buttonRef.current) {
-      buttonRef.current.scrollIntoView({
+    if (bottomRef.current) {
+      bottomRef.current.scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
@@ -264,17 +262,7 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
           ))}
         </div>
         {/* Render buttons if any */}
-        <div
-          ref={buttonRef}
-          className="flex flex-col items-center md:items-start md:flex-row gap-3 md:gap-4"
-        >
-          {buttons &&
-            buttons.map((button, i) => (
-              <Button key={i} variant={button.variant}>
-                {button.label}
-              </Button>
-            ))}
-        </div>
+        <div ref={bottomRef} />
       </div>
     </div>
   );

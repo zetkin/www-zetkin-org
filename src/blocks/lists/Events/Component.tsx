@@ -147,7 +147,7 @@ const EventListBlock: React.FC<EventListProps> = ({ tag, listHeader }) => {
           ) : !eventData.docs.length ? (
             <div
               aria-live="polite"
-              className="flex flex-col gap-2 w-full h-full items-center justify-center bg-z-gray-100 rounded-[8px]"
+              className="flex flex-col my-4 gap-2 w-full h-full items-center justify-center bg-z-gray-100 rounded-[8px]"
             >
               <p>No events found</p>
             </div>

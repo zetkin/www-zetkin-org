@@ -109,7 +109,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
         }}
       >
         <div className="flex flex-col justify-between items-center">
-          <motion.div layout onClick={() => setMenuOpen(false)}>
+          <motion.div onClick={() => setMenuOpen(false)}>
             <Link url="/">
               <Logo forceFull={menuOpen} />
             </Link>
