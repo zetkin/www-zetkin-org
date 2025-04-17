@@ -15,7 +15,6 @@ import { FeatureListBlock as FeatureListProps } from '@/payload-types';
 import { IconArrowDown, IconArrowRight } from '@/icons/UIIcons';
 import { FeatureIcon } from '@/icons/FeatureIcons/RenderIcon';
 import { ImageMedia } from '@/components/Media/ImageMedia';
-import { Button } from '@/components/ui/button';
 import { accentColorAtom } from '@/state/accentColorAtom';
 
 // Helper function for setting illustration margins
