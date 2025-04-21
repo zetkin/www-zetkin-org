@@ -54,6 +54,7 @@ export type SupportedTimezones =
   | 'Asia/Singapore'
   | 'Asia/Tokyo'
   | 'Asia/Seoul'
+  | 'Australia/Brisbane'
   | 'Australia/Sydney'
   | 'Pacific/Guam'
   | 'Pacific/Noumea'
@@ -294,6 +295,10 @@ export interface Media {
     };
   };
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LandingBlock".
+ */
 export interface LandingBlock {
   leftTitle: string;
   rightTitle: string;
@@ -302,8 +307,8 @@ export interface LandingBlock {
     | {
         label: string;
         variant?: ('primary' | 'outline') | null;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -343,8 +348,8 @@ export interface GradientBlock {
   buttons?:
     | {
         label: string;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -403,8 +408,8 @@ export interface WhiteBg {
     | {
         label: string;
         variant: 'primary' | 'outline';
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;
@@ -463,8 +468,8 @@ export interface PeopleHighlightBlock {
         image: string | Media;
         quote: string;
         description: string;
-        link?: {
-          type?: ('reference' | 'custom') | null;
+        link: {
+          type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
             value: string | Page;

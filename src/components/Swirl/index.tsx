@@ -7,6 +7,10 @@ import SwirlPath from './SwirlPath';
 const Swirl: FC = () => {
   const [mouseX, setMouseX] = useState(0);
   const [mouseY, setMouseY] = useState(0);
+
+  const width = 1600;
+  const height = 1200;
+
   return (
     <div
       onMouseMove={(ev) => {
@@ -15,27 +19,33 @@ const Swirl: FC = () => {
       }}
       style={{
         //filter: 'blur(30px) hue-rotate(270deg)',
-        filter: 'blur(30px)',
+        filter: 'blur(45px)',
       }}
     >
-      <svg height="400" width="600">
+      <svg height={height} width={width}>
         <g>
           <SwirlPath
-            color="rgba(0, 0, 250, 0.5)"
+            color="rgba(15, 170, 150, 0.6)"
+            height={height}
             mouseX={mouseX}
             mouseY={mouseY}
-            timeOffset={1300}
+            timeOffset={14000}
+            width={width}
           />
           <SwirlPath
-            color="rgba(200, 0, 0, 0.5)"
+            color="rgba(120, 1, 221, 0.6)"
+            height={height}
             mouseX={mouseX}
             mouseY={mouseY}
+            timeOffset={7000}
+            width={width}
           />
           <SwirlPath
-            color="rgba(0, 200, 100, 0.5)"
+            color="rgba(254, 43, 90, 0.6)"
+            height={height}
             mouseX={mouseX}
             mouseY={mouseY}
-            timeOffset={1800}
+            width={width}
           />
         </g>
       </svg>

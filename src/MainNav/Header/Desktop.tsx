@@ -52,6 +52,23 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   const opacity = useTransform(scrollY, [120, 180], [0, 0.06]);
 
+  const background = useTransform(scrollY, [0, 50], [0, 1]);
+  const blurAmount = useTransform(
+    background,
+    [0, 1],
+    ['blur(0px)', 'blur(16px)'],
+  );
+  const bgColor = useTransform(
+    background,
+    [0, 1],
+    ['rgba(255,255,255,0)', 'rgba(255,255,255,0.80)'],
+  );
+  const border = useTransform(
+    background,
+    [0, 1],
+    ['solid rgba(238,238,238,0)', 'solid rgba(238,238,238,0.7)'],
+  );
+
   let headerShadow = '0, 0, 0,';
 
   switch (navigatedItem?.color) {
@@ -78,8 +95,14 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       }}
     >
       <motion.div
-        className={`z-30 w-full flex px-5 py-3 justify-center border-b border-[rgba(238,238,238,0.7)] bg-white/95 backdrop-blur-[16px]`}
+        className={`z-30 w-full flex px-5 py-3 justify-center  bg-white/85 backdrop-blur-[16px]}`}
         layout="size"
+        style={{
+          backdropFilter: blurAmount,
+          backgroundColor: bgColor,
+          boxShadow: `0px 4px 32px 0px rgba(${headerShadow}0)`,
+          borderBottom: border,
+        }}
       >
         <div className="w-full flex items-center justify-between max-w-[1000px]">
           {/* Logo */}
