@@ -442,11 +442,7 @@ export interface WhiteBg {
  * via the `definition` "PreambleBlock".
  */
 export interface PreambleBlock {
-  /**
-   * If the page is an article only use the "Preamble only" layout.
-   */
   layout: 'longHeaderNText' | 'longPreambleNText' | 'preambleOnly' | 'preambleHeaderTextNImage' | 'preambleNImage';
-  width?: ('full' | 'article') | null;
   preamble?: string | null;
   header?: string | null;
   mainText?: {
@@ -1063,7 +1059,6 @@ export interface WhiteBgSelect<T extends boolean = true> {
  */
 export interface PreambleBlockSelect<T extends boolean = true> {
   layout?: T;
-  width?: T;
   preamble?: T;
   header?: T;
   mainText?: T;
@@ -1650,6 +1645,16 @@ export interface InfoBoxBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoBox';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PreambleArticleBlock".
+ */
+export interface PreambleArticleBlock {
+  preamble: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'preambleArticle';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

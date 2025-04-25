@@ -6,8 +6,8 @@ export const PeopleHighlight: Block = {
   slug: 'peopleHighlight',
   interfaceName: 'PeopleHighlightBlock',
   labels: {
-    singular: 'People highlight block',
-    plural: 'People highlight blocks',
+    singular: 'People highlight',
+    plural: 'People highlights',
   },
   fields: [
     {

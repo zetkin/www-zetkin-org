@@ -19,7 +19,6 @@ export const PreambleBlock: React.FC<PreambleBlockProps> = ({
   preamble,
   mainText,
   image,
-  width,
 }) => {
   if (!layout) {
     return null;
@@ -38,7 +37,6 @@ export const PreambleBlock: React.FC<PreambleBlockProps> = ({
         image={image || undefined}
         mainText={mainText || undefined}
         preamble={preamble || undefined}
-        width={width || undefined}
       />
     </div>
   );

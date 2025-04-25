@@ -5,6 +5,7 @@ import { LandingBlock } from './home/Landing/Component';
 import { GradientBlock } from './home/Gradient/Component';
 import { WhiteBgBlock } from './home/WhiteBg/Component';
 import { PreambleBlock } from './general/Preamble/Component';
+import { PreambleArticleBlock } from './Article/Preamble/Component';
 import { PeopleHighlightBlock } from './general/PeopleHighlight/Component';
 import { ArticleBlock } from './Article/Component';
 import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
@@ -29,6 +30,7 @@ const blockComponents = {
   twoImage: TwoImageBlock,
   button: ButtonBlock,
   infoBox: InfoBoxBlock,
+  preambleArticle: PreambleArticleBlock,
   featureList: FeatureListBlock,
   peopleList: PeopleListBlock,
   eventList: EventListBlock,

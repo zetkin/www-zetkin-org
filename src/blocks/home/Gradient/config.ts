@@ -51,8 +51,8 @@ export const Gradient: Block = {
   slug: 'gradient',
   interfaceName: 'GradientBlock',
   labels: {
-    singular: 'Home - Gradient block',
-    plural: 'Home - Gradient blocks',
+    singular: 'Home - Gradient',
+    plural: 'Home - Gradients',
   },
   fields: [
     {
