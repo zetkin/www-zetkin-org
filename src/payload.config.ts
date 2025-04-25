@@ -4,7 +4,7 @@ import sharp from 'sharp'; // sharp-import
 import path from 'path';
 import { buildConfig, PayloadRequest } from 'payload';
 import { fileURLToPath } from 'url';
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob'
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 
 import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
