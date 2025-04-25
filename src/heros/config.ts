@@ -21,6 +21,10 @@ export const hero: Field = {
           value: 'none',
         },
         {
+          label: 'Simple',
+          value: 'simple',
+        },
+        {
           label: 'Two images - Left aligned',
           value: 'twoImgLeft',
         },
@@ -80,7 +84,7 @@ export const hero: Field = {
       type: 'richText',
       label: 'Title',
       admin: {
-        condition: (_, { layout } = {}) => !['none'].includes(layout),
+        condition: (_, { layout } = {}) => !['none', 'simple'].includes(layout),
       },
       required: true,
       editor: lexicalEditor({
@@ -97,7 +101,7 @@ export const hero: Field = {
       label: 'Sub-title',
       admin: {
         condition: (_, { layout } = {}) =>
-          ['featureLeft', 'featureCenter'].includes(layout),
+          ['featureLeft', 'featureCenter', 'simple'].includes(layout),
       },
     },
     {
@@ -105,7 +109,7 @@ export const hero: Field = {
       type: 'number',
       label: 'Read time (in minutes)',
       admin: {
-        condition: (_, { layout } = {}) => !['none'].includes(layout),
+        condition: (_, { layout } = {}) => !['none', 'simple'].includes(layout),
       },
     },
     {
@@ -113,7 +117,7 @@ export const hero: Field = {
       type: 'array',
       label: 'Images',
       admin: {
-        condition: (_, { layout } = {}) => !['none'].includes(layout),
+        condition: (_, { layout } = {}) => !['none', 'simple'].includes(layout),
       },
       required: true,
       maxRows: 2,

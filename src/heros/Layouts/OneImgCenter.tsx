@@ -17,7 +17,7 @@ export default function OneImgCenter({
           /* eslint-disable react/no-danger */
           <div
             className="text-center"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: html || '' }}
           />
         }
         {readTime && <p className="text-center">{readTime} min read</p>}

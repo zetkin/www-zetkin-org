@@ -146,7 +146,16 @@ export interface Page {
   title: string;
   hero?: {
     layout?:
-      | ('none' | 'twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter')
+      | (
+          | 'none'
+          | 'simple'
+          | 'twoImgLeft'
+          | 'twoImgCenter'
+          | 'oneImgLeft'
+          | 'oneImgCenter'
+          | 'featureLeft'
+          | 'featureCenter'
+        )
       | null;
     width?: ('full' | 'article') | null;
     eyebrowHeading?: string | null;

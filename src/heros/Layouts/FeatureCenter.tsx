@@ -18,7 +18,7 @@ export default function FeatureCenter({
           /* eslint-disable react/no-danger */
           <div
             className="text-center w-full md:max-w-[750px]"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: html || '' }}
           />
         }
         {subtitle && (

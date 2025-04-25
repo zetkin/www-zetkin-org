@@ -9,6 +9,7 @@ import OneImgLeft from './Layouts/OneImgLeft';
 import OneImgCenter from './Layouts/OneImgCenter';
 import FeatureLeft from './Layouts/FeatureLeft';
 import FeatureCenter from './Layouts/FeatureCenter';
+import Simple from './Layouts/Simple';
 import { accentColorAtom } from '@/state/accentColorAtom';
 
 const heros = {
@@ -18,6 +19,7 @@ const heros = {
   oneImgCenter: OneImgCenter,
   featureLeft: FeatureLeft,
   featureCenter: FeatureCenter,
+  simple: Simple,
 };
 
 interface HeroClientWrapperProps {
