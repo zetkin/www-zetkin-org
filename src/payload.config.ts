@@ -4,7 +4,8 @@ import sharp from 'sharp'; // sharp-import
 import path from 'path';
 import { buildConfig, PayloadRequest } from 'payload';
 import { fileURLToPath } from 'url';
-import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage';
+import { vercelBlobAdapter } from 'payload-cloud-storage-vercel-adapter';
 
 import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
@@ -61,11 +62,17 @@ export default buildConfig({
   globals: [MainNav],
   plugins: [
     ...plugins,
-    vercelBlobStorage({
+    cloudStoragePlugin({
       collections: {
-        media: true,
+        media: {
+          adapter: vercelBlobAdapter({
+            token: process.env.BLOB_READ_WRITE_TOKEN || '',
+            storeId: process.env.BLOB_STORE_ID || '',
+          }),
+          disableLocalStorage: true,
+          disablePayloadAccessControl: true,
+        },
       },
-      token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
   ],
   secret: process.env.PAYLOAD_SECRET,
