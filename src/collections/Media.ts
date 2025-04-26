@@ -74,4 +74,14 @@ export const Media: CollectionConfig = {
       },
     ],
   },
+  hooks: {
+    afterRead: [
+      ({ doc }) => {
+        if (doc.filename) {
+          doc.url = `${process.env.VERCEL_BLOB_URL}/${doc.filename}`;
+        }
+        return doc;
+      },
+    ],
+  },
 };
