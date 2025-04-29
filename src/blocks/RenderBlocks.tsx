@@ -6,7 +6,7 @@ import { GradientBlock } from './home/Gradient/Component';
 import { WhiteBgBlock } from './home/WhiteBg/Component';
 import { PreambleBlock } from './general/Preamble/Component';
 import { PreambleArticleBlock } from './Article/Preamble/Component';
-import { PeopleHighlightBlock } from './general/PeopleHighlight/Component';
+import { ArticleHighlightBlock } from './general/ArticleHighlight/Component';
 import { ArticleBlock } from './Article/Component';
 import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
 import { ButtonBlock } from './Article/Button/Component';
@@ -23,7 +23,7 @@ const blockComponents = {
   gradient: GradientBlock,
   whiteBg: WhiteBgBlock,
   preamble: PreambleBlock,
-  peopleHighlight: PeopleHighlightBlock,
+  articleHighlight: ArticleHighlightBlock,
   article: ArticleBlock,
   textWithQuote: TextWithQuoteBlock,
   oneImage: OneImageBlock,

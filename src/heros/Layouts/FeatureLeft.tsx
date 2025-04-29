@@ -21,7 +21,7 @@ export default function FeatureLeft({
           /* eslint-disable react/no-danger */
           <div
             className="w-full md:max-w-[750px]"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: html || '' }}
           />
         }
         {subtitle && (

@@ -14,7 +14,7 @@ export const ArticleBlock: React.FC<ArticleBlockProps> = (props) => {
   ];
 
   return (
-    <div className="flex mx-5 mt-10 w-full justify-center">
+    <div className="flex px-5 mt-10 w-full justify-center">
       <div className="flex flex-col md:max-w-[630px] w-full md:pr-20 overflow-visible">
         {author && <Author author={author} socialLink={socialLink} />}
         {richText && <ArticleRichText richText={richText} />}

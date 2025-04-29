@@ -10,9 +10,6 @@ export const PeopleList: Block = {
         singular: 'List',
         plural: 'Lists',
       },
-      admin: {
-        description: `If "Wrap in accordion" is not selected, please only add one list here.`,
-      },
       type: 'array',
       fields: [
         {

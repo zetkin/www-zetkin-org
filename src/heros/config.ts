@@ -118,6 +118,8 @@ export const hero: Field = {
       label: 'Images',
       admin: {
         condition: (_, { layout } = {}) => !['none', 'simple'].includes(layout),
+        description:
+          'Different layouts require images in different formats. The layouts containing the word "image(s)" require photos. The layouts containing the word "feature" require an edited screenshot of a feature in the platform. See the Figma file for examples: https://www.figma.com/design/W7LOdf5DOLohf1UpRJDBS7/Fall-2024-iterations?node-id=1279-36495&t=5AZ70F8QDksUKjBD-1',
       },
       required: true,
       maxRows: 2,
