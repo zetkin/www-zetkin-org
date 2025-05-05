@@ -12,7 +12,7 @@ import { TwoImage } from './TwoImages/config';
 import { OneImage } from './OneImage/config';
 import { Button } from './Button/config';
 import { InfoBox } from './InfoBox/config';
-import { Preamble } from '../general/Preamble/config';
+import { PreambleArticle } from './Preamble/config';
 
 export const Article: Block = {
   slug: 'article',
@@ -72,7 +72,7 @@ export const Article: Block = {
                 OneImage,
                 Button,
                 InfoBox,
-                Preamble,
+                PreambleArticle,
               ],
             }),
           ];

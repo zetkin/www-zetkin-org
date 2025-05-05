@@ -146,7 +146,16 @@ export interface Page {
   title: string;
   hero?: {
     layout?:
-      | ('none' | 'twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter')
+      | (
+          | 'none'
+          | 'simple'
+          | 'twoImgLeft'
+          | 'twoImgCenter'
+          | 'oneImgLeft'
+          | 'oneImgCenter'
+          | 'featureLeft'
+          | 'featureCenter'
+        )
       | null;
     width?: ('full' | 'article') | null;
     eyebrowHeading?: string | null;
@@ -167,6 +176,9 @@ export interface Page {
     } | null;
     subtitle?: string | null;
     readTime?: number | null;
+    /**
+     * Different layouts require images in different formats. The layouts containing the word "image(s)" require photos. The layouts containing the word "feature" require an edited screenshot of a feature in the platform. See the Figma file for examples: https://www.figma.com/design/W7LOdf5DOLohf1UpRJDBS7/Fall-2024-iterations?node-id=1279-36495&t=5AZ70F8QDksUKjBD-1
+     */
     images?:
       | {
           image: string | Media;
@@ -180,7 +192,7 @@ export interface Page {
         | GradientBlock
         | WhiteBg
         | PreambleBlock
-        | PeopleHighlightBlock
+        | ArticleHighlightBlock
         | ArticleBlock
         | FeatureListBlock
         | PeopleListBlock
@@ -442,11 +454,7 @@ export interface WhiteBg {
  * via the `definition` "PreambleBlock".
  */
 export interface PreambleBlock {
-  /**
-   * If the page is an article only use the "Preamble only" layout.
-   */
   layout: 'longHeaderNText' | 'longPreambleNText' | 'preambleOnly' | 'preambleHeaderTextNImage' | 'preambleNImage';
-  width?: ('full' | 'article') | null;
   preamble?: string | null;
   header?: string | null;
   mainText?: {
@@ -471,16 +479,15 @@ export interface PreambleBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PeopleHighlightBlock".
+ * via the `definition` "ArticleHighlightBlock".
  */
-export interface PeopleHighlightBlock {
-  borderTop?: boolean | null;
-  linkColor?: ('purple' | 'red' | 'green') | null;
-  people?:
+export interface ArticleHighlightBlock {
+  articles?:
     | {
         image: string | Media;
         quote: string;
         description: string;
+        linkText: string;
         link: {
           type?: 'reference' | 'custom';
           reference?: {
@@ -495,7 +502,7 @@ export interface PeopleHighlightBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'peopleHighlight';
+  blockType: 'articleHighlight';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -586,9 +593,6 @@ export interface FeatureListBlock {
  * via the `definition` "peopleListBlock".
  */
 export interface PeopleListBlock {
-  /**
-   * If "Wrap in accordion" is not selected, please only add one list here.
-   */
   lists?:
     | {
         title: string;
@@ -933,7 +937,7 @@ export interface PagesSelect<T extends boolean = true> {
         gradient?: T | GradientBlockSelect<T>;
         whiteBg?: T | WhiteBgSelect<T>;
         preamble?: T | PreambleBlockSelect<T>;
-        peopleHighlight?: T | PeopleHighlightBlockSelect<T>;
+        articleHighlight?: T | ArticleHighlightBlockSelect<T>;
         article?: T | ArticleBlockSelect<T>;
         featureList?: T | FeatureListBlockSelect<T>;
         peopleList?: T | PeopleListBlockSelect<T>;
@@ -1063,7 +1067,6 @@ export interface WhiteBgSelect<T extends boolean = true> {
  */
 export interface PreambleBlockSelect<T extends boolean = true> {
   layout?: T;
-  width?: T;
   preamble?: T;
   header?: T;
   mainText?: T;
@@ -1073,17 +1076,16 @@ export interface PreambleBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PeopleHighlightBlock_select".
+ * via the `definition` "ArticleHighlightBlock_select".
  */
-export interface PeopleHighlightBlockSelect<T extends boolean = true> {
-  borderTop?: T;
-  linkColor?: T;
-  people?:
+export interface ArticleHighlightBlockSelect<T extends boolean = true> {
+  articles?:
     | T
     | {
         image?: T;
         quote?: T;
         description?: T;
+        linkText?: T;
         link?:
           | T
           | {
@@ -1473,7 +1475,7 @@ export interface MainNav {
     | null;
   socialLinks?:
     | {
-        platform: 'instagram' | 'facebook' | 'github';
+        platform: 'instagram' | 'facebook' | 'bluesky' | 'linkedin' | 'mastodon' | 'github';
         link: string;
         id?: string | null;
       }[]
@@ -1650,6 +1652,16 @@ export interface InfoBoxBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoBox';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PreambleArticleBlock".
+ */
+export interface PreambleArticleBlock {
+  preamble: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'preambleArticle';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

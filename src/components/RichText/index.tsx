@@ -16,11 +16,13 @@ import type { ButtonBlock as ButtonBlockProps } from '@/payload-types';
 import type { InfoBoxBlock as InfoBoxBlockProps } from '@/payload-types';
 import type { OneImageBlock as OneImageBlockProps } from '@/payload-types';
 import type { TwoImageBlock as TwoImageBlockProps } from '@/payload-types';
+import type { PreambleArticleBlock as PreambleArticleBlockProps } from '@/payload-types';
 import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
 import { ButtonBlock } from '@/blocks/Article/Button/Component';
 import { InfoBoxBlock } from '@/blocks/Article/InfoBox/Component';
 import { OneImageBlock } from '@/blocks/Article/OneImage/Component';
 import { TwoImageBlock } from '@/blocks/Article/TwoImages/Component';
+import { PreambleArticleBlock } from '@/blocks/Article/Preamble/Component';
 
 type NodeTypes = DefaultNodeTypes;
 
@@ -56,6 +58,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
     infoBox: ({ node }: { node: SerializedBlockNode<InfoBoxBlockProps> }) => (
       <InfoBoxBlock {...node.fields} />
     ),
+    preambleArticle: ({
+      node,
+    }: {
+      node: SerializedBlockNode<PreambleArticleBlockProps>;
+    }) => <PreambleArticleBlock {...node.fields} />,
   },
 });
 

@@ -20,7 +20,7 @@ export default function TwoImgLeft({
           /* eslint-disable react/no-danger */
           <div
             className="w-full sm:w-[80vw] sm:max-w-[740px]"
-            dangerouslySetInnerHTML={{ __html: html }}
+            dangerouslySetInnerHTML={{ __html: html || '' }}
           />
         }
         {readTime && <p>{readTime} min read</p>}

@@ -6,8 +6,8 @@ export const Landing: Block = {
   slug: 'landing',
   interfaceName: 'LandingBlock',
   labels: {
-    singular: 'Home - Landing Block',
-    plural: 'Home - Landing Blocks',
+    singular: 'Home - Landing',
+    plural: 'Home - Landings',
   },
   fields: [
     {
