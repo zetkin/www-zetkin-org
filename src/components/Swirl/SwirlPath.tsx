@@ -14,24 +14,6 @@ type Props = {
   height: number;
 };
 
-function cubicBezier(
-  t: number,
-  p0: Point,
-  p1: Point,
-  p2: Point,
-  p3: Point,
-): Point {
-  const u = 1 - t;
-  const tt = t * t;
-  const uu = u * u;
-  const uuu = uu * u;
-  const ttt = tt * t;
-
-  const x = uuu * p0[0] + 3 * uu * t * p1[0] + 3 * u * tt * p2[0] + ttt * p3[0];
-  const y = uuu * p0[1] + 3 * uu * t * p1[1] + 3 * u * tt * p2[1] + ttt * p3[1];
-  return [x, y];
-}
-
 function spring(current: number, velocity: number, target: number, dt: number) {
   const stiffness = 0.007; // how “strong” the pull is
   const damping = 0.45; // how quickly it settles
@@ -77,58 +59,37 @@ const SwirlPath: FC<Props> = ({
       const now = new Date();
       const runtime = now.getTime() - startRef.current;
 
-      const mouse = { x: mouseRef.current.x, y: mouseRef.current.y };
-      const samples = 20;
+      const mouseOffsetX = mouseRef.current.x - centerX;
+      const mouseOffsetY = mouseRef.current.y - centerY;
 
-      let minDist = Infinity;
+      const distance = Math.sqrt(mouseOffsetX ** 2 + mouseOffsetY ** 2); // 🆕 calculate distance from center
+      const maxReactDistance = 400; // 🆕 maximum distance within which the swirl reacts
 
-      for (let i = 0; i <= samples; i++) {
-        const t = i / samples;
-        const [x, y] = cubicBezier(
-          t,
-          points[0],
-          points[1],
-          points[2],
-          points[3],
-        );
+      const isActive = distance < maxReactDistance; // 🆕 should it react?
 
-        const dx = x - mouse.x;
-        const dy = y - mouse.y;
-        const dist = Math.sqrt(dx * dx + dy * dy);
-        if (dist < minDist) {
-          minDist = dist;
-        }
-      }
+      const targetX = isActive ? mouseOffsetX : 0; // 🆕 limit target movement if out of range
+      const targetY = isActive ? mouseOffsetY : 0;
 
-      const interactionRadius = 300;
-      const withinRange = minDist < interactionRadius;
+      const dt = 1;
 
-      const mouseOffsetX = withinRange ? mouseRef.current.x - centerX : 0;
-      const mouseOffsetY = withinRange ? mouseRef.current.y - centerY : 0;
-
-      const dt = 1; // frame‐time delta (you can swap for real delta if you want)
-
-      // spring(current, velocity, target, dt)
-      // ↳ stiffness=0.01, damping=0.1 baked into spring()
       const springX = spring(
-        offsetRef.current.x, // current position
-        offsetRef.current.vx, // current velocity
-        mouseOffsetX, // target
+        offsetRef.current.x,
+        offsetRef.current.vx,
+        targetX,
         dt,
-      );
-      offsetRef.current.x = springX.x; // 📌 updated position
-      offsetRef.current.vx = springX.v; // 📌 updated velocity
+      ); // 🆕 updated to use clamped target
+      offsetRef.current.x = springX.x;
+      offsetRef.current.vx = springX.v;
 
       const springY = spring(
         offsetRef.current.y,
         offsetRef.current.vy,
-        mouseOffsetY,
+        targetY,
         dt,
-      );
+      ); // 🆕 updated to use clamped target
       offsetRef.current.y = springY.x;
       offsetRef.current.vy = springY.v;
 
-      // Control how much the "swirl" motion is allowed to move
       const swirlDistX = 60;
       const swirlDistY = 30;
 
@@ -139,9 +100,6 @@ const SwirlPath: FC<Props> = ({
         points[0],
         points[1],
         [
-          // "Swirl" the middle point of the path back and forth over time.
-          // The X and Y positions swirl on different periods, so that the
-          // movement looks more random.
           centerX * 1.1 -
             swirlDistX / 2 +
             Math.sin(runtime / 1000) * swirlDistX +
@@ -159,17 +117,14 @@ const SwirlPath: FC<Props> = ({
 
       setPoints(newPoints);
 
-      const fadeCycle = 21000; // Total cycle time in ms
-      const visibleRatio = 0.9; // Ratio of the cycle that is visible
+      const fadeCycle = 21000;
+      const visibleRatio = 0.9;
 
-      const cyclePos = (runtime % fadeCycle) / fadeCycle; // 0 to 1
-      const raw = Math.sin(cyclePos * Math.PI * 2); // -1 to 1
+      const cyclePos = (runtime % fadeCycle) / fadeCycle;
+      const raw = Math.sin(cyclePos * Math.PI * 2);
 
-      // Shift and scale sine so it's mostly 1, briefly dips near 0
-      let opacity = (raw + 1) / 2; // 0 to 1
-
-      // Result oscillates between 0 and 1
-      opacity = Math.max(0, (opacity - (1 - visibleRatio)) / visibleRatio); // Clamp fade-in/out duration
+      let opacity = (raw + 1) / 2;
+      opacity = Math.max(0, (opacity - (1 - visibleRatio)) / visibleRatio);
 
       opacityRef.current = opacity;
 

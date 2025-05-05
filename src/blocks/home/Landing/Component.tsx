@@ -7,7 +7,7 @@ export const LandingBlock: React.FC<LandingBlockProps> = (props) => {
   const { leftTitle, rightTitle, subtitle, buttons = [] } = props;
 
   return (
-    <div className="flex justify-center items-center px-5 w-full pb-20 sm:pt-30 sm:pb-32 sm:min-h-[80vh] overflow-visible">
+    <div className="flex justify-center items-center px-5 w-full pb-20 sm:pt-30 sm:pb-32 sm:min-h-[86vh] overflow-visible">
       <div className="flex flex-col gap-12 w-full sm:max-w-[1000px] relative">
         <div className="w-full flex flex-col gap-3 sm:grid sm:grid-cols-2 sm:gap-12 z-10 pointer-events-none">
           <h1 className="w-1/2 sm:w-full sm:text-[8vw] lg:text-[5rem]">
