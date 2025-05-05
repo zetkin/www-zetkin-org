@@ -18,7 +18,6 @@ const Swirl: FC = () => {
         setMouseY(ev.clientY);
       }}
       style={{
-        //filter: 'blur(30px) hue-rotate(270deg)',
         filter: 'blur(45px)',
       }}
     >

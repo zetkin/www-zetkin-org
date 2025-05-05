@@ -14,6 +14,34 @@ type Props = {
   height: number;
 };
 
+function cubicBezier(
+  t: number,
+  p0: Point,
+  p1: Point,
+  p2: Point,
+  p3: Point,
+): Point {
+  const u = 1 - t;
+  const tt = t * t;
+  const uu = u * u;
+  const uuu = uu * u;
+  const ttt = tt * t;
+
+  const x = uuu * p0[0] + 3 * uu * t * p1[0] + 3 * u * tt * p2[0] + ttt * p3[0];
+  const y = uuu * p0[1] + 3 * uu * t * p1[1] + 3 * u * tt * p2[1] + ttt * p3[1];
+  return [x, y];
+}
+
+function spring(current: number, velocity: number, target: number, dt: number) {
+  const stiffness = 0.007; // how “strong” the pull is
+  const damping = 0.45; // how quickly it settles
+  const force = (target - current) * stiffness;
+  const accel = force - velocity * damping;
+  const v2 = velocity + accel * dt;
+  const x2 = current + v2 * dt;
+  return { x: x2, v: v2 };
+}
+
 const SwirlPath: FC<Props> = ({
   color,
   mouseX,
@@ -31,9 +59,9 @@ const SwirlPath: FC<Props> = ({
   const opacityRef = useRef(1);
   const [points, setPoints] = useState<Curve>([
     [width, 0],
-    [centerX + centerX / 4, 0],
-    [centerX, height / 3],
-    [centerX - centerX / 4, (height / 3) * 2],
+    [centerX * 1.2, height * 0.2],
+    [centerX, height * 0.5],
+    [centerX * 0.8, height * 0.8],
     [0, height],
   ]);
 
@@ -49,56 +77,56 @@ const SwirlPath: FC<Props> = ({
       const now = new Date();
       const runtime = now.getTime() - startRef.current;
 
-      const mouseOffsetX = mouseRef.current.x - centerX;
-      const mouseOffsetY = mouseRef.current.y - centerY;
+      const mouse = { x: mouseRef.current.x, y: mouseRef.current.y };
+      const samples = 20;
 
-      // Limit how far the attraction effect should apply
-      const maxXRange = 400;
-      const maxYRange = 200;
+      let minDist = Infinity;
 
-      const dx = mouseOffsetX - offsetRef.current.x;
-      const dy = mouseOffsetY - offsetRef.current.y;
-
-      const easeInOut = (t: number) => t * t * (3 - 2 * t);
-
-      const easeX = easeInOut(Math.min(Math.abs(dx) / maxXRange, 1));
-      const easeY = easeInOut(Math.min(Math.abs(dy) / maxYRange, 1));
-
-      if (
-        Math.abs(mouseOffsetX) < maxXRange ||
-        Math.abs(mouseOffsetX) < maxXRange * -1
-      ) {
-        // Smooth attraction within X range
-        offsetRef.current.vx =
-          (offsetRef.current.vx || 0) * 0.9 + dx * 0.0008 * easeX;
-        offsetRef.current.x += offsetRef.current.vx;
-      } else {
-        // Decay X offset when mouse is out of range
-        const decayX = easeInOut(
-          Math.min(Math.abs(offsetRef.current.x) / maxXRange, 1),
+      for (let i = 0; i <= samples; i++) {
+        const t = i / samples;
+        const [x, y] = cubicBezier(
+          t,
+          points[0],
+          points[1],
+          points[2],
+          points[3],
         );
-        offsetRef.current.vx *= 0.5; // inertia
-        offsetRef.current.vx -= offsetRef.current.x * 0.01 * decayX; // Ease back to center
-        offsetRef.current.x += offsetRef.current.vx;
+
+        const dx = x - mouse.x;
+        const dy = y - mouse.y;
+        const dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < minDist) {
+          minDist = dist;
+        }
       }
 
-      if (
-        Math.abs(mouseOffsetY) < maxYRange ||
-        Math.abs(mouseOffsetY) < maxYRange * -1
-      ) {
-        // Smooth attraction within Y range
-        offsetRef.current.vy =
-          (offsetRef.current.vy || 0) * 0.9 + dy * 0.0008 * easeY;
-        offsetRef.current.y += offsetRef.current.vy;
-      } else {
-        // Decay Y offset when mouse is out of range
-        const decayY = easeInOut(
-          Math.min(Math.abs(offsetRef.current.y) / maxYRange, 1),
-        );
-        offsetRef.current.vy *= 0.5; // inertia
-        offsetRef.current.vy -= offsetRef.current.y * 0.01 * decayY;
-        offsetRef.current.y += offsetRef.current.vy;
-      }
+      const interactionRadius = 300;
+      const withinRange = minDist < interactionRadius;
+
+      const mouseOffsetX = withinRange ? mouseRef.current.x - centerX : 0;
+      const mouseOffsetY = withinRange ? mouseRef.current.y - centerY : 0;
+
+      const dt = 1; // frame‐time delta (you can swap for real delta if you want)
+
+      // spring(current, velocity, target, dt)
+      // ↳ stiffness=0.01, damping=0.1 baked into spring()
+      const springX = spring(
+        offsetRef.current.x, // current position
+        offsetRef.current.vx, // current velocity
+        mouseOffsetX, // target
+        dt,
+      );
+      offsetRef.current.x = springX.x; // 📌 updated position
+      offsetRef.current.vx = springX.v; // 📌 updated velocity
+
+      const springY = spring(
+        offsetRef.current.y,
+        offsetRef.current.vy,
+        mouseOffsetY,
+        dt,
+      );
+      offsetRef.current.y = springY.x;
+      offsetRef.current.vy = springY.v;
 
       // Control how much the "swirl" motion is allowed to move
       const swirlDistX = 60;
@@ -114,12 +142,12 @@ const SwirlPath: FC<Props> = ({
           // "Swirl" the middle point of the path back and forth over time.
           // The X and Y positions swirl on different periods, so that the
           // movement looks more random.
-          centerX -
+          centerX * 1.1 -
             swirlDistX / 2 +
             Math.sin(runtime / 1000) * swirlDistX +
             offsetRef.current.x +
             noiseX,
-          centerY -
+          centerY * 0.75 -
             swirlDistY / 2 +
             Math.sin(runtime / 1400 + 100) * swirlDistY +
             offsetRef.current.y +
