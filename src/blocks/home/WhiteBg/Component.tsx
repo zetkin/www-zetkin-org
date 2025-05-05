@@ -3,7 +3,6 @@ import { convertLexicalToHTML } from '@payloadcms/richtext-lexical/html';
 
 import { WhiteBg as WhiteBgProps } from '@/payload-types';
 import UICenter from './Layouts/UICenter';
-import colorToTailwind from '@/utilities/colorToTailwind';
 import ImagesCenter from './Layouts/ImagesCenter';
 import UILeft from './Layouts/UILeft';
 import ImagesLeft from './Layouts/ImagesLeft';
@@ -47,7 +46,7 @@ export const WhiteBgBlock: React.FC<WhiteBgProps> = ({
     .replace(/<\/p>/g, '<\/h2>')
     .replace(
       /<em>/g,
-      `<span class="srf-h2 group-[.smaller-text]:text-[1.5rem] leading-[1.7] sm:group-[.larger-text]:!text-[3.375rem] sm:!text-[2.313rem] text-${colorToTailwind(accentColor || 'purple')}">`,
+      `<span class="srf-h2 group-[.smaller-text]:text-[1.5rem] leading-[1.7] sm:group-[.larger-text]:!text-[3.375rem] sm:!text-[2.313rem] text-${accentColor || 'purple'}">`,
     )
     .replace(/<\/em>/g, '<\/span>');
 

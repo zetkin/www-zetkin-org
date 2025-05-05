@@ -163,7 +163,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                             className={
                               'text-[16px] font-semibold' +
                               (linkIsSelected &&
-                                `text-${colorToTailwind(hoveredItem.color || '')}`)
+                                `text-${hoveredItem.color || ''}`)
                             }
                           >
                             <Link aria-label={midItem.label} url={url}>
@@ -189,7 +189,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                                   'text-[13px] truncate leading-[1.7] ' +
                                   (linkIsSelected &&
                                     'font-semibold text-' +
-                                      colorToTailwind(hoveredItem.color || ''))
+                                      (hoveredItem.color || ''))
                                 }
                               >
                                 <Link aria-label={bottomItem.label} url={url}>
