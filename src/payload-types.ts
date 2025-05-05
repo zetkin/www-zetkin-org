@@ -71,6 +71,9 @@ export interface Config {
     media: Media;
     users: User;
     people: Person;
+    tags: Tag;
+    events: Event;
+    jobs: Job;
     redirects: Redirect;
     'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
@@ -83,6 +86,9 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     people: PeopleSelect<false> | PeopleSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
+    events: EventsSelect<false> | EventsSelect<true>;
+    jobs: JobsSelect<false> | JobsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
@@ -140,9 +146,18 @@ export interface Page {
   title: string;
   hero?: {
     layout?:
-      | ('none' | 'twoImgLeft' | 'twoImgCenter' | 'oneImgLeft' | 'oneImgCenter' | 'featureLeft' | 'featureCenter')
+      | (
+          | 'none'
+          | 'simple'
+          | 'twoImgLeft'
+          | 'twoImgCenter'
+          | 'oneImgLeft'
+          | 'oneImgCenter'
+          | 'featureLeft'
+          | 'featureCenter'
+        )
       | null;
-    accentColor?: ('purple' | 'green' | 'red') | null;
+    width?: ('full' | 'article') | null;
     eyebrowHeading?: string | null;
     title?: {
       root: {
@@ -161,6 +176,9 @@ export interface Page {
     } | null;
     subtitle?: string | null;
     readTime?: number | null;
+    /**
+     * Different layouts require images in different formats. The layouts containing the word "image(s)" require photos. The layouts containing the word "feature" require an edited screenshot of a feature in the platform. See the Figma file for examples: https://www.figma.com/design/W7LOdf5DOLohf1UpRJDBS7/Fall-2024-iterations?node-id=1279-36495&t=5AZ70F8QDksUKjBD-1
+     */
     images?:
       | {
           image: string | Media;
@@ -174,9 +192,12 @@ export interface Page {
         | GradientBlock
         | WhiteBg
         | PreambleBlock
-        | PeopleHighlightBlock
+        | ArticleHighlightBlock
         | ArticleBlock
         | FeatureListBlock
+        | PeopleListBlock
+        | EventListBlock
+        | JobsListBlock
       )[]
     | null;
   meta?: {
@@ -458,16 +479,15 @@ export interface PreambleBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PeopleHighlightBlock".
+ * via the `definition` "ArticleHighlightBlock".
  */
-export interface PeopleHighlightBlock {
-  borderTop?: boolean | null;
-  linkColor?: ('purple' | 'red' | 'green') | null;
-  people?:
+export interface ArticleHighlightBlock {
+  articles?:
     | {
         image: string | Media;
         quote: string;
         description: string;
+        linkText: string;
         link: {
           type?: 'reference' | 'custom';
           reference?: {
@@ -482,13 +502,15 @@ export interface PeopleHighlightBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'peopleHighlight';
+  blockType: 'articleHighlight';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ArticleBlock".
  */
 export interface ArticleBlock {
+  author?: (string | null) | Person;
+  socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink')[] | null;
   richText?: {
     root: {
       type: string;
@@ -504,10 +526,42 @@ export interface ArticleBlock {
     };
     [k: string]: unknown;
   } | null;
-  linkColor?: ('purple' | 'green' | 'red') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'article';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "people".
+ */
+export interface Person {
+  id: string;
+  name: string;
+  pronouns?: string | null;
+  photo: string | Media;
+  role: string;
+  tags?: (string | Tag)[] | null;
+  email?: string | null;
+  linkedIn?: string | null;
+  github?: string | null;
+  instagram?: string | null;
+  otherLink?: string | null;
+  /**
+   * If the person has a dedicated profile piece written about them, add the link here.
+   */
+  profilePiece?: (string | null) | Page;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  name: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -530,10 +584,47 @@ export interface FeatureListBlock {
     linkText: string;
     id?: string | null;
   }[];
-  accentColor: 'purple' | 'green' | 'red';
   id?: string | null;
   blockName?: string | null;
   blockType: 'featureList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "peopleListBlock".
+ */
+export interface PeopleListBlock {
+  lists?:
+    | {
+        title: string;
+        peopleTag: string | Tag;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'peopleList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventListBlock".
+ */
+export interface EventListBlock {
+  listHeader?: string | null;
+  tag: string | Tag;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'eventList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobsListBlock".
+ */
+export interface JobsListBlock {
+  title: string;
+  jobsTag: string | Tag;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'jobsList';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -555,21 +646,67 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "people".
+ * via the `definition` "events".
  */
-export interface Person {
+export interface Event {
   id: string;
-  name: string;
-  pronouns?: string | null;
-  photo: string | Media;
-  role: string;
-  category?: ('leadership' | 'contributor' | 'boardMember') | null;
-  email?: string | null;
-  linkedIn?: string | null;
-  github?: string | null;
-  instagram?: string | null;
-  otherLink?: string | null;
-  profilePiece?: (string | null) | Page;
+  title: string;
+  tags?: (string | Tag)[] | null;
+  image: string | Media;
+  startDate: string;
+  endDate?: string | null;
+  online?: boolean | null;
+  city?: string | null;
+  address?: string | null;
+  /**
+   * @minItems 2
+   * @maxItems 2
+   */
+  geotag?: [number, number] | null;
+  description?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs".
+ */
+export interface Job {
+  id: string;
+  title: string;
+  tags: (string | Tag)[];
+  location: string;
+  mailAddress: string;
+  employmentType?: string | null;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -710,6 +847,18 @@ export interface PayloadLockedDocument {
         value: string | Person;
       } | null)
     | ({
+        relationTo: 'tags';
+        value: string | Tag;
+      } | null)
+    | ({
+        relationTo: 'events';
+        value: string | Event;
+      } | null)
+    | ({
+        relationTo: 'jobs';
+        value: string | Job;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: string | Redirect;
       } | null)
@@ -769,7 +918,7 @@ export interface PagesSelect<T extends boolean = true> {
     | T
     | {
         layout?: T;
-        accentColor?: T;
+        width?: T;
         eyebrowHeading?: T;
         title?: T;
         subtitle?: T;
@@ -788,9 +937,12 @@ export interface PagesSelect<T extends boolean = true> {
         gradient?: T | GradientBlockSelect<T>;
         whiteBg?: T | WhiteBgSelect<T>;
         preamble?: T | PreambleBlockSelect<T>;
-        peopleHighlight?: T | PeopleHighlightBlockSelect<T>;
+        articleHighlight?: T | ArticleHighlightBlockSelect<T>;
         article?: T | ArticleBlockSelect<T>;
         featureList?: T | FeatureListBlockSelect<T>;
+        peopleList?: T | PeopleListBlockSelect<T>;
+        eventList?: T | EventListBlockSelect<T>;
+        jobsList?: T | JobsListBlockSelect<T>;
       };
   meta?:
     | T
@@ -924,17 +1076,16 @@ export interface PreambleBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "PeopleHighlightBlock_select".
+ * via the `definition` "ArticleHighlightBlock_select".
  */
-export interface PeopleHighlightBlockSelect<T extends boolean = true> {
-  borderTop?: T;
-  linkColor?: T;
-  people?:
+export interface ArticleHighlightBlockSelect<T extends boolean = true> {
+  articles?:
     | T
     | {
         image?: T;
         quote?: T;
         description?: T;
+        linkText?: T;
         link?:
           | T
           | {
@@ -953,8 +1104,9 @@ export interface PeopleHighlightBlockSelect<T extends boolean = true> {
  * via the `definition` "ArticleBlock_select".
  */
 export interface ArticleBlockSelect<T extends boolean = true> {
+  author?: T;
+  socialLink?: T;
   richText?: T;
-  linkColor?: T;
   id?: T;
   blockName?: T;
 }
@@ -978,7 +1130,41 @@ export interface FeatureListBlockSelect<T extends boolean = true> {
         linkText?: T;
         id?: T;
       };
-  accentColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "peopleListBlock_select".
+ */
+export interface PeopleListBlockSelect<T extends boolean = true> {
+  lists?:
+    | T
+    | {
+        title?: T;
+        peopleTag?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "eventListBlock_select".
+ */
+export interface EventListBlockSelect<T extends boolean = true> {
+  listHeader?: T;
+  tag?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobsListBlock_select".
+ */
+export interface JobsListBlockSelect<T extends boolean = true> {
+  title?: T;
+  jobsTag?: T;
   id?: T;
   blockName?: T;
 }
@@ -1100,13 +1286,54 @@ export interface PeopleSelect<T extends boolean = true> {
   pronouns?: T;
   photo?: T;
   role?: T;
-  category?: T;
+  tags?: T;
   email?: T;
   linkedIn?: T;
   github?: T;
   instagram?: T;
   otherLink?: T;
   profilePiece?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  name?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "events_select".
+ */
+export interface EventsSelect<T extends boolean = true> {
+  title?: T;
+  tags?: T;
+  image?: T;
+  startDate?: T;
+  endDate?: T;
+  online?: T;
+  city?: T;
+  address?: T;
+  geotag?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "jobs_select".
+ */
+export interface JobsSelect<T extends boolean = true> {
+  title?: T;
+  tags?: T;
+  location?: T;
+  mailAddress?: T;
+  employmentType?: T;
+  description?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1248,7 +1475,7 @@ export interface MainNav {
     | null;
   socialLinks?:
     | {
-        platform: 'instagram' | 'facebook' | 'github';
+        platform: 'instagram' | 'facebook' | 'bluesky' | 'linkedin' | 'mastodon' | 'github';
         link: string;
         id?: string | null;
       }[]
@@ -1342,33 +1569,16 @@ export interface TaskSchedulePublish {
  * via the `definition` "TextWithQuoteBlock".
  */
 export interface TextWithQuoteBlock {
-  richText: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
   quote: string;
-  quoteColor?: ('purple' | 'green' | 'red') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'textWithQuote';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "imageBlock".
+ * via the `definition` "twoImageBlock".
  */
-export interface ImageBlock {
-  layout?: ('oneImg' | 'twoImg') | null;
+export interface TwoImageBlock {
   images: {
     image?: (string | null) | Media;
     description?: string | null;
@@ -1378,7 +1588,23 @@ export interface ImageBlock {
   desktopOverflow?: boolean | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'image';
+  blockType: 'twoImage';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "oneImageBlock".
+ */
+export interface OneImageBlock {
+  images: {
+    image?: (string | null) | Media;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  mobileOverflow?: ('left' | 'right') | null;
+  desktopOverflow?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'oneImage';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1388,23 +1614,20 @@ export interface ButtonBlock {
   buttons: {
     label?: string | null;
     variant?: ('primary' | 'outline') | null;
+    link: {
+      type?: 'reference' | 'custom';
+      reference?: {
+        relationTo: 'pages';
+        value: string | Page;
+      } | null;
+      url?: string;
+      newTab?: boolean | null;
+    };
     id?: string | null;
   }[];
   id?: string | null;
   blockName?: string | null;
   blockType: 'button';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "authorBlock".
- */
-export interface AuthorBlock {
-  author: string | Person;
-  socialLink?: ('email' | 'github' | 'linkedIn' | 'instagram' | 'otherLink') | null;
-  backgroundColor?: ('greenPurple' | 'greenRed') | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'author';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1426,10 +1649,19 @@ export interface InfoBoxBlock {
     };
     [k: string]: unknown;
   };
-  backgroundColor?: ('greenPurple' | 'greenRed') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'infoBox';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PreambleArticleBlock".
+ */
+export interface PreambleArticleBlock {
+  preamble: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'preambleArticle';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

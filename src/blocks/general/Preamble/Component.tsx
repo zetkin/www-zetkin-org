@@ -2,8 +2,8 @@ import { PreambleBlock as PreambleBlockProps } from '@/payload-types';
 import LongHeaderNText from './Layouts/LongHeader&Text';
 import LongPreambleNText from './Layouts/LongPreamble&Text';
 import PreambleOnly from './Layouts/PreambleOnly';
-import PreambleHeaderTextNImage from './Layouts/Preamble&Image';
 import PreambleNImage from './Layouts/Preamble&Image';
+import PreambleHeaderTextNImage from './Layouts/PreambleHeaderText&Image';
 
 const preambles = {
   longHeaderNText: LongHeaderNText,

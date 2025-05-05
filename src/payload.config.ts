@@ -4,6 +4,7 @@ import sharp from 'sharp'; // sharp-import
 import path from 'path';
 import { buildConfig, PayloadRequest } from 'payload';
 import { fileURLToPath } from 'url';
+import { vercelBlobStorage } from '@payloadcms/storage-vercel-blob';
 
 import { Media } from './collections/Media';
 import { Pages } from './collections/Pages';
@@ -13,6 +14,9 @@ import { defaultLexical } from '@/fields/defaultLexical';
 import { getServerSideURL } from './utilities/getURL';
 import { MainNav } from './MainNav/config';
 import { People } from './collections/People';
+import { Tags } from './collections/Tags';
+import { Events } from './collections/Events';
+import { Jobs } from './collections/Jobs';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -47,17 +51,22 @@ export default buildConfig({
       ],
     },
   },
-  // This config helps us configure global or default features that the other editors can inherit
+  // This config helps us configure global or default features that other editors can inherit
   editor: defaultLexical,
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Media, Users, People],
+  collections: [Pages, Media, Users, People, Tags, Events, Jobs],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [MainNav],
   plugins: [
     ...plugins,
-    // storage-adapter-placeholder
+    vercelBlobStorage({
+      collections: {
+        media: true,
+      },
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
   ],
   secret: process.env.PAYLOAD_SECRET,
   sharp,

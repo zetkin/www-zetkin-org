@@ -14,6 +14,7 @@ import { InitTheme } from '@/providers/Theme/InitTheme';
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
 import { getServerSideURL } from '@/utilities/getURL';
 import { Footer } from '@/MainNav/Footer/Component';
+import { AccentColorInitializer } from '@/state/AccentColorInitializer';
 
 export default async function RootLayout({
   children,
@@ -35,6 +36,15 @@ export default async function RootLayout({
     'shadow-z-purple',
     'shadow-z-green',
     'shadow-z-red',
+    'bg-z-purple',
+    'bg-z-green',
+    'bg-z-red',
+    'border-z-purple',
+    'border-z-green',
+    'border-z-red',
+    'fill-z-purple',
+    'fill-z-green',
+    'fill-z-red',
   ];
 
   return (
@@ -50,6 +60,7 @@ export default async function RootLayout({
       </head>
       <body>
         <Providers>
+          <AccentColorInitializer color="purple" />
           <AdminBar
             adminBarProps={{
               preview: isEnabled,

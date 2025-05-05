@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 
 import { CMSLink as Link } from '@/components/Link';
@@ -8,8 +8,8 @@ import type { MainNav as MainNavTypes } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import MainNav from './Components/MainNav';
-import colorToTailwind from '../../utilities/colorToTailwind';
 import SubNav from './Components/SubNav';
+import { useNavigate } from './useNavigate';
 
 interface DesktopHeaderProps {
   data: MainNavTypes;
@@ -21,9 +21,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   pathname,
 }) => {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [navigatedItem, setNavigatedItem] = useState(
-    data.topItems?.[0] ?? null,
-  );
+
+  const { navigatedItem, setNavigatedItem } = useNavigate(data, pathname);
 
   const [expandedBottomItems, setExpandedBottomItems] = useState<
     Record<string, boolean>
@@ -31,14 +30,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   const hoveredItem = data.topItems?.find((item) => item.id == openId);
 
-  useEffect(() => {
-    if (pathname === '/') {
-      setNavigatedItem(null);
-    }
-  }, [pathname]);
-
   // Show more options in hover menu
-
   const showMore = (midItemId: string) => {
     setExpandedBottomItems((prev) => ({
       ...prev,
@@ -47,9 +39,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   };
 
   // Fade in shadow
-
   const { scrollY } = useScroll();
-
   const opacity = useTransform(scrollY, [120, 180], [0, 0.06]);
 
   const background = useTransform(scrollY, [0, 50], [0, 1]);
@@ -156,7 +146,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                   const needsShowMore =
                     (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
                   return (
-                    <li key={midItem.id} className="flex flex-col gap-4">
+                    <li key={midItem.id} className="flex flex-col gap-4 flex-1">
                       <div className="flex flex-col gap-3">
                         <div className="flex gap-2.5 items-center">
                           {midItem.icon && (

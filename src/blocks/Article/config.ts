@@ -8,15 +8,52 @@ import {
 } from '@payloadcms/richtext-lexical';
 
 import { TextWithQuote } from './TextWithQuote/config';
-import { Image } from './Image/config';
+import { TwoImage } from './TwoImages/config';
+import { OneImage } from './OneImage/config';
 import { Button } from './Button/config';
-import { Author } from './Author/config';
 import { InfoBox } from './InfoBox/config';
+import { PreambleArticle } from './Preamble/config';
 
 export const Article: Block = {
   slug: 'article',
   interfaceName: 'ArticleBlock',
   fields: [
+    {
+      name: 'author',
+      type: 'relationship',
+      relationTo: 'people',
+    },
+    {
+      name: 'socialLink',
+      label: 'Contact or social link',
+      type: 'select',
+      hasMany: true,
+      options: [
+        {
+          value: 'email',
+          label: 'E-mail',
+        },
+        {
+          value: 'github',
+          label: 'Github',
+        },
+        {
+          value: 'linkedIn',
+          label: 'LinkedIn',
+        },
+        {
+          value: 'instagram',
+          label: 'Instagram',
+        },
+        {
+          value: 'otherLink',
+          label: 'Other link',
+        },
+      ],
+      admin: {
+        condition: (_, siblingData) => Boolean(siblingData?.author),
+      },
+    },
     {
       name: 'richText',
       type: 'richText',
@@ -29,30 +66,18 @@ export const Article: Block = {
             FixedToolbarFeature(),
             InlineToolbarFeature(),
             BlocksFeature({
-              blocks: [TextWithQuote, Image, Button, Author, InfoBox],
+              blocks: [
+                TextWithQuote,
+                TwoImage,
+                OneImage,
+                Button,
+                InfoBox,
+                PreambleArticle,
+              ],
             }),
           ];
         },
       }),
-    },
-    {
-      name: 'linkColor',
-      label: 'Link color',
-      type: 'select',
-      options: [
-        {
-          label: 'Purple',
-          value: 'purple',
-        },
-        {
-          label: 'Green',
-          value: 'green',
-        },
-        {
-          label: 'Red',
-          value: 'red',
-        },
-      ],
     },
   ],
 };

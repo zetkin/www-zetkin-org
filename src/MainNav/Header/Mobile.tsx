@@ -15,6 +15,7 @@ import {
 } from '@/components/ui/accordion';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
+import { useNavigate } from './useNavigate';
 
 interface MobileHeaderProps {
   data: MainNavTypes;
@@ -26,9 +27,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   pathname,
 }) => {
   const [openId, setOpenId] = useState<string | null>(null);
-  const [navigatedItem, setNavigatedItem] = useState(
-    data.topItems?.[0] ?? null,
-  );
+
+  const { navigatedItem, setNavigatedItem } = useNavigate(data, pathname);
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [expandedBottomItems, setExpandedBottomItems] = useState<
@@ -123,7 +123,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
         }}
       >
         <div className="flex flex-col justify-between items-center">
-          <motion.div layout onClick={() => setMenuOpen(false)}>
+          <motion.div onClick={() => setMenuOpen(false)}>
             <Link url="/">
               <Logo forceFull={menuOpen} />
             </Link>

@@ -4,8 +4,8 @@ export const Preamble: Block = {
   slug: 'preamble',
   interfaceName: 'PreambleBlock',
   labels: {
-    singular: 'Preamble block',
-    plural: 'Preamble block',
+    singular: 'Preamble',
+    plural: 'Preambles',
   },
   fields: [
     {
@@ -13,6 +13,7 @@ export const Preamble: Block = {
       label: 'Layout',
       required: true,
       type: 'select',
+      defaultValue: 'preambleOnly',
       options: [
         {
           value: 'longHeaderNText',

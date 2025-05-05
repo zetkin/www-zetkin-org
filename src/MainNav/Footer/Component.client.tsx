@@ -3,11 +3,16 @@
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
-import { IconFacebook, IconGithub, IconInstagram } from '@/icons/SocialIcons';
+import {
+  IconBlueSky,
+  IconFacebook,
+  IconGithub,
+  IconInstagram,
+  IconLinkedIn,
+  IconMastodon,
+} from '@/icons/SocialIcons';
 
 export function FooterClient({ navData }: { navData: MainNav }) {
-  // get correct icon for social links
-
   function getIcon(socialLink: string) {
     switch (socialLink) {
       case 'facebook':
@@ -16,6 +21,12 @@ export function FooterClient({ navData }: { navData: MainNav }) {
         return <IconInstagram color="black" height="24px" width="24px" />;
       case 'github':
         return <IconGithub color="black" height="24px" width="24px" />;
+      case 'linkedin':
+        return <IconLinkedIn color="black" height="24px" width="24px" />;
+      case 'bluesky':
+        return <IconBlueSky color="black" height="24px" width="24px" />;
+      case 'mastodon':
+        return <IconMastodon color="black" height="24px" width="24px" />;
     }
   }
 
@@ -26,7 +37,7 @@ export function FooterClient({ navData }: { navData: MainNav }) {
       role="contentinfo"
     >
       <div className="flex w-full flex-col gap-16 sm:flex-row sm:justify-between sm:max-w-[1000px]">
-        <div className="grid grid-cols-2 gap-x-5 sm:flex sm:flex-col sm:justify-between">
+        <div className="grid grid-cols-2 gap-x-5 sm:flex sm:flex-col sm:justify-between sm:min-w-[105px]">
           <Link
             aria-label="Homepage"
             className="justify-self-start align-top"

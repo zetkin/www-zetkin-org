@@ -12,8 +12,8 @@ export const WhiteBg: Block = {
   slug: 'whiteBg',
   interfaceName: 'WhiteBg',
   labels: {
-    singular: 'Home - White background block',
-    plural: 'Home - White background blocks',
+    singular: 'Home - White background',
+    plural: 'Home - White backgrounds',
   },
   fields: [
     {

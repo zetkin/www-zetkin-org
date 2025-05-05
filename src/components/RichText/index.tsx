@@ -12,15 +12,17 @@ import {
 
 import { cn } from '@/utilities/ui';
 import type { TextWithQuoteBlock as TextWithQuoteBlockProps } from '@/payload-types';
-import type { ImageBlock as ImageBlockProps } from '@/payload-types';
 import type { ButtonBlock as ButtonBlockProps } from '@/payload-types';
-import type { AuthorBlock as AuthorBlockProps } from '@/payload-types';
 import type { InfoBoxBlock as InfoBoxBlockProps } from '@/payload-types';
+import type { OneImageBlock as OneImageBlockProps } from '@/payload-types';
+import type { TwoImageBlock as TwoImageBlockProps } from '@/payload-types';
+import type { PreambleArticleBlock as PreambleArticleBlockProps } from '@/payload-types';
 import { TextWithQuoteBlock } from '@/blocks/Article/TextWithQuote/Component';
-import { ImageBlock } from '@/blocks/Article/Image/Component';
 import { ButtonBlock } from '@/blocks/Article/Button/Component';
-import { AuthorBlock } from '@/blocks/Article/Author/Component';
 import { InfoBoxBlock } from '@/blocks/Article/InfoBox/Component';
+import { OneImageBlock } from '@/blocks/Article/OneImage/Component';
+import { TwoImageBlock } from '@/blocks/Article/TwoImages/Component';
+import { PreambleArticleBlock } from '@/blocks/Article/Preamble/Component';
 
 type NodeTypes = DefaultNodeTypes;
 
@@ -44,8 +46,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
     }: {
       node: SerializedBlockNode<TextWithQuoteBlockProps>;
     }) => <TextWithQuoteBlock {...node.fields} />,
-    image: ({ node }: { node: SerializedBlockNode<ImageBlockProps> }) => (
-      <ImageBlock {...node.fields} />
+    oneImage: ({ node }: { node: SerializedBlockNode<OneImageBlockProps> }) => (
+      <OneImageBlock {...node.fields} />
+    ),
+    twoImage: ({ node }: { node: SerializedBlockNode<TwoImageBlockProps> }) => (
+      <TwoImageBlock {...node.fields} />
     ),
     button: ({ node }: { node: SerializedBlockNode<ButtonBlockProps> }) => (
       <ButtonBlock {...node.fields} />
@@ -53,9 +58,11 @@ const jsxConverters: JSXConvertersFunction<NodeTypes> = ({
     infoBox: ({ node }: { node: SerializedBlockNode<InfoBoxBlockProps> }) => (
       <InfoBoxBlock {...node.fields} />
     ),
-    author: ({ node }: { node: SerializedBlockNode<AuthorBlockProps> }) => (
-      <AuthorBlock {...node.fields} />
-    ),
+    preambleArticle: ({
+      node,
+    }: {
+      node: SerializedBlockNode<PreambleArticleBlockProps>;
+    }) => <PreambleArticleBlock {...node.fields} />,
   },
 });
 
@@ -73,7 +80,7 @@ export default function RichText(props: Props) {
         {
           'container ': enableGutter,
           'max-w-none': !enableGutter,
-          'mx-auto prose md:prose-md dark:prose-invert ': enableProse,
+          'mx-auto prose md:prose-md dark:prose-invert text-black': enableProse,
         },
         className,
       )}
