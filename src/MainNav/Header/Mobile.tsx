@@ -80,6 +80,18 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   const opacity = useTransform(scrollY, [120, 180], [0, 0.06]);
   const borderRadius = useTransform(scrollY, [140, 220], [0, 20]);
 
+  const background = useTransform(scrollY, [0, 50], [0, 1]);
+  const blurAmount = useTransform(
+    background,
+    [0, 1],
+    ['blur(0px)', 'blur(16px)'],
+  );
+  const bgColor = useTransform(
+    background,
+    [0, 1],
+    ['rgba(255,255,255,0)', 'rgba(255,255,255,0.80)'],
+  );
+
   const boxShadowTransform = useTransform(
     opacity,
     (o) => `0px 4px 32px 0px rgba(0, 0, 0, ${o})`,
@@ -100,12 +112,14 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     <header className="z-20" onMouseLeave={() => setOpenId(null)}>
       {/* Logo and hamburger menu on mobile */}
       <motion.div
-        className="fixed py-8 w-full z-20 bg-white/95 top-0"
+        className="fixed py-8 w-full z-20 top-0"
         style={{
           boxShadow: boxShadow,
           borderBottomRightRadius: borderRadius,
           borderBottomLeftRadius: borderRadius,
           borderBottom: bottomBorder,
+          backdropFilter: blurAmount,
+          backgroundColor: bgColor,
         }}
       >
         <div className="flex flex-col justify-between items-center">
