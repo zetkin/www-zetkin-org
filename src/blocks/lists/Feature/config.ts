@@ -1,7 +1,5 @@
 import type { Block } from 'payload';
 
-import { iconOptions } from '@/icons/FeatureIcons';
-
 export const FeatureList: Block = {
   slug: 'featureList',
   interfaceName: 'featureListBlock',
@@ -34,9 +32,13 @@ export const FeatureList: Block = {
         {
           name: 'icon',
           label: 'Icon',
-          type: 'select',
-          options: iconOptions,
+          type: 'text', 
           required: true,
+          admin: {
+            components: {
+              Field: 'src/fields/IconPicker', 
+            },
+          },
         },
         {
           name: 'header',
