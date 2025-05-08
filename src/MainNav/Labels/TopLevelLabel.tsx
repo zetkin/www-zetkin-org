@@ -11,3 +11,5 @@ export const TopLevelLabel = () => {
 
   return <div>{customLabel}</div>;
 };
+
+export default TopLevelLabel

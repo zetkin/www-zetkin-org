@@ -2,9 +2,6 @@ import type { GlobalConfig } from 'payload';
 
 import { link } from '@/fields/link';
 import { revalidateNav } from './hooks/revalidateNav';
-import { TopLevelLabel } from './Labels/TopLevelLabel';
-import { MidLevelLabel } from './Labels/MidLevelLabel';
-import { BottomLevelLabel } from './Labels/BottomLevelLabel';
 
 export const MainNav: GlobalConfig = {
   slug: 'mainNav',
@@ -19,8 +16,7 @@ export const MainNav: GlobalConfig = {
       },
       admin: {
         components: {
-          //@ts-expect-error TopLevelLabel is not typed correctly for this context
-          RowLabel: TopLevelLabel,
+          RowLabel: 'src/MainNav/Labels/TopLevelLabel',
         },
       },
       type: 'array',
@@ -103,8 +99,7 @@ export const MainNav: GlobalConfig = {
               },
               admin: {
                 components: {
-                  //@ts-expect-error BottomLevelLabel is not typed correctly for this context
-                  RowLabel: BottomLevelLabel,
+                  RowLabel: 'src/MainNav/Labels/BottomLevelLabel',
                 },
               },
               fields: [
@@ -120,8 +115,7 @@ export const MainNav: GlobalConfig = {
           admin: {
             initCollapsed: true,
             components: {
-              //@ts-expect-error MidLevelLabel is not typed correctly for this context
-              RowLabel: MidLevelLabel,
+              RowLabel: 'src/MainNav/Labels/MidLevelLabel',
             },
           },
         },

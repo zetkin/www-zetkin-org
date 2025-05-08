@@ -572,7 +572,7 @@ export interface FeatureListBlock {
   subHeader?: string | null;
   features: {
     featureName: string;
-    icon: 'banana' | 'bean' | 'apple';
+    icon: string;
     header: string;
     description: string;
     illustration: string | Media;
