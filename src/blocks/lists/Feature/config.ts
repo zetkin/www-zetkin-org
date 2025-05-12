@@ -32,11 +32,11 @@ export const FeatureList: Block = {
         {
           name: 'icon',
           label: 'Icon',
-          type: 'text', 
+          type: 'json', 
           required: true,
           admin: {
             components: {
-              Field: 'src/fields/IconPicker', 
+              Field: 'src/fields/IconPicker/IconPicker', 
             },
           },
         },

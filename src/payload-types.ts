@@ -572,7 +572,15 @@ export interface FeatureListBlock {
   subHeader?: string | null;
   features: {
     featureName: string;
-    icon: string;
+    icon:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
     header: string;
     description: string;
     illustration: string | Media;

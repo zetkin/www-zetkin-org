@@ -8,7 +8,7 @@ import { cn } from '@/utilities/ui';
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
     aria-label="pagination"
-    className={cn('mx-auto flex w-full justify-center', className)}
+    className={cn('mx-auto flex w-full justify-center pagination-nav', className)}
     role="navigation"
     {...props}
   />
@@ -19,7 +19,7 @@ const PaginationContent: React.FC<
 > = ({ className, ref, ...props }) => (
   <ul
     ref={ref}
-    className={cn('flex flex-row items-center gap-1', className)}
+    className={cn('flex flex-row items-center gap-1 pagination-content', className)}
     {...props}
   />
 );
@@ -27,7 +27,7 @@ const PaginationContent: React.FC<
 const PaginationItem: React.FC<
   { ref?: React.Ref<HTMLLIElement> } & React.HTMLAttributes<HTMLLIElement>
 > = ({ className, ref, ...props }) => (
-  <li ref={ref} className={cn('', className)} {...props} />
+  <li ref={ref} className={cn('pagination-item', className)} {...props} />
 );
 
 type PaginationLinkProps = {
@@ -48,6 +48,8 @@ const PaginationLink = ({
         size,
         variant: isActive ? 'outline' : 'ghost',
       }),
+      'pagination-link',
+      isActive ? 'pagination-link-active' : '',
       className,
     )}
     {...props}
@@ -60,7 +62,7 @@ const PaginationPrevious = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to previous page"
-    className={cn('gap-1 pl-2.5', className)}
+    className={cn('gap-1 pl-2.5 pagination-previous', className)}
     size="default"
     {...props}
   >
@@ -75,7 +77,7 @@ const PaginationNext = ({
 }: React.ComponentProps<typeof PaginationLink>) => (
   <PaginationLink
     aria-label="Go to next page"
-    className={cn('gap-1 pr-2.5', className)}
+    className={cn('gap-1 pr-2.5 pagination-next', className)}
     size="default"
     {...props}
   >
@@ -90,7 +92,7 @@ const PaginationEllipsis = ({
 }: React.ComponentProps<'span'>) => (
   <span
     aria-hidden
-    className={cn('flex h-9 w-9 items-center justify-center', className)}
+    className={cn('flex h-9 w-9 items-center justify-center pagination-ellipsis', className)}
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />
