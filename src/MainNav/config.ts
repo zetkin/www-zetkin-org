@@ -68,9 +68,13 @@ export const MainNav: GlobalConfig = {
             {
               name: 'icon',
               label: 'Icon',
-              type: 'upload',
-              relationTo: 'media',
-              required: false, //should be set to true later
+              type: 'json', 
+              required: true,
+              admin: {
+                components: {
+                  Field: 'src/fields/IconPicker/IconPicker', 
+                },
+              },
             },
             {
               name: 'label',

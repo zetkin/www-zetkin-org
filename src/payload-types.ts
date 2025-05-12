@@ -1447,7 +1447,15 @@ export interface MainNav {
         };
         midItems?:
           | {
-              icon?: (string | null) | Media;
+              icon:
+                | {
+                    [k: string]: unknown;
+                  }
+                | unknown[]
+                | string
+                | number
+                | boolean
+                | null;
               label?: string | null;
               description?: string | null;
               showInFooter?: boolean | null;
