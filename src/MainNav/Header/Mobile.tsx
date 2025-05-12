@@ -2,11 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, useScroll, useTransform } from 'motion/react';
+import { useAtomValue } from 'jotai';
 
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav as MainNavTypes } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
-import { ImageMedia } from '@/components/Media/ImageMedia';
 import {
   Accordion,
   AccordionContent,
@@ -16,6 +16,9 @@ import {
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
 import { useNavigate } from './useNavigate';
+import { IconValue } from '@/fields/IconPicker/IconPicker';
+import PickedIcon from '@/icons/PickedIcon';
+import { accentColorAtom } from '@/state/accentColorAtom';
 
 interface MobileHeaderProps {
   data: MainNavTypes;
@@ -108,6 +111,8 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     bottomBorder = 'none';
   }
 
+  const accentColor = useAtomValue(accentColorAtom);
+
   return (
     <header className="z-20" onMouseLeave={() => setOpenId(null)}>
       {/* Logo and hamburger menu on mobile */}
@@ -174,7 +179,16 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
         {pathname !== '/' &&
           Array.isArray(navigatedItem?.midItems) &&
           navigatedItem.midItems.length > 0 && (
-            <SubNav navigatedItem={navigatedItem} pathname={pathname} />
+            <SubNav
+              navigatedItem={{
+                ...navigatedItem,
+                midItems: navigatedItem?.midItems?.map((midItem) => ({
+                  ...midItem,
+                  icon: typeof midItem.icon === 'string' ? midItem.icon : null,
+                })),
+              }}
+              pathname={pathname}
+            />
           )}
       </div>
       {/* Full page mobile menu */}
@@ -215,13 +229,13 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
                           >
                             <div className="flex gap-4">
                               {midItem.icon && (
-                                <div className="w-8 h-8 relative flex-shrink-0">
-                                  <ImageMedia
-                                    className="object-contain"
-                                    fill
-                                    resource={midItem.icon}
-                                  />
-                                </div>
+                                <PickedIcon
+                                  className={'text-z-' + accentColor}
+                                  value={
+                                    midItem.icon as string | IconValue | null
+                                  }
+                                  width="32px"
+                                />
                               )}
                               <div className="flex flex-col gap-4">
                                 <h3 className="text-lg font-semibold">

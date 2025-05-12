@@ -14,7 +14,6 @@ import { accentColorAtom } from '@/state/accentColorAtom';
 import PickedIcon from '@/icons/PickedIcon';
 import { IconValue } from '@/fields/IconPicker/IconPicker';
 
-
 interface DesktopHeaderProps {
   data: MainNavTypes;
   pathname: string;
@@ -156,7 +155,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                       <div className="flex flex-col gap-3">
                         <div className="flex gap-2.5 items-center">
                           {midItem.icon && (
-                            <PickedIcon 
+                            <PickedIcon
                               className={'text-z-' + accentColor}
                               value={midItem.icon as string | IconValue | null}
                               width="24px"

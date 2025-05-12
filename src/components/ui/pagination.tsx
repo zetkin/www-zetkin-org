@@ -8,7 +8,10 @@ import { cn } from '@/utilities/ui';
 const Pagination = ({ className, ...props }: React.ComponentProps<'nav'>) => (
   <nav
     aria-label="pagination"
-    className={cn('mx-auto flex w-full justify-center pagination-nav', className)}
+    className={cn(
+      'mx-auto flex w-full justify-center pagination-nav',
+      className,
+    )}
     role="navigation"
     {...props}
   />
@@ -19,7 +22,10 @@ const PaginationContent: React.FC<
 > = ({ className, ref, ...props }) => (
   <ul
     ref={ref}
-    className={cn('flex flex-row items-center gap-1 pagination-content', className)}
+    className={cn(
+      'flex flex-row items-center gap-1 pagination-content',
+      className,
+    )}
     {...props}
   />
 );
@@ -92,7 +98,10 @@ const PaginationEllipsis = ({
 }: React.ComponentProps<'span'>) => (
   <span
     aria-hidden
-    className={cn('flex h-9 w-9 items-center justify-center pagination-ellipsis', className)}
+    className={cn(
+      'flex h-9 w-9 items-center justify-center pagination-ellipsis',
+      className,
+    )}
     {...props}
   >
     <MoreHorizontal className="h-4 w-4" />

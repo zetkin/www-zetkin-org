@@ -1,291 +1,293 @@
 .field-label {
-    align-items: center;
-    box-sizing: border-box;
-    color: rgb(47, 47, 47);
-    font-size: 13px;
-    line-height: 20px;
-    padding-bottom: 5px;
-  }
-  
-  .icon-picker-root {
-    position: relative;
-    width: 100%;
-  }
-  
-  /* Button and selection section */
-  .icon-picker-selection {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    margin-bottom: 8px;
-  }
-  
-  .icon-picker-buttons {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-  
-  .icon-picker-button {
-    padding: 8px 16px;
-    background-color: var(--theme-input-bg, #f0f0f0);
-    border: 1px solid var(--theme-elevation-150, #ddd);
-    border-radius: var(--style-radius-s, 4px);
-    cursor: pointer;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    color: rgb(47, 47, 47);
-    font-size: 13px;
-    transition: background-color 0.2s;
-    width: fit-content;
-    height: 40px;
-    line-height: 20px;
-  }
-  
-  .icon-picker-button:hover {
-    background-color: #e0e0e0;
-  }
-  
-  /* Preview area */
-  .icon-picker-preview {
-    min-height: 40px;
-    border: 1px solid var(--theme-elevation-150, #eee);
-    border-radius: var(--style-radius-s, 4px);
-    padding: 8px;
-    background-color: var(--theme-input-bg, #fafafa);
-  }
-  
-  .icon-picker-selected {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  
-  .icon-picker-selected-name {
-    font-size: 14px;
-    color: var(--theme-elevation-800, #333);
-  }
-  
-  .icon-picker-empty-state {
-    color: #888;
-    font-style: italic;
-    padding: 8px 0;
-  }
-  
-  .icon-picker-clear-button {
-    margin-left: auto;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #666;
-    padding: 4px;
-    border-radius: 50%;
-  }
-  
-  .icon-picker-clear-button:hover {
-    background-color: #eee;
-    color: #333;
-  }
-  
-  /* Popover */
-  .icon-picker-popover {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    max-width: 500px;
-    background-color: white;
-    border: 1px solid var(--theme-elevation-150, #ddd);
-    border-radius: var(--style-radius-s, 6px);
-    box-shadow: 0 2px 2px -1px #0003;
-    z-index: 50;
-    padding: 16px;
-    margin-top: 8px;
-  }
-  
-  .icon-picker-popover-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    gap: 8px;
-  }
-  
-  .icon-picker-tabs {
-    display: flex;
-    border-bottom: 1px solid var(--theme-elevation-150, #ddd);
-    margin-bottom: 16px;
-  }
-  
-  .icon-picker-tab {
-    padding: 8px 16px;
-    border: none;
-    background: none;
-    cursor: pointer;
-    font-size: 14px;
-    border-bottom: 2px solid transparent;
-  }
-  
-  .icon-picker-tab-active {
-    border-bottom-color: var(--theme-primary, #3b82f6);
-    color: var(--theme-primary, #3b82f6);
-  }
-  
-  .icon-picker-search-input {
-    flex: 1;
-    padding: 8px 15px;
-    border: 1px solid var(--theme-elevation-150);
-    border-radius: var(--style-radius-s);
-    background: var(--theme-input-bg);
-    color: var(--theme-elevation-800);
-    font-size: 1rem;
-    font-family: var(--font-body);
-    height: 40px;
-    line-height: 20px;
-    box-shadow: 0 2px 2px -1px #0003;
-    transition-property: border, box-shadow, background-color;
-    transition-duration: .1s, .1s, .5s;
-    transition-timing-function: cubic-bezier(0,.2,.2,1);
-  }
-  
-  .icon-picker-close-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: #666;
-    padding: 4px;
-    border-radius: 4px;
-  }
-  
-  .icon-picker-close-button:hover {
-    background-color: #eee;
-    color: #333;
-  }
-  
-  /* Icon grid */
-  .icon-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    max-height: 300px;
-    overflow-y: auto;
-    padding: 4px;
-    margin-bottom: 1rem;
-    grid-auto-rows: 1fr;
-  }
-  
-  /* Icon button */
-  .icon-button {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    align-items: center;
-    padding: 0.5rem;
-    border: 1px solid transparent;
-    border-radius: 0.25rem;
-    transition: background-color 0.3s;
-    cursor: pointer;
-    width: 100%;
-    justify-content: center;
-    height: 100px;
-  }
-  
-  .icon-button:hover {
-    background-color: #f3f4f6;
-  }
-  
-  /* Selected icon button */
-  .icon-button-selected {
-    border-color: #3b82f6;
-    background-color: #eff6ff;
-  }
-  
-  /* Icon name text */
-  .icon-name {
-    font-size: 0.875rem;
-    margin-top: 0.5rem;
-    text-align: center;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  /* Pagination styles */
-  .pagination-nav {
-    margin-left: auto;
-    margin-right: auto;
-    display: flex;
-    width: 100%;
-    justify-content: center;
-  }
-  
-  /* PaginationContent component */
-  .pagination-content {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.25rem;
-    list-style-type: none;
-  }
-  
-  /* PaginationItem component */
-  .pagination-item button {
-    border: none;
-    padding: 4px 8px;
-    border-radius: 0.25rem;
-  }
-  
-  /* PaginationLink component */
-  .pagination-link {
-  }
-  
-  .pagination-link-active {
-    background-color: #3b82f6;
-    color: white;
-  }
-  
-  /* PaginationPrevious component */
-  .pagination-previous {
-    gap: 0.25rem;
-    padding-left: 0.625rem;
-  }
-  
-  /* PaginationNext component */
-  .pagination-next {
-    gap: 0.25rem;
-    padding-right: 0.625rem;
-  }
-  
-  /* PaginationEllipsis component */
-  .pagination-ellipsis {
-    display: flex;
-    height: 2.25rem; /* h-9 */
-    width: 2.25rem; /* w-9 */
-    align-items: center;
-    justify-content: center;
-  }
-  
-  /* Icon classes */
-  .pagination-ellipsis .h-4,
-  .pagination-previous .h-4,
-  .pagination-next .h-4 {
-    height: 1rem;
-  }
-  
-  .pagination-ellipsis .w-4,
-  .pagination-previous .w-4,
-  .pagination-next .w-4 {
-    width: 1rem;
-  }
-  
-  /* Screen reader only class */
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-  }
+  align-items: center;
+  box-sizing: border-box;
+  color: rgb(47, 47, 47);
+  font-size: 13px;
+  line-height: 20px;
+  padding-bottom: 5px;
+}
+
+.icon-picker-root {
+  position: relative;
+  width: 100%;
+}
+
+/* Button and selection section */
+.icon-picker-selection {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.icon-picker-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.icon-picker-button {
+  padding: 8px 16px;
+  background-color: var(--theme-input-bg, #f0f0f0);
+  border: 1px solid var(--theme-elevation-150, #ddd);
+  border-radius: var(--style-radius-s, 4px);
+  cursor: pointer;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  color: rgb(47, 47, 47);
+  font-size: 13px;
+  transition: background-color 0.2s;
+  width: fit-content;
+  height: 40px;
+  line-height: 20px;
+}
+
+.icon-picker-button:hover {
+  background-color: #e0e0e0;
+}
+
+/* Preview area */
+.icon-picker-preview {
+  min-height: 40px;
+  border: 1px solid var(--theme-elevation-150, #eee);
+  border-radius: var(--style-radius-s, 4px);
+  padding: 8px;
+  background-color: var(--theme-input-bg, #fafafa);
+}
+
+.icon-picker-selected {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.icon-picker-selected-name {
+  font-size: 14px;
+  color: var(--theme-elevation-800, #333);
+}
+
+.icon-picker-empty-state {
+  color: #888;
+  font-style: italic;
+  padding: 8px 0;
+}
+
+.icon-picker-clear-button {
+  margin-left: auto;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  border-radius: 50%;
+}
+
+.icon-picker-clear-button:hover {
+  background-color: #eee;
+  color: #333;
+}
+
+/* Popover */
+.icon-picker-popover {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-width: 500px;
+  background-color: white;
+  border: 1px solid var(--theme-elevation-150, #ddd);
+  border-radius: var(--style-radius-s, 6px);
+  box-shadow: 0 2px 2px -1px #0003;
+  z-index: 50;
+  padding: 16px;
+  margin-top: 8px;
+}
+
+.icon-picker-popover-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.icon-picker-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--theme-elevation-150, #ddd);
+  margin-bottom: 16px;
+}
+
+.icon-picker-tab {
+  padding: 8px 16px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 14px;
+  border-bottom: 2px solid transparent;
+}
+
+.icon-picker-tab-active {
+  border-bottom-color: var(--theme-primary, #3b82f6);
+  color: var(--theme-primary, #3b82f6);
+}
+
+.icon-picker-search-input {
+  flex: 1;
+  padding: 8px 15px;
+  border: 1px solid var(--theme-elevation-150);
+  border-radius: var(--style-radius-s);
+  background: var(--theme-input-bg);
+  color: var(--theme-elevation-800);
+  font-size: 1rem;
+  font-family: var(--font-body);
+  height: 40px;
+  line-height: 20px;
+  box-shadow: 0 2px 2px -1px #0003;
+  transition-property: border, box-shadow, background-color;
+  transition-duration: 0.1s, 0.1s, 0.5s;
+  transition-timing-function: cubic-bezier(0, 0.2, 0.2, 1);
+}
+
+.icon-picker-close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+  padding: 4px;
+  border-radius: 4px;
+}
+
+.icon-picker-close-button:hover {
+  background-color: #eee;
+  color: #333;
+}
+
+/* Icon grid */
+.icon-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px;
+  margin-bottom: 1rem;
+  grid-auto-rows: 1fr;
+}
+
+/* Icon button */
+.icon-button {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s;
+  cursor: pointer;
+  width: 100%;
+  justify-content: center;
+  height: 100px;
+}
+
+.icon-button:hover {
+  background-color: #f3f4f6;
+}
+
+/* Selected icon button */
+.icon-button-selected {
+  border-color: #3b82f6;
+  background-color: #eff6ff;
+}
+
+/* Icon name text */
+.icon-name {
+  font-size: 0.875rem;
+  margin-top: 0.5rem;
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Pagination styles */
+.pagination-nav {
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+/* PaginationContent component */
+.pagination-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.25rem;
+  list-style-type: none;
+}
+
+/* PaginationItem component */
+.pagination-item button {
+  border: none;
+  padding: 4px 8px;
+  border-radius: 0.25rem;
+}
+
+/* PaginationLink component */
+.pagination-link {
+}
+
+.pagination-link-active {
+  background-color: #3b82f6;
+  color: white;
+}
+
+/* PaginationPrevious component */
+.pagination-previous {
+  gap: 0.25rem;
+  padding-left: 0.625rem;
+}
+
+/* PaginationNext component */
+.pagination-next {
+  gap: 0.25rem;
+  padding-right: 0.625rem;
+}
+
+/* PaginationEllipsis component */
+.pagination-ellipsis {
+  display: flex;
+  height: 2.25rem; /* h-9 */
+  width: 2.25rem; /* w-9 */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon classes */
+.pagination-ellipsis .h-4,
+.pagination-previous .h-4,
+.pagination-next .h-4 {
+  height: 1rem;
+}
+
+.pagination-ellipsis .w-4,
+.pagination-previous .w-4,
+.pagination-next .w-4 {
+  width: 1rem;
+}
+
+/* Screen reader only class */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

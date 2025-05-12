@@ -1,10 +1,16 @@
 import React from 'react';
 import * as PhosphorIcons from '@phosphor-icons/react';
 import type { IconProps } from '@phosphor-icons/react';
-import { IconApple, IconBanana, IconBean } from 'src/icons/PickedIcon/CustomIcons';
+
+import {
+  IconApple,
+  IconBanana,
+  IconBean,
+} from 'src/icons/PickedIcon/CustomIcons';
 
 // Define the types
 type IconType = 'phosphor' | 'custom';
+
 type IconValue = {
   icon: string;
   type: IconType;
@@ -30,8 +36,8 @@ type PickedItemProps = {
 const parseIconValue = (value: IconValue | string | null): IconValue => {
   if (!value) {
     return { icon: '', type: 'phosphor' };
-}
-  
+  }
+
   if (typeof value === 'string') {
     try {
       // Try to parse JSON string
@@ -54,7 +60,6 @@ export const PickedItem: React.FC<PickedItemProps> = ({
   className = '',
   weight = 'regular',
 }) => {
-
   // Parse the value to ensure it's in the correct format
   const iconData = React.useMemo(() => parseIconValue(value), [value]);
 
@@ -65,8 +70,10 @@ export const PickedItem: React.FC<PickedItemProps> = ({
 
   // Render Phosphor icon
   if (iconData.type === 'phosphor') {
-    const IconComponent = PhosphorIcons[iconData.icon as keyof typeof PhosphorIcons] as React.FC<IconProps>;
-    
+    const IconComponent = PhosphorIcons[
+      iconData.icon as keyof typeof PhosphorIcons
+    ] as React.FC<IconProps>;
+
     if (!IconComponent) {
       return null;
     }
@@ -86,8 +93,9 @@ export const PickedItem: React.FC<PickedItemProps> = ({
 
   // Render custom icon
   if (iconData.type === 'custom') {
-    const IconComponent = customIcons[iconData.icon as keyof typeof customIcons];
-    
+    const IconComponent =
+      customIcons[iconData.icon as keyof typeof customIcons];
+
     if (!IconComponent) {
       return null;
     }

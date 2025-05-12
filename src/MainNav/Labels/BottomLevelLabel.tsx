@@ -12,4 +12,4 @@ export const BottomLevelLabel = () => {
   return <div>{customLabel}</div>;
 };
 
-export default BottomLevelLabel
+export default BottomLevelLabel;

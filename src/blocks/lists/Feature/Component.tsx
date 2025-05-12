@@ -191,7 +191,7 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
                     className="flex gap-4 items-center cursor-pointer w-fit 2xl:flex-row-reverse"
                     onClick={() => handleFeatureClick(feature.id || '')}
                   >
-                    <PickedIcon 
+                    <PickedIcon
                       className={`${
                         currentSection === feature.id
                           ? 'text-z-' + accentColor
@@ -227,9 +227,11 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
               <div className="flex flex-col gap-2.5 md:gap-5 md:flex-1 md:py-24">
                 <div className="flex flex-col gap-2.5 md:gap-3">
                   <div className="flex gap-2 items-center">
-                    <PickedIcon 
+                    <PickedIcon
                       color="#919191"
-                      value={typeof feature.icon === 'string' ? feature.icon : ''}
+                      value={
+                        typeof feature.icon === 'string' ? feature.icon : ''
+                      }
                       width="20px"
                     />
                     <p className="text-[#646464] text-base font-light leading-[1.7]">
