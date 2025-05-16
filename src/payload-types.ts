@@ -572,7 +572,15 @@ export interface FeatureListBlock {
   subHeader?: string | null;
   features: {
     featureName: string;
-    icon: 'banana' | 'bean' | 'apple';
+    icon:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
     header: string;
     description: string;
     illustration: string | Media;
@@ -1439,7 +1447,15 @@ export interface MainNav {
         };
         midItems?:
           | {
-              icon?: (string | null) | Media;
+              icon:
+                | {
+                    [k: string]: unknown;
+                  }
+                | unknown[]
+                | string
+                | number
+                | boolean
+                | null;
               label?: string | null;
               description?: string | null;
               showInFooter?: boolean | null;

@@ -11,3 +11,5 @@ export const MidLevelLabel = () => {
 
   return <div>{customLabel}</div>;
 };
+
+export default MidLevelLabel;

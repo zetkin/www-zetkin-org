@@ -2,14 +2,17 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
+import { useAtomValue } from 'jotai';
 
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav as MainNavTypes } from '@/payload-types';
 import { Logo } from '@/components/Logo/Logo';
-import { ImageMedia } from '@/components/Media/ImageMedia';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
 import { useNavigate } from './useNavigate';
+import { accentColorAtom } from '@/state/accentColorAtom';
+import PickedIcon from '@/icons/PickedIcon';
+import { IconValue } from '@/fields/IconPicker/IconPicker';
 
 interface DesktopHeaderProps {
   data: MainNavTypes;
@@ -74,6 +77,8 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   }
 
   const [isHovered, setIsHovered] = useState(false);
+
+  const accentColor = useAtomValue(accentColorAtom);
 
   return (
     <motion.header
@@ -150,13 +155,11 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
                       <div className="flex flex-col gap-3">
                         <div className="flex gap-2.5 items-center">
                           {midItem.icon && (
-                            <div className="w-6 h-6 relative">
-                              <ImageMedia
-                                alt={midItem.label || 'navigation icon'}
-                                fill
-                                resource={midItem.icon}
-                              />
-                            </div>
+                            <PickedIcon
+                              className={'text-z-' + accentColor}
+                              value={midItem.icon as string | IconValue | null}
+                              width="24px"
+                            />
                           )}
                           <h3
                             key={midItem.id}
@@ -222,8 +225,17 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
         )}
       </AnimatePresence>
       {/* Sub-nav not visible in home */}
-      {pathname !== '/' && (
-        <SubNav navigatedItem={navigatedItem} pathname={pathname} />
+      {pathname !== '/' && navigatedItem && (
+        <SubNav
+          navigatedItem={{
+            ...navigatedItem,
+            midItems: navigatedItem.midItems?.map((midItem) => ({
+              ...midItem,
+              icon: typeof midItem.icon === 'string' ? midItem.icon : null,
+            })),
+          }}
+          pathname={pathname}
+        />
       )}
     </motion.header>
   );

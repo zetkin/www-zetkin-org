@@ -8,7 +8,7 @@ export const revalidateNav: GlobalAfterChangeHook = ({
   if (!context.disableRevalidate) {
     payload.logger.info(`Revalidating navigation`);
 
-    revalidateTag('global_header');
+    revalidateTag('global_mainNav');
   }
 
   return doc;
