@@ -31,7 +31,7 @@ export default function ImagesRight({
           )}
         </div>
       </div>
-      <div className="flex flex-col md:justify-around">
+      <div className="flex flex-col md:justify-around pl-15 lg:pl-0">
         <div className="flex flex-col gap-4">
           {
             /* eslint-disable react/no-danger */

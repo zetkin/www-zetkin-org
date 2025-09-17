@@ -10,7 +10,7 @@ export default function ImagesLeft({
   html,
 }: LayoutProps) {
   return (
-    <div className="flex flex-col z-10 gap-10 md:gap-0 md:w-full md:flex-row-reverse md:max-w-[1000px] md:justify-between">
+    <div className="flex flex-col z-10 gap-10 w-full md:gap-0 md:flex-row-reverse md:max-w-[1000px] md:justify-between">
       <div className="h-[88vw] md:h-[40vw] md:max-h-[356px] md:w-[40%] lg:w-[25%] relative">
         <div className="object-cover absolute h-[55vw] w-[92vw] -left-1/12 z-0  md:left-auto md:top-[min(10vw,45px)] md:right-[min(-100px,20vw)] md:w-[40vw] md:max-w-[296px] md:h-[25vw] md:max-h-[192px]">
           {images[0]?.image && (
@@ -31,8 +31,8 @@ export default function ImagesLeft({
           )}
         </div>
       </div>
-      <div className="flex flex-col md:justify-around">
-        <div className="flex flex-col gap-4">
+      <div className="flex flex-col md:justify-around w-full pr-15 lg:pr-0">
+        <div className="flex flex-col gap-4 w-full">
           {
             /* eslint-disable react/no-danger */
             <div

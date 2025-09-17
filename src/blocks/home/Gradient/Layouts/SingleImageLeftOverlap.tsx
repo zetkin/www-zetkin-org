@@ -26,7 +26,13 @@ export default function SingleImageLeftOverlap({
           <div className="flex gap-4 items-end">
             {buttons?.map((button, index) => (
               <Link key={index} url={button.link?.url || ''}>
-                <Button variant={'secondary'}>{button.label}</Button>
+                <Button
+                  variant={
+                    button.variant == 'primary' ? 'secondary' : 'outline-white'
+                  }
+                >
+                  {button.label}
+                </Button>
               </Link>
             ))}
           </div>

@@ -23,14 +23,20 @@ export default function LeftAligned1({
           <div className="flex gap-4">
             {buttons?.map((button, index) => (
               <Link key={index} url={button.link?.url || ''}>
-                <Button variant={'secondary'}>{button.label}</Button>
+                <Button
+                  variant={
+                    button.variant == 'primary' ? 'secondary' : 'outline-white'
+                  }
+                >
+                  {button.label}
+                </Button>
               </Link>
             ))}
           </div>
         </div>
       </div>
       <div className="h-[105vw] md:h-[40vw] md:w-full relative">
-        <div className="object-cover absolute h-[45vw] w-[82vw] -left-1/12 md:z-10 md:left-auto md:top-[max(369px,50%)] md:right-[-115px] md:w-[45vw] md:max-w-[485px] md:h-[20vw] md:max-h-[241px]">
+        <div className="object-cover absolute h-[45vw] w-[82vw] -left-1/12 md:z-10 md:left-auto md:top-[min(369px,50%)] md:right-[-115px] md:w-[45vw] md:max-w-[485px] md:h-[20vw] md:max-h-[241px]">
           {images[0]?.image && (
             <ImageMedia
               fill

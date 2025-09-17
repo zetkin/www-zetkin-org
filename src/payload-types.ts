@@ -369,6 +369,7 @@ export interface GradientBlock {
   buttons?:
     | {
         label: string;
+        variant: 'primary' | 'outline';
         link: {
           type?: 'reference' | 'custom';
           reference?: {
@@ -381,17 +382,36 @@ export interface GradientBlock {
         id?: string | null;
       }[]
     | null;
-  frontColor: '#7801DD' | '#550096' | '#3F0071' | '#25E3B1' | '#0F7473' | '#0C5044' | '#123C3D' | '#C91E40' | '#82142D';
-  backgroundColor:
+  frontColor:
     | '#7801DD'
     | '#550096'
     | '#3F0071'
+    | '#E6FFFA'
+    | '#2AFED2'
     | '#25E3B1'
     | '#0F7473'
     | '#0C5044'
     | '#123C3D'
+    | '#FE2B5A'
+    | '#DC2750'
     | '#C91E40'
-    | '#82142D';
+    | '#82142D'
+    | '#000000';
+  backgroundColor:
+    | '#7801DD'
+    | '#550096'
+    | '#3F0071'
+    | '#E6FFFA'
+    | '#2AFED2'
+    | '#25E3B1'
+    | '#0F7473'
+    | '#0C5044'
+    | '#123C3D'
+    | '#FE2B5A'
+    | '#DC2750'
+    | '#C91E40'
+    | '#82142D'
+    | '#000000';
   desktopGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
   mobileGradientPattern: '1' | '2' | '3' | '4' | '5' | '6';
   images: {
@@ -1013,6 +1033,7 @@ export interface GradientBlockSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        variant?: T;
         link?:
           | T
           | {

@@ -23,7 +23,13 @@ export default function LeftAligned2({
           <div className="flex gap-4">
             {buttons?.map((button, index) => (
               <Link key={index} url={button.link?.url || ''}>
-                <Button variant={'secondary'}>{button.label}</Button>
+                <Button
+                  variant={
+                    button.variant == 'primary' ? 'secondary' : 'outline-white'
+                  }
+                >
+                  {button.label}
+                </Button>
               </Link>
             ))}
           </div>
