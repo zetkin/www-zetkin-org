@@ -94,7 +94,9 @@ export const GradientBlock: React.FC<GradientBlockProps> = ({
   }
 
   return (
-    <div className={`flex py-20 px-5 overflow-x-clip overflow-y-visible relative w-full justify-center md:h-[600px] ${["leftAligned1", "singleImageLeftBottomOverlap"].includes(layout) && "lg:mb-20"} ${layout == "leftAligned2" && "md:mb-20"}`}>
+    <div
+      className={`flex py-20 px-5 overflow-x-clip overflow-y-visible relative w-full justify-center md:h-[600px] ${['leftAligned1', 'singleImageLeftBottomOverlap'].includes(layout) && 'lg:mb-20'} ${layout == 'leftAligned2' && 'md:mb-20'}`}
+    >
       <GradientToRender
         buttons={buttons}
         html={modifiedHtml}
