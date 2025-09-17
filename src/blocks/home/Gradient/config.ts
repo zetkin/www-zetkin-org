@@ -22,6 +22,14 @@ const colorOptions = [
     label: 'Purple 300',
   },
   {
+    value: '#E6FFFA',
+    label: 'Light green 100',
+  },
+  {
+    value: '#2AFED2',
+    label: 'Light green 200',
+  },
+  {
     value: '#25E3B1',
     label: 'Light green 300',
   },
@@ -38,12 +46,24 @@ const colorOptions = [
     label: 'Dark green 400',
   },
   {
+    value: '#FE2B5A',
+    label: 'Red 100',
+  },
+  {
+    value: '#DC2750',
+    label: 'Red 200',
+  },
+  {
     value: '#C91E40',
     label: 'Red 300',
   },
   {
     value: '#82142D',
     label: 'Red 400',
+  },
+  {
+    value: '#000000',
+    label: 'Black',
   },
 ];
 
