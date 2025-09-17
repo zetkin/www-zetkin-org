@@ -123,18 +123,33 @@ export const Gradient: Block = {
       required: true,
     },
     {
-      name: 'buttons',
-      type: 'array',
-      fields: [
-        {
-          name: 'label',
-          type: 'text',
-          label: 'Button label',
-          required: true,
+          name: 'buttons',
+          type: 'array',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              label: 'Button label',
+              required: true,
+            },
+            {
+              name: 'variant',
+              type: 'select',
+              required: true,
+              options: [
+                {
+                  label: 'Primary',
+                  value: 'primary',
+                },
+                {
+                  label: 'Outline',
+                  value: 'outline',
+                },
+              ],
+            },
+            link(),
+          ],
         },
-        link(),
-      ],
-    },
     {
       name: 'frontColor',
       label: 'Front color',

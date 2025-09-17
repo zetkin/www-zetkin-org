@@ -369,6 +369,7 @@ export interface GradientBlock {
   buttons?:
     | {
         label: string;
+        variant: 'primary' | 'outline';
         link: {
           type?: 'reference' | 'custom';
           reference?: {
@@ -1032,6 +1033,7 @@ export interface GradientBlockSelect<T extends boolean = true> {
     | T
     | {
         label?: T;
+        variant?: T;
         link?:
           | T
           | {

@@ -5,6 +5,15 @@ export type LayoutProps = {
   buttons:
     | {
         label: string;
+        variant:
+          | 'link'
+          | 'primary'
+          | 'destructive'
+          | 'ghost'
+          | 'outline'
+          | 'secondary'
+          | null
+          | undefined;
         link?: {
           type?: ('reference' | 'custom') | null;
           reference?: {
