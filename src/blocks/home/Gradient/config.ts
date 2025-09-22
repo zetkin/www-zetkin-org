@@ -82,23 +82,23 @@ export const Gradient: Block = {
       label: 'Layout',
       options: [
         {
-          label: 'Right aligned 1',
+          label: 'Two small images - Text right aligned',
           value: 'rightAligned1',
         },
         {
-          label: 'Left aligned 1',
+          label: 'Two small images - Text left aligned - Variant 1',
           value: 'leftAligned1',
         },
         {
-          label: 'Left aligned 2',
+          label: 'Two small images - Text left aligned - Variant 2',
           value: 'leftAligned2',
         },
         {
-          label: 'Single image left overlap',
+          label: 'Single image - Text right aligned - Image overlapping to the right',
           value: 'singleImageLeftOverlap',
         },
         {
-          label: 'Single image left/bottom overlap',
+          label: 'Single image - Text right aligned - Image overlapping to the right & bottom',
           value: 'singleImageLeftBottomOverlap',
         },
       ],
