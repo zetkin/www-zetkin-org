@@ -27,7 +27,7 @@ export default function SingleImageRightOverlap({
             {buttons?.map((button, index) => (
               <Link key={index} url={button.link?.url || ''}>
                 <Button
-                  className=''
+                  className=""
                   variant={
                     button.variant == 'primary' ? 'secondary' : 'outline-white'
                   }

@@ -24,7 +24,6 @@ import {
   MobilePattern6,
 } from './SvgBackgrounds';
 
-
 const gradients = {
   rightAligned1: RightAligned1,
   leftAligned1: LeftAligned1,

@@ -25,9 +25,9 @@ export default function SingleImageRightBottomOverlap({
           </p>
           <div className="flex gap-4 items-end flex-col sm:flex-row sm:flex-wrap scale-x-[-1]">
             {buttons?.map((button, index) => (
-              <Link key={index} url={button.link?.url || ''} >
+              <Link key={index} url={button.link?.url || ''}>
                 <Button
-                  className=''
+                  className=""
                   variant={
                     button.variant == 'primary' ? 'secondary' : 'outline-white'
                   }
