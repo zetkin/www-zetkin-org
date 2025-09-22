@@ -94,12 +94,20 @@ export const Gradient: Block = {
           value: 'leftAligned2',
         },
         {
-          label: 'Single image - Text right aligned - Image overlapping to the right',
+          label: 'Single image - Text right aligned - Image overlapping to the left',
           value: 'singleImageLeftOverlap',
         },
         {
-          label: 'Single image - Text right aligned - Image overlapping to the right & bottom',
+          label: 'Single image - Text right aligned - Image overlapping to the left & bottom',
           value: 'singleImageLeftBottomOverlap',
+        },
+                {
+          label: 'Single image - Text left aligned - Image overlapping to the right',
+          value: 'singleImageRightOverlap',
+        },
+        {
+          label: 'Single image - Text left aligned - Image overlapping to the right & bottom',
+          value: 'singleImageRightBottomOverlap',
         },
       ],
     },
@@ -115,12 +123,18 @@ export const Gradient: Block = {
           FixedToolbarFeature(),
         ],
       }),
+      admin: {
+        description: 'Maximum 4 lines of text on desktop viewports',
+      }
     },
     {
       name: 'subtitle',
       type: 'text',
       label: 'Sub-title',
       required: true,
+      admin: {
+        description: 'Maximum 5 lines of text on desktop viewports',
+      }
     },
     {
       name: 'buttons',

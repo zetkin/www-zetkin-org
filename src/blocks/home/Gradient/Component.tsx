@@ -7,6 +7,8 @@ import LeftAligned1 from './Layouts/LeftAligned1';
 import LeftAligned2 from './Layouts/LeftAligned2';
 import SingleImageLeftOverlap from './Layouts/SingleImageLeftOverlap';
 import SingleImageLeftBottomOverlap from './Layouts/SingleImageLeftBottomOverlap';
+import SingleImageRightOverlap from './Layouts/SingleImageRightOverlap';
+import SingleImageRightBottomOverlap from './Layouts/SingleImageRightBottomOverlap';
 import {
   DesktopPattern1,
   DesktopPattern2,
@@ -22,12 +24,15 @@ import {
   MobilePattern6,
 } from './SvgBackgrounds';
 
+
 const gradients = {
   rightAligned1: RightAligned1,
   leftAligned1: LeftAligned1,
   leftAligned2: LeftAligned2,
   singleImageLeftOverlap: SingleImageLeftOverlap,
   singleImageLeftBottomOverlap: SingleImageLeftBottomOverlap,
+  singleImageRightOverlap: SingleImageRightOverlap,
+  singleImageRightBottomOverlap: SingleImageRightBottomOverlap,
 };
 
 export const GradientBlock: React.FC<GradientBlockProps> = ({
@@ -95,7 +100,7 @@ export const GradientBlock: React.FC<GradientBlockProps> = ({
 
   return (
     <div
-      className={`flex py-20 px-5 overflow-x-clip overflow-y-visible relative w-full justify-center md:h-[600px] ${['leftAligned1', 'singleImageLeftBottomOverlap'].includes(layout) && 'lg:mb-20'} ${layout == 'leftAligned2' && 'md:mb-20'}`}
+      className={`flex py-20 px-5 overflow-x-clip overflow-y-visible relative w-full justify-center md:h-[750px] lg:h-[600px] ${['leftAligned1', 'singleImageLeftBottomOverlap', 'singleImageRightBottomOverlap'].includes(layout) && 'lg:mb-20'} ${layout == 'leftAligned2' && 'md:mb-20'}`}
     >
       <GradientToRender
         buttons={buttons}
