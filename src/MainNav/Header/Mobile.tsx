@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, motionValue, useScroll, useTransform } from 'motion/react';
 import { useAtomValue } from 'jotai';
 
 import { CMSLink as Link } from '@/components/Link';
@@ -89,7 +89,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     [0, 1],
     ['blur(0px)', 'blur(16px)'],
   );
-  const bgColor = useTransform(
+  let bgColor = useTransform(
     background,
     [0, 1],
     ['rgba(255,255,255,0)', 'rgba(255,255,255,0.80)'],
@@ -106,6 +106,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   if (menuOpen) {
     boxShadow = 'none';
     bottomBorder = 'solid 1px #EEE';
+    bgColor = motionValue('rgba(255,255,255,1)');
   } else {
     boxShadow = boxShadowTransform;
     bottomBorder = 'none';
