@@ -256,7 +256,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
                                         return (
                                           <li
                                             key={bottomItem.id}
-                                            className='w-full'
+                                            className="w-full"
                                             onClick={() => {
                                               toggleMenu();
                                               setNavigatedItem(topItem);
@@ -264,12 +264,15 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
                                           >
                                             <p className="text-[15px] leading-[1.7] w-full">
                                               <Link
-                                                className='w-full'
+                                                className="w-full"
                                                 url={
                                                   bottomItem.link?.url ?? '/'
                                                 }
                                               >
-                                                <button className='text-left w-full' onClick={toggleMenu}>
+                                                <button
+                                                  className="text-left w-full"
+                                                  onClick={toggleMenu}
+                                                >
                                                   {bottomItem.label}
                                                 </button>
                                               </Link>
