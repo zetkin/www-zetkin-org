@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
+import { motion, motionValue, useScroll, useTransform } from 'motion/react';
 import { useAtomValue } from 'jotai';
 
 import { CMSLink as Link } from '@/components/Link';
@@ -89,7 +89,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     [0, 1],
     ['blur(0px)', 'blur(16px)'],
   );
-  const bgColor = useTransform(
+  let bgColor = useTransform(
     background,
     [0, 1],
     ['rgba(255,255,255,0)', 'rgba(255,255,255,0.80)'],
@@ -106,6 +106,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   if (menuOpen) {
     boxShadow = 'none';
     bottomBorder = 'solid 1px #EEE';
+    bgColor = motionValue('rgba(255,255,255,1)');
   } else {
     boxShadow = boxShadowTransform;
     bottomBorder = 'none';
@@ -202,7 +203,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
               return (
                 <AccordionItem key={topItem.id} value={topItem.id || ''}>
                   <AccordionTrigger>
-                    <p className="text-lg font-semibold">
+                    <p className="text-lg font-semibold flex-1 text-left">
                       <Link url={topItem.link?.url ?? '/'}>
                         {topItem.longLabel || topItem.label}
                       </Link>
@@ -245,29 +246,34 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
                                     </button>
                                   </Link>
                                 </h3>
-                                <div className="flex flex-col gap-5">
-                                  <p className="text-[16px]">
+                                <div className="flex flex-col gap-5 w-full">
+                                  <p className="text-[16px] w-full">
                                     {midItem.description}
                                   </p>
-                                  <ul className="grid grid-cols-2 gap-y-3 gap-x-6">
+                                  <ul className="grid grid-cols-2 gap-y-3 gap-x-6 w-full">
                                     {midItem.bottomItems
                                       ?.slice(0, itemsToShow)
                                       .map((bottomItem) => {
                                         return (
                                           <li
                                             key={bottomItem.id}
+                                            className="w-full"
                                             onClick={() => {
                                               toggleMenu();
                                               setNavigatedItem(topItem);
                                             }}
                                           >
-                                            <p className="text-[15px] leading-[1.7]">
+                                            <p className="text-[15px] leading-[1.7] w-full">
                                               <Link
+                                                className="w-full"
                                                 url={
                                                   bottomItem.link?.url ?? '/'
                                                 }
                                               >
-                                                <button onClick={toggleMenu}>
+                                                <button
+                                                  className="text-left w-full"
+                                                  onClick={toggleMenu}
+                                                >
                                                   {bottomItem.label}
                                                 </button>
                                               </Link>
