@@ -15,7 +15,7 @@ export default function ArticleRichText({
 
   return (
     <RichText
-      className={`w-full overflow-visible prose-p:text-black prose-h5:text-black prose-ol:text-black marker:text-black prose-a:text-z-${accentColor}`}
+      className={`w-full overflow-visible prose-h5:mt-16 md:prose-h5:mt-20 prose-p:text-black prose-h5:text-black prose-ol:text-black marker:text-black prose-a:text-z-${accentColor}`}
       data={richText}
       enableGutter={false}
     />

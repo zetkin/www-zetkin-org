@@ -44,7 +44,7 @@ export default function ImagesLeft({
             <p className="text-lg leading-[1.7] font-light md:text-base md:max-w-[450px]">
               {subtitle}
             </p>
-            <div className="flex gap-4">
+            <div className="flex gap-4 flex-col sm:flex-row sm:flex-wrap">
               {buttons?.map((button, index) => (
                 <Link key={index} url={button.link?.url || ''}>
                   <Button variant={button.variant}>{button.label}</Button>

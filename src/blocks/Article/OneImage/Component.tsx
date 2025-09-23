@@ -31,7 +31,7 @@ export const OneImageBlock: React.FC<ImageBlockProps> = ({
 
   return (
     <div>
-      <div className="h-[92vw] md:h-[70vw] md:max-h-[651px] md:w-full relative -ml-5 -mr-5 md:ml-0 md:mr-0 lg:mb-15">
+      <div className="h-[92vw] md:h-[70vw] md:max-h-[651px] md:w-full relative -ml-5 -mr-5 md:ml-0 md:mr-0 lg:mb-20 mt-16 md:mt-20">
         <div
           className={`object-cover absolute h-[75vw] w-[90vw] top-0 md:-left-[min(0vw,50px)]  md:top-0
                                   ${mobileOverflow === 'right' && 'right-0'}

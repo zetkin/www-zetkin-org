@@ -25,7 +25,7 @@ export default function UILeft({
               {subtitle}
             </p>
           </div>
-          <div className="flex gap-5 w-full">
+          <div className="flex gap-5 w-full flex-col sm:flex-row sm:flex-wrap">
             {buttons?.map((button, index) => (
               <Link key={index} url={button.link?.url || ''}>
                 <Button variant={button.variant}>{button.label}</Button>

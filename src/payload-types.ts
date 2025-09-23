@@ -349,7 +349,17 @@ export interface LandingBlock {
  * via the `definition` "GradientBlock".
  */
 export interface GradientBlock {
-  layout: 'rightAligned1' | 'leftAligned1' | 'leftAligned2' | 'singleImageLeftOverlap' | 'singleImageLeftBottomOverlap';
+  layout:
+    | 'rightAligned1'
+    | 'leftAligned1'
+    | 'leftAligned2'
+    | 'singleImageLeftOverlap'
+    | 'singleImageLeftBottomOverlap'
+    | 'singleImageRightOverlap'
+    | 'singleImageRightBottomOverlap';
+  /**
+   * Maximum 4 lines of text on desktop viewports
+   */
   title: {
     root: {
       type: string;
@@ -365,6 +375,9 @@ export interface GradientBlock {
     };
     [k: string]: unknown;
   };
+  /**
+   * Maximum 5 lines of text on desktop viewports
+   */
   subtitle: string;
   buttons?:
     | {

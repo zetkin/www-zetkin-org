@@ -20,7 +20,7 @@ export default function LeftAligned2({
           <p className="text-lg leading-[1.7] font-light md:text-base">
             {subtitle}
           </p>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-col sm:flex-row sm:flex-wrap">
             {buttons?.map((button, index) => (
               <Link key={index} url={button.link?.url || ''}>
                 <Button

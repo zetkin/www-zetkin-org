@@ -3,30 +3,31 @@ import { Button } from '@/components/ui/button';
 import { LayoutProps } from './LayoutProps';
 import { CMSLink as Link } from '@/components/Link';
 
-export default function SingleImageLeftBottomOverlap({
+export default function SingleImageRightBottomOverlap({
   subtitle,
   buttons,
   images = [],
   html,
 }: LayoutProps) {
   return (
-    <div className="flex flex-col gap-10 z-10 md:w-full md:flex-row-reverse md:max-w-[1000px] md:justify-between">
+    <div className="flex flex-col gap-10 z-10 md:w-full md:flex-row-reverse md:max-w-[1000px] md:justify-between scale-x-[-1]">
       <div className="flex flex-col gap-5 text-white md:w-1/2 md:max-w-[350px] sm:justify-between">
         {
           /* eslint-disable react/no-danger */
           <div
-            className="text-right"
+            className="text-left scale-x-[-1]"
             dangerouslySetInnerHTML={{ __html: html }}
           />
         }
         <div className="flex flex-col gap-5 items-end">
-          <p className="text-lg leading-[1.7] font-light text-right md:text-base">
+          <p className="text-lg leading-[1.7] font-light text-left md:text-base scale-x-[-1]">
             {subtitle}
           </p>
-          <div className="flex gap-4 items-end flex-col sm:flex-row sm:flex-wrap">
+          <div className="flex gap-4 items-end flex-col sm:flex-row sm:flex-wrap scale-x-[-1]">
             {buttons?.map((button, index) => (
               <Link key={index} url={button.link?.url || ''}>
                 <Button
+                  className=""
                   variant={
                     button.variant == 'primary' ? 'secondary' : 'outline-white'
                   }
@@ -43,7 +44,7 @@ export default function SingleImageLeftBottomOverlap({
           {images[0]?.image && (
             <ImageMedia
               fill
-              imgClassName="object-cover"
+              imgClassName="object-cover scale-x-[-1]"
               resource={images[0].image}
             />
           )}

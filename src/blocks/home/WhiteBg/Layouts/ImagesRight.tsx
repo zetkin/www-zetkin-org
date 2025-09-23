@@ -44,7 +44,7 @@ export default function ImagesRight({
             <p className="text-lg leading-[1.7] font-light md:text-base md:max-w-[450px] scale-x-[-1] text-right">
               {subtitle}
             </p>
-            <div className="flex gap-4 scale-x-[-1] justify-end">
+            <div className="flex gap-4 scale-x-[-1] justify-end flex-col sm:flex-row sm:flex-wrap">
               {buttons?.map((button, index) => (
                 <Link key={index} url={button.link?.url || ''}>
                   <Button variant={button.variant}>{button.label}</Button>
