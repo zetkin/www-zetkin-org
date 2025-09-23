@@ -49,7 +49,13 @@ export function FooterClient({ navData }: { navData: MainNav }) {
               forceFull={true}
             />
           </Link>
-          <div aria-label="Social media links" className="flex gap-4 items-end">
+          <div
+            aria-label="Social media links"
+            className="grid gap-4 items-end"
+            style={{
+              gridTemplateColumns: `repeat(${Math.ceil((navData.socialLinks?.length || 0) / 2)}, minmax(0, max-content))`,
+            }}
+          >
             {navData.socialLinks?.map((socialLink) => {
               const icon = getIcon(socialLink.platform);
               return (

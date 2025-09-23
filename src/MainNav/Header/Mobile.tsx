@@ -114,10 +114,10 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
   const accentColor = useAtomValue(accentColorAtom);
 
   return (
-    <header className="z-20" onMouseLeave={() => setOpenId(null)}>
+    <header className="z-50" onMouseLeave={() => setOpenId(null)}>
       {/* Logo and hamburger menu on mobile */}
       <motion.div
-        className="fixed py-8 w-full z-20 top-0"
+        className="fixed py-8 w-full z-40 top-0"
         style={{
           boxShadow: boxShadow,
           borderBottomRightRadius: borderRadius,
@@ -160,7 +160,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
           </button>
         </div>
       </motion.div>
-      <div className="flex flex-col mt-[129px]">
+      <div className="flex flex-col mt-[129px] z-30 relative">
         {/* Mobile title not visible in home */}
         {pathname !== '/' && (
           <div className="py-3.5 static w-full bg-white flex justify-center border-t border-b border-z-gray-200">
@@ -193,7 +193,7 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
       </div>
       {/* Full page mobile menu */}
       <div
-        className={`fixed top-0 left-0 w-full h-full bg-white z-10 transform transition-opacity duration-200 ease-in-out overflow-auto pb-10 
+        className={`fixed top-0 left-0 w-full h-full bg-white z-30 transform transition-opacity duration-200 ease-in-out overflow-auto pb-10 
         ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       >
         <Accordion className="mt-[170px] px-5" collapsible type="single">
