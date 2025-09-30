@@ -58,7 +58,7 @@ export default function SubNav({
   navigatedItem: navigatedItemType | null;
 }) {
   return (
-    <div className="sm:w-full sm:flex sm:px-5 sm:justify-center sm:border-b sm:border-[rgba(238,238,238,0.7)] sm:bg-white/75 sm:backdrop-blur-[12px]">
+    <div className="sm:w-full sm:flex sm:px-5 sm:justify-center sm:border-b sm:border-[rgba(238,238,238,0.7)] sm:bg-white/75 sm:backdrop-blur-[12px] relative z-10">
       <nav className="px-10 pt-3.5 pb-5 border-b border-z-gray-200 sm:w-full sm:flex sm:max-w-[1000px] sm:justify-end sm:px-0 sm:py-3 sm:border-b-0">
         {navigatedItem && (
           <ul className="flex flex-wrap justify-center gap-x-7 gap-y-5">
