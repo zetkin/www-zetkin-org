@@ -100,7 +100,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           backdropFilter: isHovered ? 'blur(16px)' : blurAmount,
           backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.80)' : bgColor,
           boxShadow: `0px 4px 32px 0px rgba(${headerShadow}0)`,
-          borderBottom: isHovered || pathname !== '/' ? 'solid rgba(238,238,238,0.7)' : border,
+          borderBottom:
+            isHovered || pathname !== '/'
+              ? 'solid rgba(238,238,238,0.7)'
+              : border,
         }}
       >
         <div className="w-full flex items-center justify-between max-w-[1000px]">
@@ -225,7 +228,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           </motion.nav>
         )}
       </AnimatePresence>
-            {/* Sub-nav not visible in home */}
+      {/* Sub-nav not visible in home */}
       {pathname !== '/' && navigatedItem && (
         <div className="absolute z-10 w-full top-full">
           <SubNav
