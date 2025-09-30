@@ -82,7 +82,7 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   return (
     <motion.header
-      className={`z-20 flex flex-col fixed w-full ${headerShadow}`}
+      className={`z-20 flex flex-col fixed w-full relative ${headerShadow}`}
       onMouseLeave={() => setOpenId(null)}
       style={{
         boxShadow: useTransform(
@@ -100,7 +100,10 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
           backdropFilter: isHovered ? 'blur(16px)' : blurAmount,
           backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.80)' : bgColor,
           boxShadow: `0px 4px 32px 0px rgba(${headerShadow}0)`,
-          borderBottom: isHovered ? 'solid rgba(238,238,238,0.7)' : border,
+          borderBottom:
+            isHovered || pathname !== '/'
+              ? 'solid rgba(238,238,238,0.7)'
+              : border,
         }}
       >
         <div className="w-full flex items-center justify-between max-w-[1000px]">
@@ -121,15 +124,16 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
         </div>
       </motion.div>
       {/* Sub-nav visible on hover */}
-      <AnimatePresence mode="wait">
+      <AnimatePresence>
         {hoveredItem && (
           <motion.nav
             animate={{ height: 'auto' }}
             aria-live="polite"
-            className="flex absolute w-full px-5 bg-white/80 backdrop-blur-[16px] overflow-hidden justify-center left-0 right-0 top-full border-b"
+            className="flex absolute w-full px-5 bg-white/80 backdrop-blur-[16px] overflow-hidden justify-center left-0 right-0 top-full border-b z-40"
             exit={{ height: 0 }}
             initial={{ height: 0 }}
             layout="size"
+            transition={{ duration: 0.3 }}
           >
             <motion.div
               key={hoveredItem.id}
@@ -226,16 +230,18 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       </AnimatePresence>
       {/* Sub-nav not visible in home */}
       {pathname !== '/' && navigatedItem && (
-        <SubNav
-          navigatedItem={{
-            ...navigatedItem,
-            midItems: navigatedItem.midItems?.map((midItem) => ({
-              ...midItem,
-              icon: typeof midItem.icon === 'string' ? midItem.icon : null,
-            })),
-          }}
-          pathname={pathname}
-        />
+        <div className="absolute z-10 w-full top-full">
+          <SubNav
+            navigatedItem={{
+              ...navigatedItem,
+              midItems: navigatedItem.midItems?.map((midItem) => ({
+                ...midItem,
+                icon: typeof midItem.icon === 'string' ? midItem.icon : null,
+              })),
+            }}
+            pathname={pathname}
+          />
+        </div>
       )}
     </motion.header>
   );
