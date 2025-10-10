@@ -1471,7 +1471,7 @@ export interface MainNav {
         label?: string | null;
         longLabel?: string | null;
         color?: ('purple' | 'red' | 'green') | null;
-        showInFooter?: boolean | null;
+        showInFooter?: ('both' | 'header' | 'footer') | null;
         link: {
           type?: 'reference' | 'custom';
           reference?: {
@@ -1494,7 +1494,7 @@ export interface MainNav {
                 | null;
               label?: string | null;
               description?: string | null;
-              showInFooter?: boolean | null;
+              showInFooter?: ('both' | 'header' | 'footer') | null;
               link: {
                 type?: 'reference' | 'custom';
                 reference?: {

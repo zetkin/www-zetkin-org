@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import { motion, motionValue, useScroll, useTransform } from 'motion/react';
-import { useAtomValue } from 'jotai';
 
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav as MainNavTypes } from '@/payload-types';
@@ -18,7 +17,6 @@ import SubNav from './Components/SubNav';
 import { useNavigate } from './useNavigate';
 import { IconValue } from '@/fields/IconPicker/IconPicker';
 import PickedIcon from '@/icons/PickedIcon';
-import { accentColorAtom } from '@/state/accentColorAtom';
 
 interface MobileHeaderProps {
   data: MainNavTypes;
@@ -112,8 +110,6 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
     bottomBorder = 'none';
   }
 
-  const accentColor = useAtomValue(accentColorAtom);
-
   return (
     <header className="z-50" onMouseLeave={() => setOpenId(null)}>
       {/* Logo and hamburger menu on mobile */}
@@ -198,156 +194,167 @@ export const MobileHeader: React.FC<MobileHeaderProps> = ({
         ${menuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       >
         <Accordion className="mt-[170px] px-5" collapsible type="single">
-          {data.topItems?.map((topItem) => {
-            if ((topItem.midItems?.length ?? 0) > 0) {
-              return (
-                <AccordionItem key={topItem.id} value={topItem.id || ''}>
-                  <AccordionTrigger>
-                    <p className="text-lg font-semibold flex-1 text-left">
-                      <Link url={topItem.link?.url ?? '/'}>
-                        {topItem.longLabel || topItem.label}
-                      </Link>
-                    </p>
-                  </AccordionTrigger>
-                  <AccordionContent className="pt-6">
-                    <ul className="flex flex-col gap-8">
-                      {topItem.midItems?.map((midItem) => {
-                        const isExpanded =
-                          expandedBottomItems[midItem.id || ''] || false;
-                        const itemsToShow = isExpanded
-                          ? midItem.bottomItems?.length
-                          : Math.min(4, midItem.bottomItems?.length || 0);
-                        const needsShowMore =
-                          (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
-                        return (
-                          <li
-                            key={midItem.id}
-                            className=""
-                            onClick={() => {
-                              toggleMenu();
-                              setNavigatedItem(topItem);
-                            }}
-                          >
-                            <div className="flex gap-4">
-                              {midItem.icon && (
-                                <PickedIcon
-                                  className={'text-z-' + accentColor}
-                                  value={
-                                    midItem.icon as string | IconValue | null
-                                  }
-                                  width="32px"
-                                />
-                              )}
-                              <div className="flex flex-col gap-4">
-                                <h3 className="text-lg font-semibold">
-                                  <Link url={midItem.link?.url ?? '/'}>
-                                    <button onClick={toggleMenu}>
-                                      {midItem.label}
-                                    </button>
-                                  </Link>
-                                </h3>
-                                <div className="flex flex-col gap-5 w-full">
-                                  <p className="text-[16px] w-full">
-                                    {midItem.description}
-                                  </p>
-                                  <ul className="grid grid-cols-2 gap-y-3 gap-x-6 w-full">
-                                    {midItem.bottomItems
-                                      ?.slice(0, itemsToShow)
-                                      .map((bottomItem) => {
-                                        return (
-                                          <li
-                                            key={bottomItem.id}
-                                            className="w-full"
-                                            onClick={() => {
-                                              toggleMenu();
-                                              setNavigatedItem(topItem);
-                                            }}
-                                          >
-                                            <p className="text-[15px] leading-[1.7] w-full">
-                                              <Link
-                                                className="w-full"
-                                                url={
-                                                  bottomItem.link?.url ?? '/'
-                                                }
-                                              >
-                                                <button
-                                                  className="text-left w-full"
-                                                  onClick={toggleMenu}
-                                                >
-                                                  {bottomItem.label}
-                                                </button>
-                                              </Link>
-                                            </p>
-                                          </li>
-                                        );
-                                      })}
-                                    {needsShowMore && (
-                                      <li className="col-span-2 mt-1">
-                                        <button
-                                          className="text-[15px] underline"
-                                          onClick={(e) => {
-                                            e.preventDefault();
-                                            showMore(midItem.id || '');
-                                          }}
-                                        >
-                                          Show more...
+          {data.topItems
+            ?.filter((topItem) => topItem.showInFooter !== 'footer')
+            .map((topItem) => {
+              if ((topItem.midItems?.length ?? 0) > 0) {
+                return (
+                  <AccordionItem key={topItem.id} value={topItem.id || ''}>
+                    <AccordionTrigger>
+                      <p className="text-lg font-semibold flex-1 text-left">
+                        <Link url={topItem.link?.url ?? '/'}>
+                          {topItem.longLabel || topItem.label}
+                        </Link>
+                      </p>
+                    </AccordionTrigger>
+                    <AccordionContent className="pt-6">
+                      <ul className="flex flex-col gap-8">
+                        {topItem.midItems
+                          ?.filter(
+                            (midItem) => midItem.showInFooter !== 'footer',
+                          )
+                          .map((midItem) => {
+                            const isExpanded =
+                              expandedBottomItems[midItem.id || ''] || false;
+                            const itemsToShow = isExpanded
+                              ? midItem.bottomItems?.length
+                              : Math.min(4, midItem.bottomItems?.length || 0);
+                            const needsShowMore =
+                              (midItem.bottomItems?.length || 0) > 4 &&
+                              !isExpanded;
+                            return (
+                              <li
+                                key={midItem.id}
+                                className=""
+                                onClick={() => {
+                                  toggleMenu();
+                                  setNavigatedItem(topItem);
+                                }}
+                              >
+                                <div className="flex gap-4">
+                                  {midItem.icon && (
+                                    <PickedIcon
+                                      className={'text-z-' + topItem.color}
+                                      value={
+                                        midItem.icon as
+                                          | string
+                                          | IconValue
+                                          | null
+                                      }
+                                      width="32px"
+                                    />
+                                  )}
+                                  <div className="flex flex-col gap-4">
+                                    <h3 className="text-lg font-semibold">
+                                      <Link url={midItem.link?.url ?? '/'}>
+                                        <button onClick={toggleMenu}>
+                                          {midItem.label}
                                         </button>
-                                      </li>
-                                    )}
-                                  </ul>
+                                      </Link>
+                                    </h3>
+                                    <div className="flex flex-col gap-5 w-full">
+                                      <p className="text-[16px] w-full">
+                                        {midItem.description}
+                                      </p>
+                                      <ul className="grid grid-cols-2 gap-y-3 gap-x-6 w-full">
+                                        {midItem.bottomItems
+                                          ?.slice(0, itemsToShow)
+                                          .map((bottomItem) => {
+                                            return (
+                                              <li
+                                                key={bottomItem.id}
+                                                className="w-full"
+                                                onClick={() => {
+                                                  toggleMenu();
+                                                  setNavigatedItem(topItem);
+                                                }}
+                                              >
+                                                <p className="text-[15px] leading-[1.7] w-full">
+                                                  <Link
+                                                    className="w-full"
+                                                    url={
+                                                      bottomItem.link?.url ??
+                                                      '/'
+                                                    }
+                                                  >
+                                                    <button
+                                                      className="text-left w-full"
+                                                      onClick={toggleMenu}
+                                                    >
+                                                      {bottomItem.label}
+                                                    </button>
+                                                  </Link>
+                                                </p>
+                                              </li>
+                                            );
+                                          })}
+                                        {needsShowMore && (
+                                          <li className="col-span-2 mt-1">
+                                            <button
+                                              className="text-[15px] underline"
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                showMore(midItem.id || '');
+                                              }}
+                                            >
+                                              Show more...
+                                            </button>
+                                          </li>
+                                        )}
+                                      </ul>
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  </AccordionContent>
-                </AccordionItem>
-              );
-            } else {
-              return (
-                <div
-                  key={topItem.id}
-                  onClick={() => {
-                    toggleMenu();
-                    setNavigatedItem(topItem);
-                  }}
-                >
-                  <Link
-                    className="flex justify-between items-center"
-                    url={topItem.link?.url ?? '/'}
+                              </li>
+                            );
+                          })}
+                      </ul>
+                    </AccordionContent>
+                  </AccordionItem>
+                );
+              } else {
+                return (
+                  <div
+                    key={topItem.id}
+                    onClick={() => {
+                      toggleMenu();
+                      setNavigatedItem(topItem);
+                    }}
                   >
-                    <p className="text-lg font-semibold py-4">
-                      {topItem.longLabel || topItem.label}
-                    </p>
-                    <svg
-                      fill="none"
-                      height="25"
-                      viewBox="0 0 24 25"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
+                    <Link
+                      className="flex justify-between items-center"
+                      url={topItem.link?.url ?? '/'}
                     >
-                      <path
-                        d="M5 12.2723H19"
-                        stroke="black"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2.4"
-                      />
-                      <path
-                        d="M12 5.27234L19 12.2723L12 19.2723"
-                        stroke="black"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="2.4"
-                      />
-                    </svg>
-                  </Link>
-                </div>
-              );
-            }
-          })}
+                      <p className="text-lg font-semibold py-4">
+                        {topItem.longLabel || topItem.label}
+                      </p>
+                      <svg
+                        fill="none"
+                        height="25"
+                        viewBox="0 0 24 25"
+                        width="24"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M5 12.2723H19"
+                          stroke="black"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.4"
+                        />
+                        <path
+                          d="M12 5.27234L19 12.2723L12 19.2723"
+                          stroke="black"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth="2.4"
+                        />
+                      </svg>
+                    </Link>
+                  </div>
+                );
+              }
+            })}
         </Accordion>
       </div>
     </header>
