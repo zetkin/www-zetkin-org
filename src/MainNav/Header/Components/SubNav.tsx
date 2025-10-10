@@ -4,7 +4,7 @@ import { Media, Page } from '@/payload-types';
 interface navigatedItemType {
   label?: string | null;
   color?: ('purple' | 'red' | 'green') | null;
-  showInFooter?: boolean | null;
+  showInFooter?: ('both' | 'header' | 'footer') | null;
   link?: {
     type?: ('reference' | 'custom') | null;
     reference?: {
@@ -19,7 +19,7 @@ interface navigatedItemType {
         icon?: (string | null) | Media;
         label?: string | null;
         description?: string | null;
-        showInFooter?: boolean | null;
+        showInFooter?: ('both' | 'header' | 'footer') | null;
         link?: {
           type?: ('reference' | 'custom') | null;
           reference?: {
@@ -62,22 +62,24 @@ export default function SubNav({
       <nav className="px-10 pt-3.5 pb-5 border-b border-z-gray-200 sm:w-full sm:flex sm:max-w-[1000px] sm:justify-end sm:px-0 sm:py-3 sm:border-b-0">
         {navigatedItem && (
           <ul className="flex flex-wrap justify-center gap-x-7 gap-y-5">
-            {navigatedItem.midItems?.map((midItem) => {
-              const url = midItem.link?.url ?? '/';
-              const linkIsSelected = pathname.includes(url);
-              return (
-                <li
-                  key={midItem.id}
-                  className={
-                    'sm:text-[13px] ' +
-                    (linkIsSelected &&
-                      'font-semibold text-z-' + navigatedItem.color)
-                  }
-                >
-                  <Link url={url}>{midItem.label}</Link>
-                </li>
-              );
-            })}
+            {navigatedItem.midItems
+              ?.filter((midItem) => midItem.showInFooter !== 'footer')
+              .map((midItem) => {
+                const url = midItem.link?.url ?? '/';
+                const linkIsSelected = pathname.includes(url);
+                return (
+                  <li
+                    key={midItem.id}
+                    className={
+                      'sm:text-[13px] ' +
+                      (linkIsSelected &&
+                        'font-semibold text-z-' + navigatedItem.color)
+                    }
+                  >
+                    <Link url={url}>{midItem.label}</Link>
+                  </li>
+                );
+              })}
           </ul>
         )}
       </nav>
