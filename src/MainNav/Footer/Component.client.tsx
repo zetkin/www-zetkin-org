@@ -73,28 +73,32 @@ export function FooterClient({ navData }: { navData: MainNav }) {
         </div>
         <nav aria-label="Footer navigation">
           <ul className="grid grid-cols-2 gap-x-5 gap-y-10 md:grid-cols-4 lg:flex lg:gap-8">
-            {navData.topItems?.map((topItem) => (
-              <li key={topItem.id} className="flex flex-col gap-5">
-                <Link
-                  className="font-semibold text-sm"
-                  url={topItem.link?.url ?? '/'}
-                >
-                  {topItem.label}
-                </Link>
-                <ul
-                  aria-label={`${topItem.label} menu items`}
-                  className="flex flex-col gap-4"
-                >
-                  {topItem.midItems?.map((midItem) => (
-                    <li key={midItem.id} className="text-sm text-[#444444]">
-                      <Link url={midItem.link?.url ?? '/'}>
-                        {midItem.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
+            {navData.topItems
+              ?.filter((topItem) => topItem.showInFooter !== 'header')
+              .map((topItem) => (
+                <li key={topItem.id} className="flex flex-col gap-5">
+                  <Link
+                    className="font-semibold text-sm"
+                    url={topItem.link?.url ?? '/'}
+                  >
+                    {topItem.label}
+                  </Link>
+                  <ul
+                    aria-label={`${topItem.label} menu items`}
+                    className="flex flex-col gap-4"
+                  >
+                    {topItem.midItems
+                      ?.filter((midItem) => midItem.showInFooter !== 'header')
+                      .map((midItem) => (
+                        <li key={midItem.id} className="text-sm text-[#444444]">
+                          <Link url={midItem.link?.url ?? '/'}>
+                            {midItem.label}
+                          </Link>
+                        </li>
+                      ))}
+                  </ul>
+                </li>
+              ))}
           </ul>
         </nav>
       </div>

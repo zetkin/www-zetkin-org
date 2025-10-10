@@ -51,9 +51,23 @@ export const MainNav: GlobalConfig = {
         },
         {
           name: 'showInFooter',
-          type: 'checkbox',
-          label: 'Show in footer',
-          defaultValue: true,
+          type: 'select',
+          label: 'Visibility',
+          defaultValue: 'both',
+          options: [
+            {
+              label: 'Show in both Header and Footer',
+              value: 'both',
+            },
+            {
+              label: 'Show in Header only',
+              value: 'header',
+            },
+            {
+              label: 'Show in Footer only',
+              value: 'footer',
+            },
+          ],
         },
         link(),
         {
@@ -88,9 +102,23 @@ export const MainNav: GlobalConfig = {
             },
             {
               name: 'showInFooter',
-              type: 'checkbox',
-              label: 'Show in footer',
-              defaultValue: true,
+              type: 'select',
+              label: 'Visibility',
+              defaultValue: 'both',
+              options: [
+                {
+                  label: 'Show in both Header and Footer',
+                  value: 'both',
+                },
+                {
+                  label: 'Show in Header only',
+                  value: 'header',
+                },
+                {
+                  label: 'Show in Footer only',
+                  value: 'footer',
+                },
+              ],
             },
             link(),
             {

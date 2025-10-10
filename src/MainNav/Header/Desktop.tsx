@@ -2,7 +2,6 @@
 
 import React, { useState } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
-import { useAtomValue } from 'jotai';
 
 import { CMSLink as Link } from '@/components/Link';
 import type { MainNav as MainNavTypes } from '@/payload-types';
@@ -10,7 +9,6 @@ import { Logo } from '@/components/Logo/Logo';
 import MainNav from './Components/MainNav';
 import SubNav from './Components/SubNav';
 import { useNavigate } from './useNavigate';
-import { accentColorAtom } from '@/state/accentColorAtom';
 import PickedIcon from '@/icons/PickedIcon';
 import { IconValue } from '@/fields/IconPicker/IconPicker';
 
@@ -78,11 +76,9 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
 
   const [isHovered, setIsHovered] = useState(false);
 
-  const accentColor = useAtomValue(accentColorAtom);
-
   return (
     <motion.header
-      className={`z-20 flex flex-col fixed w-full relative ${headerShadow}`}
+      className={`z-20 flex flex-col w-full relative ${headerShadow}`}
       onMouseLeave={() => setOpenId(null)}
       style={{
         boxShadow: useTransform(
@@ -144,85 +140,92 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
               transition={{ duration: 0.2 }}
             >
               <ul className="flex gap-8 justify-end w-full">
-                {hoveredItem.midItems?.map((midItem) => {
-                  const url = midItem.link?.url ?? '/';
-                  const linkIsSelected = pathname == url;
-                  const isExpanded =
-                    expandedBottomItems[midItem.id || ''] || false;
-                  const itemsToShow = isExpanded
-                    ? midItem.bottomItems?.length
-                    : Math.min(4, midItem.bottomItems?.length || 0);
-                  const needsShowMore =
-                    (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
-                  return (
-                    <li key={midItem.id} className="flex flex-col gap-4 flex-1">
-                      <div className="flex flex-col gap-3">
-                        <div className="flex gap-2.5 items-center">
-                          {midItem.icon && (
-                            <PickedIcon
-                              className={'text-z-' + accentColor}
-                              value={midItem.icon as string | IconValue | null}
-                              width="24px"
-                            />
-                          )}
-                          <h3
-                            key={midItem.id}
-                            className={
-                              'text-[16px] font-semibold' +
-                              (linkIsSelected &&
-                                `text-${hoveredItem.color || ''}`)
-                            }
-                          >
-                            <Link aria-label={midItem.label} url={url}>
-                              {midItem.label}
-                            </Link>
-                          </h3>
-                        </div>
-                        <p className="text-sm leading-[1.7]">
-                          {midItem.description}
-                        </p>
-                      </div>
-                      <ul className="grid grid-cols-2 gap-y-2 gap-x-6">
-                        {midItem.bottomItems
-                          ?.slice(0, itemsToShow)
-                          .map((bottomItem) => {
-                            const url = bottomItem.link?.url ?? '/';
-                            const linkIsSelected = pathname == url;
-
-                            return (
-                              <li
-                                key={bottomItem.id}
-                                className={
-                                  'text-[13px] truncate leading-[1.7] ' +
-                                  (linkIsSelected &&
-                                    'font-semibold text-' +
-                                      (hoveredItem.color || ''))
+                {hoveredItem.midItems
+                  ?.filter((midItem) => midItem.showInFooter !== 'footer')
+                  .map((midItem) => {
+                    const url = midItem.link?.url ?? '/';
+                    const linkIsSelected = pathname == url;
+                    const isExpanded =
+                      expandedBottomItems[midItem.id || ''] || false;
+                    const itemsToShow = isExpanded
+                      ? midItem.bottomItems?.length
+                      : Math.min(4, midItem.bottomItems?.length || 0);
+                    const needsShowMore =
+                      (midItem.bottomItems?.length || 0) > 4 && !isExpanded;
+                    return (
+                      <li
+                        key={midItem.id}
+                        className="flex flex-col gap-4 flex-1"
+                      >
+                        <div className="flex flex-col gap-3">
+                          <div className="flex gap-2.5 items-center">
+                            {midItem.icon && (
+                              <PickedIcon
+                                className={'text-z-' + hoveredItem.color}
+                                value={
+                                  midItem.icon as string | IconValue | null
                                 }
-                              >
-                                <Link aria-label={bottomItem.label} url={url}>
-                                  {bottomItem.label}
-                                </Link>
-                              </li>
-                            );
-                          })}
-                        {needsShowMore && (
-                          <li className="col-span-2">
-                            <button
-                              aria-label={`Show more ${midItem.label} options`}
-                              className="text-[13px] underline"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                showMore(midItem.id || '');
-                              }}
+                                width="24px"
+                              />
+                            )}
+                            <h3
+                              key={midItem.id}
+                              className={
+                                'text-[16px] font-semibold' +
+                                (linkIsSelected &&
+                                  `text-${hoveredItem.color || ''}`)
+                              }
                             >
-                              Show more...
-                            </button>
-                          </li>
-                        )}
-                      </ul>
-                    </li>
-                  );
-                })}
+                              <Link aria-label={midItem.label} url={url}>
+                                {midItem.label}
+                              </Link>
+                            </h3>
+                          </div>
+                          <p className="text-sm leading-[1.7]">
+                            {midItem.description}
+                          </p>
+                        </div>
+                        <ul className="grid grid-cols-2 gap-y-2 gap-x-6">
+                          {midItem.bottomItems
+                            ?.slice(0, itemsToShow)
+                            .map((bottomItem) => {
+                              const url = bottomItem.link?.url ?? '/';
+                              const linkIsSelected = pathname == url;
+
+                              return (
+                                <li
+                                  key={bottomItem.id}
+                                  className={
+                                    'text-[13px] truncate leading-[1.7] ' +
+                                    (linkIsSelected &&
+                                      'font-semibold text-' +
+                                        (hoveredItem.color || ''))
+                                  }
+                                >
+                                  <Link aria-label={bottomItem.label} url={url}>
+                                    {bottomItem.label}
+                                  </Link>
+                                </li>
+                              );
+                            })}
+                          {needsShowMore && (
+                            <li className="col-span-2">
+                              <button
+                                aria-label={`Show more ${midItem.label} options`}
+                                className="text-[13px] underline"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  showMore(midItem.id || '');
+                                }}
+                              >
+                                Show more...
+                              </button>
+                            </li>
+                          )}
+                        </ul>
+                      </li>
+                    );
+                  })}
               </ul>
             </motion.div>
           </motion.nav>
