@@ -13,6 +13,7 @@ import { plugins } from './plugins';
 import { defaultLexical } from '@/fields/defaultLexical';
 import { getServerSideURL } from './utilities/getURL';
 import { MainNav } from './MainNav/config';
+import { Popup } from './Popup/config';
 import { People } from './collections/People';
 import { Tags } from './collections/Tags';
 import { Events } from './collections/Events';
@@ -58,7 +59,7 @@ export default buildConfig({
   }),
   collections: [Pages, Media, Users, People, Tags, Events, Jobs],
   cors: [getServerSideURL()].filter(Boolean),
-  globals: [MainNav],
+  globals: [MainNav, Popup],
   plugins: [
     ...plugins,
     vercelBlobStorage({

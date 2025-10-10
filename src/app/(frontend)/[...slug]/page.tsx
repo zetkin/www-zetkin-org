@@ -12,6 +12,7 @@ import PageClient from './page.client';
 import { LivePreviewListener } from '@/components/LivePreviewListener';
 import EventPage from '@/collectionPages/EventPage/Component';
 import JobPage from '@/collectionPages/JobPage/Component';
+import { Popup } from '@/Popup/Component';
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise });
@@ -99,6 +100,7 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       <RenderHero {...hero} />
       <RenderBlocks blocks={layout || []} />
+      <Popup currentPageId={page.id} />
     </article>
   );
 }
