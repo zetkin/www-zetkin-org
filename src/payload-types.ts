@@ -100,9 +100,11 @@ export interface Config {
   };
   globals: {
     mainNav: MainNav;
+    popup: Popup;
   };
   globalsSelect: {
     mainNav: MainNavSelect<false> | MainNavSelect<true>;
+    popup: PopupSelect<false> | PopupSelect<true>;
   };
   locale: null;
   user: User & {
@@ -1535,6 +1537,115 @@ export interface MainNav {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "popup".
+ */
+export interface Popup {
+  id: string;
+  /**
+   * Toggle to show/hide the popup on the website
+   */
+  enabled?: boolean | null;
+  /**
+   * Use italic styling to mark text that should use a different font
+   */
+  title?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Optional image to display on the left side of the popup
+   */
+  image?: (string | null) | Media;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  buttons?:
+    | {
+        label: string;
+        variant: 'primary' | 'outline';
+        link: {
+          type?: 'reference' | 'custom';
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  backgroundType?: ('gradient' | 'white') | null;
+  frontColor?:
+    | (
+        | '#7801DD'
+        | '#550096'
+        | '#3F0071'
+        | '#E6FFFA'
+        | '#2AFED2'
+        | '#25E3B1'
+        | '#0F7473'
+        | '#0C5044'
+        | '#123C3D'
+        | '#FE2B5A'
+        | '#DC2750'
+        | '#C91E40'
+        | '#82142D'
+        | '#000000'
+      )
+    | null;
+  backgroundColor?:
+    | (
+        | '#7801DD'
+        | '#550096'
+        | '#3F0071'
+        | '#E6FFFA'
+        | '#2AFED2'
+        | '#25E3B1'
+        | '#0F7473'
+        | '#0C5044'
+        | '#123C3D'
+        | '#FE2B5A'
+        | '#DC2750'
+        | '#C91E40'
+        | '#82142D'
+        | '#000000'
+      )
+    | null;
+  gradientPattern?: ('1' | '2' | '3' | '4' | '5' | '6') | null;
+  accentColor?: ('purple' | 'red' | 'green') | null;
+  /**
+   * Select which pages the popup should appear on. Leave empty to show on all pages.
+   */
+  showOnPages?: (string | Page)[] | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "mainNav_select".
  */
 export interface MainNavSelect<T extends boolean = true> {
@@ -1593,6 +1704,40 @@ export interface MainNavSelect<T extends boolean = true> {
         link?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "popup_select".
+ */
+export interface PopupSelect<T extends boolean = true> {
+  enabled?: T;
+  title?: T;
+  image?: T;
+  content?: T;
+  buttons?:
+    | T
+    | {
+        label?: T;
+        variant?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              reference?: T;
+              url?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
+  backgroundType?: T;
+  frontColor?: T;
+  backgroundColor?: T;
+  gradientPattern?: T;
+  accentColor?: T;
+  showOnPages?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
