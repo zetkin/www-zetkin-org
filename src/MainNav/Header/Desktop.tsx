@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AnimatePresence, motion, useScroll, useTransform } from 'motion/react';
 
 import { CMSLink as Link } from '@/components/Link';
@@ -75,11 +75,55 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
   }
 
   const [isHovered, setIsHovered] = useState(false);
+  const [isHoverDelayed, setIsHoverDelayed] = useState(false);
+  const [wasSubnavOpen, setWasSubnavOpen] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const hadSubnavOpen = useRef(false);
+
+  useEffect(() => {
+    if (openId) {
+      hadSubnavOpen.current = true;
+      setWasSubnavOpen(true);
+    }
+  }, [openId]);
+
+  useEffect(() => {
+    if (isHovered) {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+      setIsHoverDelayed(true);
+      hadSubnavOpen.current = false;
+      setWasSubnavOpen(false);
+    } else {
+      if (hadSubnavOpen.current) {
+        timeoutRef.current = setTimeout(() => {
+          setIsHoverDelayed(false);
+          hadSubnavOpen.current = false;
+          setWasSubnavOpen(false);
+        }, 300);
+      } else {
+        setIsHoverDelayed(false);
+        setWasSubnavOpen(false);
+      }
+    }
+
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, [isHovered]);
 
   return (
     <motion.header
       className={`z-20 flex flex-col w-full relative ${headerShadow}`}
-      onMouseLeave={() => setOpenId(null)}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => {
+        setOpenId(null);
+        setIsHovered(false);
+      }}
       style={{
         boxShadow: useTransform(
           opacity,
@@ -88,16 +132,16 @@ export const DesktopHeader: React.FC<DesktopHeaderProps> = ({
       }}
     >
       <motion.div
-        className={`z-30 w-full flex px-5 py-3 justify-center bg-white/85 backdrop-blur-[16px] transition-colors`}
+        className={`z-30 w-full flex px-5 py-3 justify-center bg-white/85 backdrop-blur-[16px] transition-all ${wasSubnavOpen ? 'duration-500' : 'duration-300'}`}
         layout="size"
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
         style={{
-          backdropFilter: isHovered ? 'blur(16px)' : blurAmount,
-          backgroundColor: isHovered ? 'rgba(255, 255, 255, 0.80)' : bgColor,
+          backdropFilter: isHoverDelayed ? 'blur(16px)' : blurAmount,
+          backgroundColor: isHoverDelayed
+            ? 'rgba(255, 255, 255, 0.80)'
+            : bgColor,
           boxShadow: `0px 4px 32px 0px rgba(${headerShadow}0)`,
           borderBottom:
-            isHovered || pathname !== '/'
+            isHoverDelayed || pathname !== '/'
               ? 'solid rgba(238,238,238,0.7)'
               : border,
         }}

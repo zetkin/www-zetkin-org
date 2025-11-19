@@ -42,10 +42,66 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
 }) => {
   const [currentSection, setCurrentSection] = useState(features[0]?.id || '');
   const [isHovered, setIsHovered] = useState(false);
+  const [isScrolling, setIsScrolling] = useState(false);
+  const [lastScrollTime, setLastScrollTime] = useState(Date.now());
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const sidebarRef = useRef(null);
   const featureSectionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // useEffect to detect when scrolling stops
+  useEffect(() => {
+    const handleScroll = () => {
+      setLastScrollTime(Date.now());
+      setIsScrolling(true);
+
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+
+      scrollTimeoutRef.current = setTimeout(() => {
+        setIsScrolling(false);
+      }, 1000);
+    };
+
+    window.addEventListener('scroll', handleScroll, {
+      passive: true,
+      capture: true,
+    });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll, true);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, []);
+
+  // Check scroll state periodically as a fallback
+  useEffect(() => {
+    const checkScrollState = setInterval(() => {
+      const timeSinceLastScroll = Date.now() - lastScrollTime;
+      if (timeSinceLastScroll > 1000 && isScrolling) {
+        setIsScrolling(false);
+      }
+    }, 500);
+
+    return () => clearInterval(checkScrollState);
+  }, [lastScrollTime, isScrolling]);
+
+  // Check for large screen
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsLargeScreen(window.innerWidth >= 1536);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
 
   // useEffect to observe feature visibility for updating the current section
   useEffect(() => {
@@ -83,12 +139,33 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
       }
     };
 
-    window.addEventListener('scroll', observeFeatureVisibility);
-    window.addEventListener('resize', observeFeatureVisibility);
+    // Use IntersectionObserver instead of scroll event for better performance
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // Only update if there's an actual intersection change
+        if (entries.some((entry) => entry.isIntersecting)) {
+          observeFeatureVisibility();
+        }
+      },
+      { threshold: [0, 0.25, 0.5, 0.75, 1], rootMargin: '0px' },
+    );
+
+    // Small delay to ensure refs are set
+    setTimeout(() => {
+      featureSectionRefs.current.forEach((ref) => {
+        if (ref) {
+          observer.observe(ref);
+        }
+      });
+    }, 100);
+
+    window.addEventListener('resize', observeFeatureVisibility, {
+      passive: true,
+    });
     observeFeatureVisibility(); // Initial check
 
     return () => {
-      window.removeEventListener('scroll', observeFeatureVisibility);
+      observer.disconnect();
       window.removeEventListener('resize', observeFeatureVisibility);
     };
   }, [features]);
@@ -156,14 +233,15 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
               ref={sidebarRef}
               animate={{
                 width: isHovered ? '200px' : '48px',
-                transition: { duration: 0.3, ease: 'easeInOut' },
+                opacity: isLargeScreen ? 1 : isHovered || isScrolling ? 1 : 0.2,
+                transition: {
+                  width: { duration: 0.3, ease: 'easeInOut' },
+                  opacity: { duration: 0.5, ease: 'easeInOut' },
+                },
               }}
               className={`hidden md:flex flex-col gap-7 bg-white/85 backdrop-blur-sm py-4 px-3 rounded-[4px] fixed overflow-hidden shadow-z-${accentColor} 2xl:right-[calc(50%+560px)] 2xl:shadow-none 2xl:items-end 2xl:w-[200px]!`}
-              exit={{
-                opacity: 0,
-              }}
               initial={{
-                opacity: 0,
+                opacity: 1,
                 width: '48px',
               }}
               onHoverEnd={() => setIsHovered(false)}
@@ -171,17 +249,6 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
               style={{
                 y,
                 top: '50%',
-              }}
-              viewport={{
-                once: false,
-                amount: 0.2,
-              }}
-              whileInView={{
-                opacity: 1,
-                transition: {
-                  duration: 0.6,
-                  ease: 'easeOut',
-                },
               }}
             >
               <div className="flex flex-col gap-5 group 2xl:items-end">
