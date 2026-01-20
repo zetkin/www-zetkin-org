@@ -522,8 +522,9 @@ export interface ArticleHighlightBlock {
         image: string | Media;
         quote: string;
         description: string;
-        linkText: string;
-        link: {
+        hideLink?: boolean | null;
+        linkText?: string | null;
+        link?: {
           type?: 'reference' | 'custom';
           reference?: {
             relationTo: 'pages';
@@ -1129,6 +1130,7 @@ export interface ArticleHighlightBlockSelect<T extends boolean = true> {
         image?: T;
         quote?: T;
         description?: T;
+        hideLink?: T;
         linkText?: T;
         link?:
           | T

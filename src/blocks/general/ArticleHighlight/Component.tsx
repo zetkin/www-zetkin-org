@@ -31,9 +31,11 @@ export const ArticleHighlightBlock: React.FC<ArticleHighlightBlockProps> = ({
               </div>
             </div>
             <p className="leading-[1.7] text-lg">{article.description}</p>
-            <Link url={article.link?.url}>
-              <LinkText>{article.linkText}</LinkText>
-            </Link>
+            {!article.hideLink && article.link?.url && (
+              <Link url={article.link.url}>
+                <LinkText>{article.linkText}</LinkText>
+              </Link>
+            )}
           </div>
         ))}
       </div>
