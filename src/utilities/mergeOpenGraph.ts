@@ -4,14 +4,15 @@ import { getServerSideURL } from './getURL';
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description:
+    'Zetkin is a platform for organizing activism, built by the Zetkin Foundation.',
   images: [
     {
       url: `${getServerSideURL()}/website-template-OG.webp`,
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName: 'Zetkin',
+  title: 'Zetkin',
 };
 
 export const mergeOpenGraph = (

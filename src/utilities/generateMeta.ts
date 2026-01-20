@@ -24,13 +24,21 @@ export const generateMeta = async (args: {
   const { doc } = args;
 
   const ogImage = getImageURL(doc?.meta?.image);
+  const serverUrl = getServerSideURL();
 
   const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template';
+    ? doc?.meta?.title + ' | Zetkin'
+    : 'Zetkin';
+
+  const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug;
+  const canonicalUrl =
+    slug === 'home' ? serverUrl : `${serverUrl}/${slug || ''}`;
 
   return {
     description: doc?.meta?.description,
+    alternates: {
+      canonical: canonicalUrl,
+    },
     openGraph: mergeOpenGraph({
       description: doc?.meta?.description || '',
       images: ogImage
@@ -41,7 +49,7 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      url: canonicalUrl,
     }),
     title,
   };

@@ -15,6 +15,7 @@ import { mergeOpenGraph } from '@/utilities/mergeOpenGraph';
 import { getServerSideURL } from '@/utilities/getURL';
 import { Footer } from '@/MainNav/Footer/Component';
 import { AccentColorInitializer } from '@/state/AccentColorInitializer';
+import { OrganizationJsonLd } from '@/components/JsonLd';
 
 export default async function RootLayout({
   children,
@@ -57,6 +58,7 @@ export default async function RootLayout({
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
         <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        <OrganizationJsonLd />
       </head>
       <body>
         <Providers>
@@ -80,6 +82,6 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
+    creator: '@aborgen',
   },
 };
