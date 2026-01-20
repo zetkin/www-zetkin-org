@@ -40,12 +40,28 @@ export const ArticleHighlight: Block = {
           required: true,
         },
         {
+          name: 'hideLink',
+          label: 'Hide link',
+          type: 'checkbox',
+          defaultValue: false,
+        },
+        {
           name: 'linkText',
           label: 'Link text',
           type: 'text',
           required: true,
+          admin: {
+            condition: (_, siblingData) => !siblingData?.hideLink,
+          },
         },
-        link(),
+        link({
+          overrides: {
+            admin: {
+              hideGutter: true,
+              condition: (_, siblingData) => !siblingData?.hideLink,
+            },
+          },
+        }),
       ],
     },
   ],

@@ -10,8 +10,9 @@ import {
   AnimatePresence,
 } from 'motion/react';
 import { useAtomValue } from 'jotai';
+import Link from 'next/link';
 
-import { FeatureListBlock as FeatureListProps } from '@/payload-types';
+import { FeatureListBlock as FeatureListProps, Page } from '@/payload-types';
 import { IconArrowDown, IconArrowRight } from '@/icons/UIIcons';
 import { ImageMedia } from '@/components/Media/ImageMedia';
 import { accentColorAtom } from '@/state/accentColorAtom';
@@ -312,6 +313,21 @@ const FeatureListBlock: React.FC<FeatureListProps> = ({
                 <p className="text-[#646464] text-lg font-light leading-[1.7]">
                   {feature.description}
                 </p>
+                {typeof feature.link === 'object' &&
+                  feature.link?.slug &&
+                  feature.linkText && (
+                    <Link
+                      className={`flex items-center gap-2 text-z-${accentColor} hover:underline mt-2`}
+                      href={`/${(feature.link as Page).slug}`}
+                    >
+                      {feature.linkText}
+                      <IconArrowRight
+                        height="20px"
+                        iconClasses={`stroke-z-${accentColor}`}
+                        width="20px"
+                      />
+                    </Link>
+                  )}
               </div>
               <div
                 className="w-full group-odd:-ml-5 group-even:-mr-5 group-even:self-end md:ml-0! md:mr-0! md:flex-1 md:self-center!"
