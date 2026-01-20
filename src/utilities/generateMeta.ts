@@ -26,9 +26,7 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image);
   const serverUrl = getServerSideURL();
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Zetkin'
-    : 'Zetkin';
+  const title = doc?.meta?.title ? doc?.meta?.title + ' | Zetkin' : 'Zetkin';
 
   const slug = Array.isArray(doc?.slug) ? doc?.slug.join('/') : doc?.slug;
   const canonicalUrl =

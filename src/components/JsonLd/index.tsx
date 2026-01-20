@@ -19,6 +19,7 @@ export function OrganizationJsonLd() {
 
   return (
     <script
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       type="application/ld+json"
     />
