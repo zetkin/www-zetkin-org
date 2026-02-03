@@ -19,6 +19,7 @@ import { Gradient } from '@/blocks/home/Gradient/config';
 import { WhiteBg } from '@/blocks/home/WhiteBg/config';
 import { Preamble } from '@/blocks/general/Preamble/config';
 import { ArticleHighlight } from '@/blocks/general/ArticleHighlight/config';
+import { PageHighlight } from '@/blocks/general/PageHighlight/config';
 import { Article } from '@/blocks/Article/config';
 import { FeatureList } from '@/blocks/lists/Feature/config';
 import { PeopleList } from '@/blocks/lists/People/config';
@@ -85,6 +86,7 @@ export const Pages: CollectionConfig<'pages'> = {
                 WhiteBg,
                 Preamble,
                 ArticleHighlight,
+                PageHighlight,
                 Article,
                 FeatureList,
                 PeopleList,

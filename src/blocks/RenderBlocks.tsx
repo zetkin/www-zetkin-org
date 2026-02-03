@@ -7,6 +7,7 @@ import { WhiteBgBlock } from './home/WhiteBg/Component';
 import { PreambleBlock } from './general/Preamble/Component';
 import { PreambleArticleBlock } from './Article/Preamble/Component';
 import { ArticleHighlightBlock } from './general/ArticleHighlight/Component';
+import { PageHighlightBlock } from './general/PageHighlight/Component';
 import { ArticleBlock } from './Article/Component';
 import { TextWithQuoteBlock } from './Article/TextWithQuote/Component';
 import { ButtonBlock } from './Article/Button/Component';
@@ -24,6 +25,7 @@ const blockComponents = {
   whiteBg: WhiteBgBlock,
   preamble: PreambleBlock,
   articleHighlight: ArticleHighlightBlock,
+  pageHighlight: PageHighlightBlock,
   article: ArticleBlock,
   textWithQuote: TextWithQuoteBlock,
   oneImage: OneImageBlock,

@@ -195,6 +195,7 @@ export interface Page {
         | WhiteBg
         | PreambleBlock
         | ArticleHighlightBlock
+        | PageHighlightBlock
         | ArticleBlock
         | FeatureListBlock
         | PeopleListBlock
@@ -232,7 +233,7 @@ export interface Page {
  */
 export interface Media {
   id: string;
-  alt?: string | null;
+  alt: string;
   caption?: {
     root: {
       type: string;
@@ -539,6 +540,34 @@ export interface ArticleHighlightBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'articleHighlight';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHighlightBlock".
+ */
+export interface PageHighlightBlock {
+  pages?:
+    | {
+        image: string | Media;
+        heading: string;
+        description: string;
+        hideLink?: boolean | null;
+        linkText?: string | null;
+        link?: {
+          type?: 'reference' | 'custom';
+          reference?: {
+            relationTo: 'pages';
+            value: string | Page;
+          } | null;
+          url?: string;
+          newTab?: boolean | null;
+        };
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pageHighlight';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -982,6 +1011,7 @@ export interface PagesSelect<T extends boolean = true> {
         whiteBg?: T | WhiteBgSelect<T>;
         preamble?: T | PreambleBlockSelect<T>;
         articleHighlight?: T | ArticleHighlightBlockSelect<T>;
+        pageHighlight?: T | PageHighlightBlockSelect<T>;
         article?: T | ArticleBlockSelect<T>;
         featureList?: T | FeatureListBlockSelect<T>;
         peopleList?: T | PeopleListBlockSelect<T>;
@@ -1129,6 +1159,32 @@ export interface ArticleHighlightBlockSelect<T extends boolean = true> {
     | {
         image?: T;
         quote?: T;
+        description?: T;
+        hideLink?: T;
+        linkText?: T;
+        link?:
+          | T
+          | {
+              type?: T;
+              reference?: T;
+              url?: T;
+              newTab?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PageHighlightBlock_select".
+ */
+export interface PageHighlightBlockSelect<T extends boolean = true> {
+  pages?:
+    | T
+    | {
+        image?: T;
+        heading?: T;
         description?: T;
         hideLink?: T;
         linkText?: T;
