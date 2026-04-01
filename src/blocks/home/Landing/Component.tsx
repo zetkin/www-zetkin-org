@@ -1,3 +1,6 @@
+'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { LandingBlock as LandingBlockProps } from '@/payload-types';
 import Arrow from './Arrow';
@@ -13,11 +16,38 @@ export const LandingBlock: React.FC<LandingBlockProps> = (props) => {
     animationStyle = 'aurora',
   } = props;
 
+  const blockRef = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(true);
+
+  useEffect(() => {
+    if (animationStyle !== 'aurora') {
+      return;
+    }
+
+    const el = blockRef.current;
+    if (!el) {
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsVisible(entry.isIntersecting);
+      },
+      { threshold: 0 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [animationStyle]);
+
   return (
-    <div className="relative flex justify-center items-center px-5 w-full pb-20 sm:pt-30 sm:pb-32 sm:min-h-[90vh]">
+    <div
+      ref={blockRef}
+      className="relative flex justify-center items-center px-5 w-full pb-20 sm:pt-30 sm:pb-32 sm:min-h-[90vh]"
+    >
       {animationStyle === 'aurora' ? (
-        <div className="absolute -top-65 sm:-top-40 left-0 right-0 -bottom-25 sm:bottom-0 z-0 overflow-hidden">
-          <Aurora />
+        <div className="absolute -top-65 sm:-top-40 left-0 right-0 -bottom-25 sm:bottom-0 z-0 overflow-hidden pointer-events-none">
+          {isVisible && <Aurora />}
         </div>
       ) : (
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-0 flex justify-center items-center w-screen overflow-clip">
