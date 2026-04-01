@@ -324,6 +324,7 @@ export interface Media {
  * via the `definition` "LandingBlock".
  */
 export interface LandingBlock {
+  animationStyle?: ('aurora' | 'swirl') | null;
   leftTitle: string;
   rightTitle: string;
   subtitle: string;
@@ -1046,6 +1047,7 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "LandingBlock_select".
  */
 export interface LandingBlockSelect<T extends boolean = true> {
+  animationStyle?: T;
   leftTitle?: T;
   rightTitle?: T;
   subtitle?: T;
