@@ -412,7 +412,7 @@ const Aurora: FC = () => {
       style={{
         width: '100%',
         height: '100%',
-        opacity: visible ? 1 : 0,
+        opacity: visible ? 0.85 : 0,
         transition: 'opacity 0.8s ease-in',
       }}
     />
