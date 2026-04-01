@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+
 import { Button } from '@/components/ui/button';
 import { LandingBlock as LandingBlockProps } from '@/payload-types';
 import Arrow from './Arrow';
@@ -30,8 +31,8 @@ export const LandingBlock: React.FC<LandingBlockProps> = (props) => {
     }
 
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
+      (entries) => {
+        setIsVisible(entries[0]?.isIntersecting ?? false);
       },
       { threshold: 0 },
     );
