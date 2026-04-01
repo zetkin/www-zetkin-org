@@ -16,7 +16,7 @@ export const LandingBlock: React.FC<LandingBlockProps> = (props) => {
   return (
     <div className="relative flex justify-center items-center px-5 w-full pb-20 sm:pt-30 sm:pb-32 sm:min-h-[90vh]">
       {animationStyle === 'aurora' ? (
-        <div className="absolute -top-40 left-0 right-0 bottom-0 z-0 overflow-hidden">
+        <div className="absolute -top-65 sm:-top-40 left-0 right-0 -bottom-25 sm:bottom-0 z-0 overflow-hidden">
           <Aurora />
         </div>
       ) : (

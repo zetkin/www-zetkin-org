@@ -1,6 +1,6 @@
 'use client';
 
-import { FC, useEffect, useRef } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 
 const VERTEX_SHADER = `
@@ -246,6 +246,7 @@ void main() {
 
 const Aurora: FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -254,7 +255,6 @@ const Aurora: FC = () => {
     }
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xffffff);
 
     const camera = new THREE.PerspectiveCamera(
       75,
@@ -267,8 +267,9 @@ const Aurora: FC = () => {
     const renderer = new THREE.WebGLRenderer({
       antialias: true,
     });
+    scene.background = new THREE.Color(0xffffff);
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(1);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
     container.appendChild(renderer.domElement);
 
     // Aurora shader material
@@ -320,12 +321,13 @@ const Aurora: FC = () => {
       },
     });
 
-    const planeGeometry = new THREE.PlaneGeometry(100, 25, 64, 32);
+    const planeGeometry = new THREE.PlaneGeometry(100, 25, 128, 48);
     const plane = new THREE.Mesh(planeGeometry, shaderMaterial);
+    const isMobile = container.clientWidth < 640;
     plane.rotation.x = 0.439822971502571;
     plane.rotation.y = 0.282743338823082;
-    plane.rotation.z = 0.439822971502571;
-    plane.position.y = 7.7;
+    plane.rotation.z = isMobile ? 0.91734505484822 : 0.439822971502571;
+    plane.position.y = isMobile ? 9.9 : 7.7;
     scene.add(plane);
 
     // Mouse tracking with spring physics
@@ -366,7 +368,14 @@ const Aurora: FC = () => {
       );
 
       renderer.render(scene, camera);
+
+      // Fade in after first frame
+      if (!hasRendered) {
+        hasRendered = true;
+        requestAnimationFrame(() => setVisible(true));
+      }
     }
+    let hasRendered = false;
     animate();
 
     // Resize handler
@@ -403,6 +412,8 @@ const Aurora: FC = () => {
       style={{
         width: '100%',
         height: '100%',
+        opacity: visible ? 1 : 0,
+        transition: 'opacity 0.8s ease-in',
       }}
     />
   );
