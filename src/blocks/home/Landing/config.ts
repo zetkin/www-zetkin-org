@@ -11,6 +11,22 @@ export const Landing: Block = {
   },
   fields: [
     {
+      name: 'animationStyle',
+      type: 'select',
+      label: 'Background Animation',
+      defaultValue: 'aurora',
+      options: [
+        {
+          label: 'Aurora',
+          value: 'aurora',
+        },
+        {
+          label: 'Swirl',
+          value: 'swirl',
+        },
+      ],
+    },
+    {
       name: 'leftTitle',
       type: 'text',
       label: 'Left title',
